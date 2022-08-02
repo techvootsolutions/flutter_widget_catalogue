@@ -2,3 +2,7 @@
 
 - TODO: Describe initial release.
 - Sound Null Safety
+
+## [1.0.1] - TODO: Add release date. 
+
+- Add description

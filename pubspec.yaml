@@ -1,5 +1,5 @@
 name: flutter_components
-description: Create all flutter components
+description: Create all flutter components and create custom components and widgets
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -15,8 +15,8 @@ description: Create all flutter components
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0
-homepage: https://github.com/KevinBaldha/TVComponents
+version: 1.0.2
+homepage: https://github.com/techvootsolutions/TV_Flutter_Component
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
