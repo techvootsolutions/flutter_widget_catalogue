@@ -6,3 +6,7 @@
 ## [1.0.1] - TODO: Add release date. 
 
 - Add description
+
+## [1.0.3] - TODO: Add release date.
+
+- Add Neumorphic Widgets
