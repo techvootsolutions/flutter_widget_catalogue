@@ -29,9 +29,9 @@ import 'package:flutter_components/flutter_component.dart';
 
 <div style="padding: 20px">
 
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg" width="190px" height="350px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg"  width="190px" height="350px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg"  width="190px" height="350px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg" width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg"  width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/b1.jpg"  width="190px" height="380px">
 
 </div>
 
