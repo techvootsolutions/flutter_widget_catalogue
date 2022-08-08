@@ -19,7 +19,6 @@ Creating Flutter component.
 import 'package:flutter_components/flutter_component.dart';
 ```
 
-```
 #  Neumorphic Widgets
 
 <div style="background-color: black">
@@ -40,7 +39,7 @@ import 'package:flutter_components/flutter_component.dart';
 </center>
 
 </div>
-```
+
 #  Buttons
 
 <div style="background-color: black">
