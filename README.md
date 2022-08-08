@@ -21,10 +21,17 @@ import 'package:flutter_components/flutter_component.dart';
 
 #  Neumorphic Widgets
 
-<video width="320" height="240" controls>
-  <source src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/c.mp4" type="video/mp4">
-</video>
+```
+# Circle
 
+Neumorphic(
+            style: NeumorphicStyle(
+              boxShape: NeumorphicBoxShape.circle(),
+            ),
+            padding: EdgeInsets.all(18.0),
+            child: Icon(Icons.map),
+          )
+```
 #  Buttons
 
 # Images
