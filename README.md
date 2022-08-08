@@ -29,7 +29,7 @@ import 'package:flutter_components/flutter_component.dart';
 
 <div style="padding: 20px">
 
-<img src="github.com/techvootsolutions/TV_Flutter_Component/blob/main/component/Images/b1.png" width="190px" height="350px">
+<img src="component/Images/b1.pn" width="190px" height="350px">
 <img src="component/Images/b2.png"  width="190px" height="350px">
 <img src="component/Images/b3.png"  width="190px" height="350px">
 <img src="component/Images/b4.png"  width="190px" height="350px">
