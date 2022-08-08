@@ -22,19 +22,26 @@ import 'package:flutter_components/flutter_component.dart';
 #  Neumorphic Widgets
 
 ```
-# Circle
+<div style="background-color: black">
 
-Neumorphic(
-            style: NeumorphicStyle(
-              boxShape: NeumorphicBoxShape.circle(),
-            ),
-            padding: EdgeInsets.all(18.0),
-            child: Icon(Icons.map),
-          )
+<center>
+
+<div style="padding: 20px">
+
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/1.jpg" width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/2.jpg"  width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/3.jpg"  width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/4.jpg"  width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/5.jpg"  width="190px" height="380px">
+<img src="https://github.com/techvootsolutions/TV_Flutter_Component/blob/main/Images/6.jpg"  width="190px" height="380px">
+
+</div>
+
+</center>
+
+</div>
 ```
 #  Buttons
-
-# Images
 
 <div style="background-color: black">
 
