@@ -193,8 +193,8 @@ class _ButtonsPageState extends State<Buttons> {
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/tvPrincy"><img src="https://avatars.githubusercontent.com/u/81419917?s=40&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Varsani Princy</b></sub></a></td>
-    <td align="center"><a href="https://github.com/techkevin"><img src="https://avatars.githubusercontent.com/u/37235824?s=40&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Baldha Kevin</b></sub></a></td>
+    <td align="center"><a href="https://github.com/tvPrincy"><img src="https://avatars.githubusercontent.com/u/81419917" width="100px;" alt=""/><br /><sub><b>Varsani Princy</b></sub></a></td>
+    <td align="center"><a href="https://github.com/techkevin"><img src="https://avatars.githubusercontent.com/u/37235824" width="100px;" alt=""/><br /><sub><b>Baldha Kevin</b></sub></a></td>
   </tr>
 </table>
 
