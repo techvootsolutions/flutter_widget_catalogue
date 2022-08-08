@@ -188,7 +188,7 @@ class _ButtonsPageState extends State<Buttons> {
   }
 }
 
-## Main Contributors
+# Main Contributors
 
 <table>
   <tr>
