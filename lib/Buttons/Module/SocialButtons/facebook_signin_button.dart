@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_components/Buttons/Module/custom_buttons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignInWithFacebook extends StatelessWidget {
   final Function onPressed;
@@ -23,6 +24,7 @@ class SignInWithFacebook extends StatelessWidget {
         buttonColor ?? Colors.lightBlue,
         onPressed,
         fontColor ?? Colors.white,
-        fontSize ?? 24.0);
+        fontSize ?? 24.0,
+        FontAwesomeIcons.facebook);
   }
 }

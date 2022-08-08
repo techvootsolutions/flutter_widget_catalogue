@@ -1,11 +1,50 @@
-# component
+# Component
 
 Creating Flutter component.
 
+
+## Installing
+
+1.  Add dependency to `pubspec.yaml`
+
+    *Get the latest version in the 'Installing' tab on [pub.dev](https://pub.dev/packages/flutter_components)*
+
+```dart
+  dependencies:
+      flutter_components: <latest-version>
+```
+
+2.  Import the package
+```dart
+import 'package:flutter_components/flutter_component.dart';
+```
+
 #  Buttons
+
+# Images
+
+<div style="background-color: black">
+
+<center>
+
+<div style="padding: 20px">
+
+<img src="component/Images/b1.png" width="190px" height="350px">
+<img src="component/Images/b2.png"  width="190px" height="350px">
+<img src="component/Images/b3.png"  width="190px" height="350px">
+<img src="component/Images/b4.png"  width="190px" height="350px">
+
+</div>
+
+</center>
+
+</div>
+
+# How to use
+
 ```
 import 'package:flutter/material.dart';
-import 'package:flutter_components/Buttons/Module/flutter_buttons_widget.dart';
+import 'package:flutter_components/flutter_component.dart';
 
 void main() => runApp(MyApp());
 
@@ -148,3 +187,12 @@ class _ButtonsPageState extends State<Buttons> {
     );
   }
 }
+
+## Main Contributors
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/tvPrincy"><img src="https://avatars.githubusercontent.com/u/81419917?s=40&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Varsani Princy</b></sub></a></td>
+    <td align="center"><a href="https://github.com/techkevin"><img src="https://avatars.githubusercontent.com/u/37235824?s=40&v=4?s=100" width="100px;" alt=""/><br /><sub><b>Baldha Kevin</b></sub></a></td>
+  </tr>
+</table>

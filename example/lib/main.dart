@@ -1,3 +1,4 @@
+import 'package:example/Container/Module/widgets/widgets_home.dart';
 import 'package:flutter/material.dart';
 
 import 'Button/buttons.dart';
@@ -32,7 +33,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List items = ['Button', "Slider", "Text Field", "Segment"];
+  List items = [
+    'Button',
+    "Neumorphic Container Widgets",
+    "Slider",
+    "Text Field",
+    "Segment"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +58,17 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Buttons()),
-                  );
+                  if (index == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Buttons()),
+                    );
+                  } else if (index == 1) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => WidgetsHome()),
+                    );
+                  }
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15),

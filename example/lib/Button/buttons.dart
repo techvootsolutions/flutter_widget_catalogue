@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_components/Buttons/Module/flutter_buttons_widget.dart';
+import 'package:flutter_components/flutter_component.dart';
 
 class Buttons extends StatefulWidget {
   @override
