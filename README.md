@@ -23,7 +23,7 @@ import 'package:flutter_components/flutter_component.dart';
 
 ```
 # Circle
-```
+
 Neumorphic(
             style: NeumorphicStyle(
               boxShape: NeumorphicBoxShape.circle(),
@@ -31,7 +31,7 @@ Neumorphic(
             padding: EdgeInsets.all(18.0),
             child: Icon(Icons.map),
           )
-
+```
 #  Buttons
 
 # Images
