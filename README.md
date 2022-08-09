@@ -53,7 +53,7 @@ import 'package:flutter_components/flutter_component.dart';
 <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg"  width="190px" height="380px">
  -->
    
-![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
+![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg?s=380&v=190) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 </div>
 
 </center>
