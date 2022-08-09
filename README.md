@@ -29,42 +29,7 @@ Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
 ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/4.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/5.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/6.jpg)
 
-
-<!-- <div style="background-color: black">
-
-<center>
-
-<div style="padding: 20px">
-
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/1.jpg" width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/2.jpg"  width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/3.jpg"  width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/4.jpg"  width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/5.jpg"  width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/6.jpg"  width="190px" height="380px">
-
-</div>
-
-</center>
-
-</div> -->
-
-
 # 2) Buttons
-
-<!-- <div style="background-color: black">
-
-<center>
-
-<div style="padding: 20px">
-
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg" width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg"  width="190px" height="380px">
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg"  width="190px" height="380px">
-
-</center>
-
-</div> -->
 
 Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
