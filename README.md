@@ -40,6 +40,11 @@ import 'package:flutter_components/flutter_component.dart';
 
 </div>
 
+Screenshot | Screenshot
+------------ | -------------
+![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131347.jpg) | ![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131343.jpg)
+
+
 # 2) Buttons
 
 <div style="background-color: black">
