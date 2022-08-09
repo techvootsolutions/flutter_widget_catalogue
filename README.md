@@ -42,19 +42,18 @@ import 'package:flutter_components/flutter_component.dart';
 
 # 2) Buttons
 
-![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
-
-
 <div style="background-color: black">
 
 <center>
 
 <div style="padding: 20px">
 
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg" width="190px" height="380px">
+<!-- <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg" width="190px" height="380px">
 <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg"  width="190px" height="380px">
 <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg"  width="190px" height="380px">
-
+ -->
+   
+![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![Finished App](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 </div>
 
 </center>
