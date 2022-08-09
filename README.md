@@ -40,14 +40,10 @@ import 'package:flutter_components/flutter_component.dart';
 
 </div>
 
-Screenshot | Screenshot
------------- | -------------
-![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131347.jpg) | ![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131343.jpg)
-
 
 # 2) Buttons
 
-<div style="background-color: black">
+<!-- <div style="background-color: black">
 
 <center>
 
@@ -59,7 +55,11 @@ Screenshot | Screenshot
 
 </center>
 
-</div>
+</div> -->
+
+Screenshot | Screenshot | Screenshot
+------------ | ------------- | -------------
+![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 
 # How to use
 
