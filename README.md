@@ -21,7 +21,16 @@ import 'package:flutter_components/flutter_component.dart';
 
 # 1) Neumorphic Widgets
 
-<div style="background-color: black">
+Screenshot | Screenshot | Screenshot
+------------ | ------------- | -------------
+![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/3.jpg)
+
+Screenshot | Screenshot | Screenshot
+------------ | ------------- | -------------
+![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/4.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/5.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/6.jpg)
+
+
+<!-- <div style="background-color: black">
 
 <center>
 
@@ -38,7 +47,7 @@ import 'package:flutter_components/flutter_component.dart';
 
 </center>
 
-</div>
+</div> -->
 
 
 # 2) Buttons
