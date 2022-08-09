@@ -42,6 +42,9 @@ import 'package:flutter_components/flutter_component.dart';
 
 # 2) Buttons
 
+![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131347.jpg) | ![](https://github.com/skaran921/flutter_buttons/blob/master/Screenshot_20191204-131343.jpg)
+
+
 <div style="background-color: black">
 
 <center>
