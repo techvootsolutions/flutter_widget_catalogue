@@ -27,12 +27,12 @@ import 'package:flutter_components/flutter_component.dart';
 
 <div style="padding: 20px">
 
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/1.jpg" width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/2.jpg"  width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/3.jpg"  width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/4.jpg"  width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/5.jpg"  width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/6.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/1.jpg" width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/2.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/3.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/4.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/5.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/6.jpg"  width="190px" height="380px">
 
 </div>
 
@@ -48,9 +48,9 @@ import 'package:flutter_components/flutter_component.dart';
 
 <div style="padding: 20px">
 
-<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/1.jpg" width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/b2.jpg"  width="190px" height="380px">
-<img src="https://github.com/techvootsolutions/TV_Flutter_Component/raw/main/Images/b3.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg" width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg"  width="190px" height="380px">
+<img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg"  width="190px" height="380px">
 
 </div>
 
