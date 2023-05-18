@@ -8,6 +8,7 @@ class DangerButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customFlatButton(title, Color(0xFFED2F2F), onPressed);
+    return CustomButtons.customFlatButton(
+        title, const Color(0xFFED2F2F), onPressed);
   }
 }

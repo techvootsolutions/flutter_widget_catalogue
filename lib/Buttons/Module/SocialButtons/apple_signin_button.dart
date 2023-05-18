@@ -21,7 +21,7 @@ class SignInWithApple extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Apple',
-        buttonColor ?? Color(0xFF333333),
+        buttonColor ?? const Color(0xFF333333),
         onPressed,
         fontColor ?? Colors.white,
         fontSize ?? 24.0,

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// *****************************************************Simple Buttons ****************************************************
-// *****************************************Success Button ***************************
-
 class CustomButtons {
   static Widget customFlatButton(
       String title, Color bgColor, Function onPressed,
@@ -15,8 +12,8 @@ class CustomButtons {
                 backgroundColor: MaterialStateProperty.all(bgColor)),
             onPressed: onPressed as void Function()?,
             child: Text(
-              "$title",
-              style: TextStyle(color: Colors.white),
+              title,
+              style: const TextStyle(color: Colors.white),
             ),
           )
         : TextButton.icon(
@@ -28,7 +25,7 @@ class CustomButtons {
               color: textColor,
             ),
             label: Text(
-              "$title",
+              title,
               style: TextStyle(color: textColor),
             ));
   }
@@ -40,7 +37,7 @@ class CustomButtons {
           side: MaterialStateProperty.all(BorderSide(color: lineColor))),
       onPressed: onPressed as void Function()?,
       child: Text(
-        "$title",
+        title,
         style: TextStyle(color: textColor),
       ),
     );
@@ -54,8 +51,8 @@ class CustomButtons {
     return TextButton(
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(buttonColor),
-          padding:
-              MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.0))),
+          padding: MaterialStateProperty.all(
+              const EdgeInsets.symmetric(vertical: 12.0))),
       onPressed: onPressed as void Function()?,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -65,7 +62,7 @@ class CustomButtons {
             color: fontColor,
             size: fontSize,
           ),
-          SizedBox(
+          const SizedBox(
             width: 4.0,
           ),
           Text(

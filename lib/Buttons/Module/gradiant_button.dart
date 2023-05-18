@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class GredientButton extends StatelessWidget {
+class GradientButton extends StatelessWidget {
   final double? radius;
   final Color? splashColor;
   final Color? textColor;
@@ -9,7 +9,7 @@ class GredientButton extends StatelessWidget {
   final Function onPressed;
   final List<Color> colors;
 
-  const GredientButton(
+  const GradientButton(
       {Key? key,
       this.radius,
       this.splashColor,
@@ -31,12 +31,12 @@ class GredientButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius ?? 6),
           gradient: LinearGradient(colors: colors),
           color: buttonColor ?? Colors.blue,
-          boxShadow: [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08))],
+          boxShadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08))],
         ),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "$title",
+            title,
             style: TextStyle(color: textColor ?? Colors.white),
           ),
         ),

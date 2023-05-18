@@ -1,25 +1,10 @@
 import 'package:flutter/widgets.dart';
 
-import '../neumorphic_box_shape.dart';
-import '../theme/neumorphic_theme.dart';
 import 'button.dart';
 import 'container.dart';
 
-typedef void NeumorphicRadioListener<T>(T value);
+typedef NeumorphicRadioListener<T> = void Function(T value);
 
-/// A Style used to customize a [NeumorphicRadio]
-///
-/// [selectedDepth] : the depth when checked
-/// [unselectedDepth] : the depth when unchecked (default : theme.depth)
-///
-/// [intensity] : a customizable neumorphic intensity for this widget
-///
-/// [boxShape] : a customizable neumorphic boxShape for this widget
-///   @see [NeumorphicBoxShape]
-///
-/// [shape] : a customizable neumorphic shape for this widget
-///   @see [NeumorphicShape] (concave, convex, flat)
-///
 class NeumorphicRadioStyle {
   final double? selectedDepth;
   final double? unselectedDepth;
@@ -79,78 +64,6 @@ class NeumorphicRadioStyle {
       shape.hashCode;
 }
 
-/// A Neumorphic Radio
-///
-/// It takes a `value` and a `groupValue`
-/// if (value == groupValue) => checked
-///
-/// takes a NeumorphicRadioStyle as `style`
-///
-/// notifies the parent when user interact with this widget with `onChanged`
-///
-/// ```
-/// int _groupValue;
-///
-/// Widget _buildRadios() {
-///    return Row(
-///      children: <Widget>[
-///
-///        NeumorphicRadio(
-///          child: SizedBox(
-///            height: 50,
-///            width: 50,
-///            child: Center(
-///              child: Text("1"),
-///            ),
-///          ),
-///          value: 1,
-///          groupValue: _groupValue,
-///          onChanged: (value) {
-///            setState(() {
-///              _groupValue = value;
-///            });
-///          },
-///        ),
-///
-///        NeumorphicRadio(
-///          child: SizedBox(
-///            height: 50,
-///            width: 50,
-///            child: Center(
-///              child: Text("2"),
-///            ),
-///          ),
-///          value: 2,
-///          groupValue: _groupValue,
-///          onChanged: (value) {
-///            setState(() {
-///              _groupValue = value;
-///            });
-///          },
-///        ),
-///
-///        NeumorphicRadio(
-///          child: SizedBox(
-///            height: 50,
-///            width: 50,
-///            child: Center(
-///              child: Text("3"),
-///            ),
-///          ),
-///          value: 3,
-///          groupValue: _groupValue,
-///          onChanged: (value) {
-///            setState(() {
-///              _groupValue = value;
-///            });
-///          },
-///        ),
-///
-///      ],
-///    );
-///  }
-/// ```
-///
 @immutable
 class NeumorphicRadio<T> extends StatelessWidget {
   final Widget? child;
@@ -164,7 +77,8 @@ class NeumorphicRadio<T> extends StatelessWidget {
   final Duration duration;
   final Curve curve;
 
-  NeumorphicRadio({
+  // ignore: use_key_in_widget_constructors
+  const NeumorphicRadio({
     this.child,
     this.style = const NeumorphicRadioStyle(),
     this.value,
@@ -176,15 +90,15 @@ class NeumorphicRadio<T> extends StatelessWidget {
     this.isEnabled = true,
   });
 
-  bool get isSelected => this.value != null && this.value == this.groupValue;
+  bool get isSelected => value != null && value == groupValue;
 
   void _onClick() {
-    if (this.onChanged != null) {
-      if (this.value == this.groupValue) {
+    if (onChanged != null) {
+      if (value == groupValue) {
         //unselect
-        this.onChanged!(null);
+        onChanged!(null);
       } else {
-        this.onChanged!(this.value);
+        onChanged!(value);
       }
     }
   }
@@ -194,17 +108,16 @@ class NeumorphicRadio<T> extends StatelessWidget {
     final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
 
     final double selectedDepth =
-        -1 * (this.style.selectedDepth ?? theme.depth).abs();
-    final double unselectedDepth =
-        (this.style.unselectedDepth ?? theme.depth).abs();
+        -1 * (style.selectedDepth ?? theme.depth).abs();
+    final double unselectedDepth = (style.unselectedDepth ?? theme.depth).abs();
 
     double depth = isSelected ? selectedDepth : unselectedDepth;
-    if (!this.isEnabled) {
+    if (!isEnabled) {
       depth = 0;
     }
 
-    final Color unselectedColor = this.style.unselectedColor ?? theme.baseColor;
-    final Color selectedColor = this.style.selectedColor ?? unselectedColor;
+    final Color unselectedColor = style.unselectedColor ?? theme.baseColor;
+    final Color selectedColor = style.selectedColor ?? unselectedColor;
 
     final Color color = isSelected ? selectedColor : unselectedColor;
 
@@ -212,22 +125,22 @@ class NeumorphicRadio<T> extends StatelessWidget {
       onPressed: () {
         _onClick();
       },
-      duration: this.duration,
-      curve: this.curve,
-      padding: this.padding,
+      duration: duration,
+      curve: curve,
+      padding: padding,
       pressed: isSelected,
       minDistance: selectedDepth,
-      child: this.child,
       style: NeumorphicStyle(
-        border: this.style.border,
+        border: style.border,
         color: color,
-        boxShape: this.style.boxShape,
-        lightSource: this.style.lightSource ?? theme.lightSource,
-        disableDepth: this.style.disableDepth,
-        intensity: this.style.intensity,
+        boxShape: style.boxShape,
+        lightSource: style.lightSource ?? theme.lightSource,
+        disableDepth: style.disableDepth,
+        intensity: style.intensity,
         depth: depth,
-        shape: this.style.shape ?? NeumorphicShape.flat,
+        shape: style.shape ?? NeumorphicShape.flat,
       ),
+      child: child,
     );
   }
 }

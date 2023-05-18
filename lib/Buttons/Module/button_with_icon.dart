@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_components/Buttons/Module/custom_buttons.dart';
 
-class ButttonWithIcon extends StatelessWidget {
+class ButtonWithIcon extends StatelessWidget {
   final String title;
   final Function onPressed;
   final Color? buttonColor;
   final IconData icon;
   final Color? color;
 
-  const ButttonWithIcon(
+  const ButtonWithIcon(
       {Key? key,
       required this.title,
       required this.onPressed,

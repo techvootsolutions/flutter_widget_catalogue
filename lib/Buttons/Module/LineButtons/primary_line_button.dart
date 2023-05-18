@@ -10,7 +10,7 @@ class PrimaryLineButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customOutlinedButton(
-        title, Color(0xFF1568F2), onPressed, textColor ?? Color(0xFF1568F2));
+    return CustomButtons.customOutlinedButton(title, const Color(0xFF1568F2),
+        onPressed, textColor ?? const Color(0xFF1568F2));
   }
 }

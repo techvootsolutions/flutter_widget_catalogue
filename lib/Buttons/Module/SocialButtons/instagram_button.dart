@@ -21,7 +21,7 @@ class InstagramButton extends StatelessWidget {
       splashColor: Colors.white,
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
-      backgroundColor: buttonColor ?? Color(0xFFB81877),
+      backgroundColor: buttonColor ?? const Color(0xFFB81877),
       child: Icon(
         FontAwesomeIcons.instagram,
         color: iconColor ?? Colors.white,

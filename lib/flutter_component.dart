@@ -1,6 +1,5 @@
 library flutter_components;
 
-export 'package:flutter/material.dart';
 export 'package:flutter/material.dart'
     show
         TextTheme,
@@ -17,7 +16,6 @@ export 'Buttons/Module/BoostrapButtons/disabled_button.dart';
 export 'Buttons/Module/BoostrapButtons/info_button.dart';
 export 'Buttons/Module/BoostrapButtons/primary_button.dart';
 export 'Buttons/Module/BoostrapButtons/secondary_button.dart';
-export 'Buttons/Module/BoostrapButtons/secoundary_button.dart';
 export 'Buttons/Module/BoostrapButtons/success_button.dart';
 export 'Buttons/Module/BoostrapButtons/warning_button.dart';
 export 'Buttons/Module/LineButtons//danger_line_button.dart';
@@ -26,7 +24,6 @@ export 'Buttons/Module/LineButtons/info_line_button.dart';
 export 'Buttons/Module/LineButtons/line_button.dart';
 export 'Buttons/Module/LineButtons/primary_line_button.dart';
 export 'Buttons/Module/LineButtons/secoundary_line_button.dart';
-export 'Buttons/Module/LineButtons/success_line_button.dart';
 export 'Buttons/Module/LineButtons/success_line_button.dart';
 export 'Buttons/Module/LineButtons/warning_line_button.dart';
 export 'Buttons/Module/SocialButtons//apple_signin_button.dart';

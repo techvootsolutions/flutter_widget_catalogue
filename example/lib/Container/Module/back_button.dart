@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 class NeumorphicBack extends StatelessWidget {
+  const NeumorphicBack({super.key});
+
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      padding: EdgeInsets.all(18),
-      style: NeumorphicStyle(
+      padding: const EdgeInsets.all(18),
+      style: const NeumorphicStyle(
         boxShape: NeumorphicBoxShape.circle(),
         shape: NeumorphicShape.flat,
       ),

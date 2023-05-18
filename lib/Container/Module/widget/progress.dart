@@ -1,19 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/widgets.dart';
 
 import 'container.dart';
 
-/// A style to customize the [NeumorphicProgress]
-///
-/// the gradient will use [accent] and [variant]
-///
-/// the gradient shape will be a roundrect, using [borderRadius]
-///
-/// you can define a custom [depth] for the roundrect
-///
-/// you can update the gradient orientation using [progressGradientStart] & [progressGradientEnd]
-///
 class ProgressStyle {
   final double depth;
   final BorderRadius borderRadius;
@@ -71,21 +59,6 @@ class ProgressStyle {
       progressGradientEnd.hashCode;
 }
 
-/// A widget that shows progress along a line.
-///
-/// NeumorphicProgress is determinate.
-///
-/// Determinate progress indicators have a specific value at each point in time,
-/// and the value should increase monotonically from 0.0 to 1.0, at which time the indicator is complete.
-/// To create a determinate progress indicator, use a non-null value between 0.0 and 1.0.
-///
-///  ```
-///  NeumorphicProgress(
-///      height: 15,
-///      percent: 0.55,
-///  );
-///  ```
-///
 class NeumorphicProgress extends StatefulWidget {
   final double? _percent;
   final double height;
@@ -100,10 +73,11 @@ class NeumorphicProgress extends StatefulWidget {
       this.duration = const Duration(milliseconds: 300),
       this.style = const ProgressStyle(),
       this.curve = Curves.easeOutCubic})
-      : this._percent = percent,
+      : _percent = percent,
         super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _NeumorphicProgressState createState() => _NeumorphicProgressState();
 
   double? get percent => _percent?.clamp(0, 1);
@@ -280,6 +254,7 @@ class _NeumorphicProgressIndeterminateState
       await _controller
           .repeat(min: 0, max: 1, reverse: widget.reverse)
           .orCancel;
+      // ignore: empty_catches
     } on TickerCanceled {}
   }
 
@@ -350,9 +325,8 @@ class _GradientProgress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: this.borderRadius,
-        gradient: LinearGradient(
-            begin: this.begin, end: this.end, colors: this.colors),
+        borderRadius: borderRadius,
+        gradient: LinearGradient(begin: begin, end: end, colors: colors),
       ),
     );
   }

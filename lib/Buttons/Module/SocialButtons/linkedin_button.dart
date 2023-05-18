@@ -21,7 +21,7 @@ class LinkedinButton extends StatelessWidget {
       splashColor: Colors.white,
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
-      backgroundColor: buttonColor ?? Color(0xFF0077B5),
+      backgroundColor: buttonColor ?? const Color(0xFF0077B5),
       child: Icon(
         FontAwesomeIcons.linkedinIn,
         color: iconColor ?? Colors.white,

@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 class CalculatorSample extends StatefulWidget {
+  const CalculatorSample({super.key});
+
   @override
   createState() => _CalculatorSampleState();
 }
 
-final Color _calcTextColor = Color(0xFF484848);
+const Color _calcTextColor = Color(0xFF484848);
 
 class _CalculatorSampleState extends State<CalculatorSample> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: NeumorphicThemeData(
+      theme: const NeumorphicThemeData(
         baseColor: Color(0xFFF4F5F5),
         intensity: 0.3,
         lightSource: LightSource.topLeft,
@@ -50,7 +52,7 @@ class CalcButton {
 class WidgetCalcButton extends StatelessWidget {
   final CalcButton button;
 
-  WidgetCalcButton(this.button);
+  const WidgetCalcButton(this.button, {super.key});
 
   Color _textColor(BuildContext context) {
     if (button.backgroundAccent) {
@@ -73,12 +75,12 @@ class WidgetCalcButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 14),
+      padding: const EdgeInsets.only(top: 14),
       child: NeumorphicButton(
         onPressed: () {},
         style: NeumorphicStyle(
           surfaceIntensity: 0.15,
-          boxShape: NeumorphicBoxShape.circle(),
+          boxShape: const NeumorphicBoxShape.circle(),
           shape: NeumorphicShape.concave,
           color: _backgroundColor(context),
         ),
@@ -109,7 +111,7 @@ class _TopScreenWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
+            children: const <Widget>[
               Text(
                 "3 x 7 =",
                 style: TextStyle(fontSize: 30, color: _calcTextColor),
@@ -165,12 +167,12 @@ class __PageContentState extends State<_PageContent> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                style: NeumorphicStyle(
+                style: const NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: NeumorphicBoxShape.circle(),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(12.0),
                   child: Icon(Icons.navigate_before),
                 ),
               ),
@@ -198,33 +200,33 @@ class __PageContentState extends State<_PageContent> {
           ),
           Row(
             children: <Widget>[
-              RaisedButton(
+              TextButton(
                 onPressed: () {
                   setState(() {
                     NeumorphicTheme.of(context)!
-                        .updateCurrentTheme(NeumorphicThemeData(
+                        .updateCurrentTheme(const NeumorphicThemeData(
                       depth: 1,
                       intensity: 0.5,
                       accentColor: Colors.cyan,
                     ));
                   });
                 },
-                child: Text(
+                child: const Text(
                   "style 1",
                 ),
               ),
-              RaisedButton(
+              TextButton(
                 onPressed: () {
                   setState(() {
                     NeumorphicTheme.of(context)!
-                        .updateCurrentTheme(NeumorphicThemeData(
+                        .updateCurrentTheme(const NeumorphicThemeData(
                       depth: 8,
                       intensity: 0.3,
                       accentColor: Colors.greenAccent,
                     ));
                   });
                 },
-                child: Text(
+                child: const Text(
                   "style 2",
                 ),
               ),

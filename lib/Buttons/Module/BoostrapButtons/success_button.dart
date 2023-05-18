@@ -10,6 +10,7 @@ class SuccessButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customFlatButton(title, Color(0xFF2DBF64), onPressed);
+    return CustomButtons.customFlatButton(
+        title, const Color(0xFF2DBF64), onPressed);
   }
 }

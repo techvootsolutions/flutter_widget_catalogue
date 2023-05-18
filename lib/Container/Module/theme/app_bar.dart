@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 @immutable
@@ -65,6 +64,7 @@ class NeumorphicAppBarIcons {
   }
 
   @override
+  // ignore: avoid_renaming_method_parameters
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 

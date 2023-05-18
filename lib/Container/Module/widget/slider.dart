@@ -1,19 +1,7 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
 
-import 'container.dart';
-import 'progress.dart';
+typedef NeumorphicSliderListener = void Function(double percent);
 
-typedef void NeumorphicSliderListener(double percent);
-
-/// A style to customize the [NeumorphicSlider]
-///
-/// the gradient will use [accent] and [variant]
-///
-/// the gradient shape will be a roundrect, using [borderRadius]
-///
-/// you can define a custom [depth] for the roundrect
-///
 @immutable
 class SliderStyle {
   final double depth;
@@ -63,43 +51,6 @@ class SliderStyle {
       variant.hashCode;
 }
 
-/// A Neumorphic Design slider.
-///
-/// Used to select from a range of values.
-///
-/// The default is to use a continuous range of values from min to max.
-///
-/// listeners : [onChanged], [onChangeStart], [onChangeEnd]
-///
-/// ```
-///  //in a statefull widget
-///
-///  double seekValue = 0;
-///
-///  Widget _buildSlider() {
-///    return Row(
-///      children: <Widget>[
-///
-///        Flexible(
-///          child: NeumorphicSlider(
-///              height: 15,
-///              value: seekValue,
-///              min: 0,
-///              max: 10,
-///              onChanged: (value) {
-///                setState(() {
-///                  seekValue = value;
-///                });
-///              }),
-///        ),
-///
-///        Text("value: ${seekValue.round()}"),
-///
-///      ],
-///    );
-///  }
-///  ```
-///
 @immutable
 class NeumorphicSlider extends StatefulWidget {
   final SliderStyle style;
@@ -114,7 +65,8 @@ class NeumorphicSlider extends StatefulWidget {
   final Widget? thumb;
   final double? sliderHeight;
 
-  NeumorphicSlider({
+  // ignore: use_key_in_widget_constructors
+  const NeumorphicSlider({
     Key? key,
     this.style = const SliderStyle(),
     this.min = 0,
@@ -211,7 +163,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
         border: widget.style.thumbBorder,
         lightSource: widget.style.lightSource ?? theme.lightSource,
         color: widget.style.accent ?? theme.accentColor,
-        boxShape: NeumorphicBoxShape.circle(),
+        boxShape: const NeumorphicBoxShape.circle(),
       ),
       child: SizedBox(
         height: size,

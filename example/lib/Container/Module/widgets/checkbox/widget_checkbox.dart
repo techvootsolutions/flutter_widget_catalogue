@@ -1,12 +1,12 @@
-import 'package:example/Container/Module/Code.dart';
-import 'package:example/Container/Module/ThemeConfigurator.dart';
+import 'package:example/Container/Module/code.dart';
+import 'package:example/Container/Module/theme_configurator.dart';
 import 'package:example/Container/Module/color_selector.dart';
 import 'package:example/Container/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 class CheckboxWidgetPage extends StatefulWidget {
-  CheckboxWidgetPage({Key? key}) : super(key: key);
+  const CheckboxWidgetPage({Key? key}) : super(key: key);
 
   @override
   createState() => _WidgetPageState();
@@ -17,7 +17,7 @@ class _WidgetPageState extends State<CheckboxWidgetPage> {
   Widget build(BuildContext context) {
     return NeumorphicTheme(
       themeMode: ThemeMode.light,
-      theme: NeumorphicThemeData(
+      theme: const NeumorphicThemeData(
         lightSource: LightSource.topLeft,
         accentColor: NeumorphicColors.accent,
         depth: 4,
@@ -37,9 +37,9 @@ class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicBackground(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Scaffold(
-        appBar: TopBar(
+        appBar: const TopBar(
           title: "Checkbox",
           actions: <Widget>[
             ThemeConfigurator(),
@@ -55,7 +55,7 @@ class _PageState extends State<_Page> {
               _DefaultWidget(),
               _ColorWidget(),
               _EnabledDisabledWidget(),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -75,7 +75,7 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   bool check3 = false;
 
   Widget _buildCode(BuildContext context) {
-    return Code("""
+    return const Code("""
     
 bool isChecked = false;  
 
@@ -92,14 +92,14 @@ NeumorphicCheckbox(
 
   Widget _buildWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Row(
         children: <Widget>[
           Text(
             "Default",
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             value: check1,
             onChanged: (value) {
@@ -108,7 +108,7 @@ NeumorphicCheckbox(
               });
             },
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             value: check2,
             onChanged: (value) {
@@ -117,7 +117,7 @@ NeumorphicCheckbox(
               });
             },
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             value: check3,
             onChanged: (value) {
@@ -131,6 +131,7 @@ NeumorphicCheckbox(
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -156,14 +157,14 @@ class _ColorWidgetState extends State<_ColorWidget> {
 
   Widget _buildWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Row(
         children: <Widget>[
           Text(
             "Colorizable",
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           ColorSelector(
             color: customColor,
             onColorChanged: (color) {
@@ -172,7 +173,7 @@ class _ColorWidgetState extends State<_ColorWidget> {
               });
             },
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             style: NeumorphicCheckboxStyle(selectedColor: customColor),
             value: checkColor1,
@@ -182,7 +183,7 @@ class _ColorWidgetState extends State<_ColorWidget> {
               });
             },
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             style: NeumorphicCheckboxStyle(selectedColor: customColor),
             value: checkColor2,
@@ -192,7 +193,7 @@ class _ColorWidgetState extends State<_ColorWidget> {
               });
             },
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             value: checkColor3,
             style: NeumorphicCheckboxStyle(selectedColor: customColor),
@@ -208,7 +209,7 @@ class _ColorWidgetState extends State<_ColorWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return Code("""
+    return const Code("""
     
 bool isChecked = false;  
 
@@ -226,6 +227,7 @@ NeumorphicCheckbox(
 """);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -248,14 +250,14 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
 
   Widget _buildWidget(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
       child: Row(
         children: <Widget>[
           Text(
             "Enabled",
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             value: check1,
             onChanged: (value) {
@@ -264,12 +266,12 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
               });
             },
           ),
-          SizedBox(width: 24),
+          const SizedBox(width: 24),
           Text(
             "Disabled",
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           NeumorphicCheckbox(
             isEnabled: false,
             value: check2,
@@ -285,7 +287,7 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return Code("""
+    return const Code("""
     
 bool isChecked = false;  
 
@@ -301,6 +303,7 @@ NeumorphicCheckbox(
 """);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

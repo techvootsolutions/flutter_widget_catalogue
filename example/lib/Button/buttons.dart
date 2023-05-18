@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 class Buttons extends StatefulWidget {
+  const Buttons({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _ButtonsPageState createState() => _ButtonsPageState();
 }
 
@@ -61,7 +63,7 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 5.0,
               ),
               customContainer(
-                  child: DisabledButtton(
+                  child: DisabledButton(
                 onPressed: () {},
                 title: "Disabled Button",
               )),
@@ -69,7 +71,7 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 5.0,
               ),
               customContainer(
-                  child: DarkButtton(
+                  child: DarkButton(
                 onPressed: () {},
                 title: "Dark Button",
               )),
@@ -77,7 +79,7 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 5.0,
               ),
               customContainer(
-                child: ButttonWithIcon(
+                child: ButtonWithIcon(
                   icon: Icons.local_cafe,
                   title: "Icon Button",
                   color: Colors.white,
@@ -143,7 +145,7 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 5.0,
               ),
               customContainer(
-                  child: SecoundaryLineButton(
+                  child: SecondaryLineButton(
                 onPressed: () {},
                 title: "Secoundary Line Button",
               )),
@@ -219,7 +221,7 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 5.0,
               ),
               customContainer(
-                  child: InfoButtton(
+                  child: InfoButton(
                 onPressed: () {},
                 title: "Info Button",
               )),
@@ -322,53 +324,53 @@ class _ButtonsPageState extends State<Buttons> {
                 height: 10.0,
               ),
               customContainer(
-                  child: GredientButton(
+                  child: GradientButton(
                 onPressed: () {},
                 splashColor: Colors.orange,
                 colors: const [
                   Colors.red,
                   Colors.orange,
                 ],
-                title: "Gredient Button",
+                title: "Gradient Button",
               )),
               const SizedBox(
                 height: 5.0,
               ),
               customContainer(
-                  child: GredientButton(
+                  child: GradientButton(
                 onPressed: () {},
                 splashColor: Colors.orange,
                 colors: const [
                   Colors.blue,
                   Colors.blueGrey,
                 ],
-                title: "Gredient Button",
+                title: "Gradient Button",
               )),
               const SizedBox(
                 height: 5.0,
               ),
               customContainer(
-                  child: GredientButton(
+                  child: GradientButton(
                 onPressed: () {},
                 splashColor: Colors.orange,
                 colors: const [
                   Color(0xFFC33764),
                   Color(0xFF1D2671),
                 ],
-                title: "Gredient Button",
+                title: "Gradient Button",
               )),
               const SizedBox(
                 height: 5.0,
               ),
               customContainer(
-                  child: GredientButton(
+                  child: GradientButton(
                 onPressed: () {},
                 splashColor: Colors.orange,
                 colors: const [
                   Color(0xFFF7971E),
                   Color(0xFFFFD200),
                 ],
-                title: "Gredient Button",
+                title: "Gradient Button",
               )),
             ],
           ),
@@ -379,7 +381,7 @@ class _ButtonsPageState extends State<Buttons> {
 }
 
 Widget customContainer({child}) {
-  return Container(
+  return SizedBox(
     width: double.infinity,
     height: 50,
     child: child,

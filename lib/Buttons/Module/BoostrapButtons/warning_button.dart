@@ -8,6 +8,7 @@ class WarningButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customFlatButton(title, Color(0xFFFF6F10), onPressed);
+    return CustomButtons.customFlatButton(
+        title, const Color(0xFFFF6F10), onPressed);
   }
 }

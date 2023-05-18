@@ -10,7 +10,7 @@ class SuccessLineButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customOutlinedButton(
-        title, Color(0xFF28a745), onPressed, textColor ?? Color(0xFF28a745));
+    return CustomButtons.customOutlinedButton(title, const Color(0xFF28a745),
+        onPressed, textColor ?? const Color(0xFF28a745));
   }
 }

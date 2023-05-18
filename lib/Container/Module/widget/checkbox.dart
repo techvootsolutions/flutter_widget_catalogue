@@ -1,12 +1,9 @@
-import 'package:flutter/widgets.dart';
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'package:flutter_components/Container/Module/neumorphic_icons.dart';
 import 'package:flutter_components/flutter_component.dart';
 
-import '../neumorphic_box_shape.dart';
-import '../theme/neumorphic_theme.dart';
-import 'button.dart';
-
-typedef void NeumorphicCheckboxListener<T>(T value);
+typedef NeumorphicCheckboxListener<T> = void Function(T value);
 
 /// A Style used to customize a NeumorphicCheckbox
 ///
@@ -69,54 +66,6 @@ class NeumorphicCheckboxStyle {
       disabledColor.hashCode;
 }
 
-/// A Neumorphic Checkbox
-///
-/// takes a NeumorphicCheckboxStyle as `style`
-/// takes the current checked state as `value`
-///
-/// notifies the parent when user interact with this widget with `onChanged`
-///
-/// ```
-///  bool check1 = false;
-///  bool check2 = false;
-///  bool check3 = false;
-///
-///  Widget _buildChecks() {
-///    return Row(
-///      children: <Widget>[
-///
-///        NeumorphicCheckbox(
-///          value: check1,
-///          onChanged: (value) {
-///            setState(() {
-///              check1 = value;
-///            });
-///          },
-///        ),
-///
-///        NeumorphicCheckbox(
-///          value: check2,
-///          onChanged: (value) {
-///            setState(() {
-///              check2 = value;
-///            });
-///          },
-///        ),
-///
-///        NeumorphicCheckbox(
-///          value: check3,
-///          onChanged: (value) {
-///            setState(() {
-///              check3 = value;
-///            });
-///          },
-///        ),
-///
-///      ],
-///    );
-///  }
-/// ```
-///
 @immutable
 class NeumorphicCheckbox extends StatelessWidget {
   final bool value;
@@ -128,7 +77,8 @@ class NeumorphicCheckbox extends StatelessWidget {
   final Duration duration;
   final Curve curve;
 
-  NeumorphicCheckbox({
+  // ignore: use_key_in_widget_constructors
+  const NeumorphicCheckbox({
     this.style = const NeumorphicCheckboxStyle(),
     required this.value,
     required this.onChanged,
@@ -139,72 +89,69 @@ class NeumorphicCheckbox extends StatelessWidget {
     this.isEnabled = true,
   });
 
-  bool get isSelected => this.value;
+  bool get isSelected => value;
 
   void _onClick() {
-    this.onChanged(!this.value);
+    onChanged(!value);
   }
 
   @override
   Widget build(BuildContext context) {
     final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
-    final selectedColor = this.style.selectedColor ?? theme.accentColor;
+    final selectedColor = style.selectedColor ?? theme.accentColor;
 
     final double selectedDepth =
-        -1 * (this.style.selectedDepth ?? theme.depth).abs();
-    final double unselectedDepth =
-        (this.style.unselectedDepth ?? theme.depth).abs();
+        -1 * (style.selectedDepth ?? theme.depth).abs();
+    final double unselectedDepth = (style.unselectedDepth ?? theme.depth).abs();
     final double selectedIntensity =
-        (this.style.selectedIntensity ?? theme.intensity)
+        (style.selectedIntensity ?? theme.intensity)
             .abs()
             .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
-    final double unselectedIntensity = this
-        .style
-        .unselectedIntensity
+    final double unselectedIntensity = style.unselectedIntensity
         .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
 
     double depth = isSelected ? selectedDepth : unselectedDepth;
-    if (!this.isEnabled) {
+    if (!isEnabled) {
       depth = 0;
     }
 
     Color? color = isSelected ? selectedColor : null;
-    if (!this.isEnabled) {
+    if (!isEnabled) {
       color = null;
     }
 
     Color iconColor = isSelected ? theme.baseColor : selectedColor;
-    if (!this.isEnabled) {
+    if (!isEnabled) {
       iconColor = theme.disabledColor;
     }
 
     return NeumorphicButton(
-      padding: this.padding,
+      padding: padding,
       pressed: isSelected,
-      margin: this.margin,
-      duration: this.duration,
-      curve: this.curve,
+      margin: margin,
+      duration: duration,
+      curve: curve,
       onPressed: () {
-        if (this.isEnabled) {
+        if (isEnabled) {
           _onClick();
         }
       },
       drawSurfaceAboveChild: true,
       minDistance: selectedDepth.abs(),
+      style: NeumorphicStyle(
+        boxShape: style.boxShape,
+        border: style.border,
+        color: color,
+        depth: depth,
+        lightSource: style.lightSource ?? theme.lightSource,
+        disableDepth: style.disableDepth,
+        intensity: isSelected ? selectedIntensity : unselectedIntensity,
+        shape: NeumorphicShape.flat,
+      ),
       child: Icon(
         NeumorphicIcons.check,
         color: iconColor,
         size: 20.0,
-      ),
-      style: NeumorphicStyle(
-        boxShape: this.style.boxShape,
-        border: this.style.border,
-        color: color,
-        depth: depth,
-        lightSource: this.style.lightSource ?? theme.lightSource,
-        disableDepth: this.style.disableDepth,
-        intensity: isSelected ? selectedIntensity : unselectedIntensity,
-        shape: NeumorphicShape.flat,
       ),
     );
   }

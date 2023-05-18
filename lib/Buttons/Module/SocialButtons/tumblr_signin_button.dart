@@ -21,7 +21,7 @@ class SignInWithTumblr extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Twitter',
-        buttonColor ?? Color.fromRGBO(0, 25, 53, 1),
+        buttonColor ?? const Color.fromRGBO(0, 25, 53, 1),
         onPressed,
         fontColor ?? Colors.white,
         fontSize ?? 24.0,

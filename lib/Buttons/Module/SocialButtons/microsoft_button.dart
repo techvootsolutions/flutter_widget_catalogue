@@ -21,7 +21,7 @@ class MicrosoftButton extends StatelessWidget {
       splashColor: Colors.black,
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
-      backgroundColor: buttonColor ?? Color(0xFFF0EFE7),
+      backgroundColor: buttonColor ?? const Color(0xFFF0EFE7),
       child: Icon(
         FontAwesomeIcons.microsoft,
         color: iconColor ?? Colors.lightBlue,

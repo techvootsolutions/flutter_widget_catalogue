@@ -10,7 +10,7 @@ class WarningLineButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customOutlinedButton(
-        title, Color(0xFFFF8800), onPressed, textColor ?? Color(0xFF02A4E2));
+    return CustomButtons.customOutlinedButton(title, const Color(0xFFFF8800),
+        onPressed, textColor ?? const Color(0xFF02A4E2));
   }
 }

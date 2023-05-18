@@ -1,21 +1,8 @@
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
 
-import 'container.dart';
-import 'progress.dart';
+typedef NeumorphicRangeSliderLowListener = void Function(double percent);
+typedef NeumorphicRangeSliderHighListener = void Function(double percent);
 
-typedef void NeumorphicRangeSliderLowListener(double percent);
-typedef void NeumorphicRangeSliderHighListener(double percent);
-
-/// A style to customize the [NeumorphicSlider]
-///
-/// the gradient will use [accent] and [variant]
-///
-/// the gradient shape will be a roundrect, using [borderRadius]
-///
-/// you can define a custom [depth] for the roundrect
-///
 @immutable
 class RangeSliderStyle {
   final double depth;
@@ -65,51 +52,6 @@ class RangeSliderStyle {
       variant.hashCode;
 }
 
-/// A Neumorphic Design range slider.
-///
-/// Used to select a range of values.
-///
-///
-/// listeners : [onChangedLow], [onChangeHigh]
-///
-/// ```
-///  //in a statefull widget
-///
-///  double minPrice = 20;
-///  double maxPrice = 90;
-///
-///  Widget _buildSlider() {
-///    return Row(
-///      children: <Widget>[
-///
-///        Flexible(
-///          child: NeumorphicRangeSlider(
-///              valueLow: minPrice,
-///              valueHigh: maxPrice,
-///              min: 18,
-///              max: 99,
-///              onChangedLow: (value) {
-///                setState(() {
-///                  minPrice = value;
-///                });
-///              },
-///              onChangeHigh: (value) {
-///                setState(() {
-///                  maxPrice = value;
-///                });
-///              },
-///            ),
-///          ),
-///          Text(
-///            "${minPrice.round()} - ${maxPrice.round()}",
-///            style: TextStyle(color:  NeumorphicTheme.defaultTextColor(context)),
-///          ),
-///
-///      ],
-///    );
-///  }
-///  ```
-///
 @immutable
 class NeumorphicRangeSlider extends StatefulWidget {
   final RangeSliderStyle style;
@@ -125,7 +67,8 @@ class NeumorphicRangeSlider extends StatefulWidget {
   final Function(ActiveThumb)? onPanEnded;
   final Widget? thumb;
 
-  NeumorphicRangeSlider({
+  // ignore: use_key_in_widget_constructors
+  const NeumorphicRangeSlider({
     Key? key,
     this.style = const RangeSliderStyle(),
     this.min = 0,
@@ -164,6 +107,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
   Widget _widget(BuildContext context, BoxConstraints constraints) {
     double thumbSize = widget.height * 1.5;
 
+    // ignore: prefer_function_declarations_over_variables
     Function panUpdate = (DragUpdateDetails details) {
       final tapPos = details.localPosition;
       final newPercent = tapPos.dx / constraints.maxWidth;
@@ -270,11 +214,11 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
             accent: widget.style.accent ?? theme.accentColor,
             variant: widget.style.variant ?? theme.variantColor,
           )),
-      new Positioned.fill(
-        child: new LayoutBuilder(
+      Positioned.fill(
+        child: LayoutBuilder(
           builder: (context, constraints) {
-            return new Padding(
-              padding: new EdgeInsets.only(
+            return Padding(
+              padding: EdgeInsets.only(
                   left: constraints.biggest.width * widget.percentLow,
                   right: constraints.biggest.width * (1 - widget.percentHigh)),
               child: Container(
@@ -304,7 +248,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
         shape: NeumorphicShape.concave,
         color: color ?? theme.accentColor,
         border: widget.style.thumbBorder,
-        boxShape: NeumorphicBoxShape.circle(),
+        boxShape: const NeumorphicBoxShape.circle(),
         lightSource: widget.style.lightSource ?? theme.lightSource,
       ),
       child: SizedBox(

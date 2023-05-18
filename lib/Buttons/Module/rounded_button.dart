@@ -28,11 +28,11 @@ class RoundedButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius ?? 50),
             color: buttonColor ?? Colors.blue,
-            boxShadow: [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08))]),
+            boxShadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, 0.08))]),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "$title",
+            title,
             style: TextStyle(color: textColor ?? Colors.white),
           ),
         ),

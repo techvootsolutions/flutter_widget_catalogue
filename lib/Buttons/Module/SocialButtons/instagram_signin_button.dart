@@ -21,7 +21,7 @@ class SignInWithInstagram extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Instagram',
-        buttonColor ?? Color(0xFFB81877),
+        buttonColor ?? const Color(0xFFB81877),
         onPressed,
         fontColor ?? Colors.white,
         fontSize ?? 24.0,

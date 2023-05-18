@@ -21,7 +21,7 @@ class SignInWithLinkedin extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Linkedin',
-        buttonColor ?? Color(0xFF0077B5),
+        buttonColor ?? const Color(0xFF0077B5),
         onPressed,
         fontColor ?? Colors.white,
         fontSize ?? 24.0,

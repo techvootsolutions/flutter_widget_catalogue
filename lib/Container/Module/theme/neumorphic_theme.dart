@@ -1,55 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
-
-import 'inherited_neumorphic_theme.dart';
-import 'theme.dart';
-import 'theme_wrapper.dart';
 
 export 'inherited_neumorphic_theme.dart';
 export 'theme.dart';
 export 'theme_wrapper.dart';
 
-/// The NeumorphicTheme (provider)
-/// 1. Defines the used neumorphic theme used in child widgets
-///
-///   @see NeumorphicThemeData
-///
-///   NeumorphicTheme(
-///     theme: NeumorphicThemeData(...),
-///     darkTheme: NeumorphicThemeData(...),
-///     currentTheme: CurrentTheme.LIGHT,
-///     child: ...
-///
-/// 2. Provide by static methods the current theme
-///
-///   NeumorphicThemeData theme = NeumorphicTheme.getCurrentTheme(context);
-///
-/// 3. Provide by static methods the current theme's colors
-///
-///   Color baseColor = NeumorphicTheme.baseColor(context);
-///   Color accent = NeumorphicTheme.accentColor(context);
-///   Color variant = NeumorphicTheme.variantColor(context);
-///
-/// 4. Tells if the current theme is dark
-///
-///   bool dark = NeumorphicTheme.isUsingDark(context);
-///
-/// 5. Provides a way to update the current theme
-///
-///   NeumorphicTheme.of(context).updateCurrentTheme(
-///     NeumorphicThemeData(
-///       /* new values */
-///     )
-///   )
-///
 class NeumorphicTheme extends StatefulWidget {
   final NeumorphicThemeData theme;
   final NeumorphicThemeData darkTheme;
   final Widget child;
   final ThemeMode themeMode;
 
-  NeumorphicTheme({
+  // ignore: use_key_in_widget_constructors
+  const NeumorphicTheme({
     Key? key,
     required this.child,
     this.theme = neumorphicDefaultTheme,
@@ -58,6 +20,7 @@ class NeumorphicTheme extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _NeumorphicThemeState createState() => _NeumorphicThemeState();
 
   static NeumorphicThemeInherited? of(BuildContext context) {
@@ -106,6 +69,7 @@ class NeumorphicTheme extends StatefulWidget {
   }
 
   static double? embossDepth(BuildContext context) {
+    // ignore: unnecessary_null_comparison
     if (currentTheme(context).depth == null) return null;
     return -currentTheme(context).depth.abs();
   }

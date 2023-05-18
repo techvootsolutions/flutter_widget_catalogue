@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_components/Container/Module/widget/button.dart';
 import 'package:flutter_components/flutter_component.dart';
 
 class NeumorphicCloseButton extends StatelessWidget {
@@ -22,8 +20,8 @@ class NeumorphicCloseButton extends StatelessWidget {
       style: style,
       padding: padding,
       tooltip: MaterialLocalizations.of(context).closeButtonTooltip,
-      child: nThemeIcons.closeIcon,
       onPressed: onPressed ?? () => Navigator.maybePop(context),
+      child: nThemeIcons.closeIcon,
     );
   }
 }

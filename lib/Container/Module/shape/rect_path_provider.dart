@@ -1,7 +1,5 @@
 import 'package:flutter_components/flutter_component.dart';
 
-import 'neumorphic_path_provider.dart';
-
 class RectPathProvider extends NeumorphicPathProvider {
   const RectPathProvider({Listenable? reclip});
 

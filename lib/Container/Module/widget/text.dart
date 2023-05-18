@@ -1,11 +1,8 @@
 import 'dart:ui' as ui show FontFeature;
 
 import 'package:flutter/material.dart' as material;
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/Container/Module/decoration/neumorphic_text_decorations.dart';
 import 'package:flutter_components/flutter_component.dart';
-
-import '../theme/neumorphic_theme.dart';
 
 export '../decoration/neumorphic_decorations.dart';
 export '../neumorphic_box_shape.dart';
@@ -27,14 +24,6 @@ class NeumorphicTextStyle {
   final String? fontFamily;
   final List<String>? fontFamilyFallback;
   final String? package;
-  //final Color color;
-  //final Color backgroundColor;
-  //final Paint foreground,
-  //final Paint background,
-  //final TextDecoration decoration,
-  //final Color decorationColor;
-  //final TextDecorationStyle decorationStyle;
-  //final double decorationThickness;
 
   TextStyle get textStyle => TextStyle(
         inherit: inherit,
@@ -52,21 +41,8 @@ class NeumorphicTextStyle {
         fontFamily: fontFamily,
         fontFamilyFallback: fontFamilyFallback,
         package: package,
-        //color: color,
-        //backgroundColor: backgroundColor,
-        //foreground: foreground,
-        //background: background,
-        //decoration: decoration,
-        //decorationColor: decorationColor,
-        //decorationStyle: decorationStyle,
-        //decorationThickness: decorationThickness,
       );
 
-  /// Creates a text style.
-  ///
-  /// The `package` argument must be non-null if the font family is defined in a
-  /// package. It is combined with the `fontFamily` argument to set the
-  /// [fontFamily] property.
   NeumorphicTextStyle({
     this.inherit = true,
     this.fontSize,
@@ -81,14 +57,6 @@ class NeumorphicTextStyle {
     this.decoration,
     this.debugLabel,
     this.fontFamily,
-    //this.color,
-    //this.backgroundColor,
-    //this.foreground,
-    //this.background,
-    //this.decoration,
-    //this.decorationColor,
-    //this.decorationStyle,
-    //this.decorationThickness,
     this.fontFamilyFallback,
     this.package,
   });
@@ -107,14 +75,6 @@ class NeumorphicTextStyle {
     Locale? locale,
     List<ui.FontFeature>? fontFeatures,
     String? debugLabel,
-    //Color color,
-    //Color backgroundColor,
-    //Paint foreground,
-    //Paint background,
-    //TextDecoration decoration,
-    //Color decorationColor,
-    //TextDecorationStyle decorationStyle,
-    //double decorationThickness,
   }) {
     return NeumorphicTextStyle(
       inherit: inherit ?? this.inherit,
@@ -130,15 +90,6 @@ class NeumorphicTextStyle {
       locale: locale ?? this.locale,
       fontFeatures: fontFeatures ?? this.fontFeatures,
       debugLabel: debugLabel ?? this.debugLabel,
-      //color: this.foreground == null && foreground == null ? color ?? this.color : null,
-      //backgroundColor: this.background == null && background == null ? backgroundColor ?? this.backgroundColor : null,
-      //foreground: foreground ?? this.foreground,
-      //background: background ?? this.background,
-      //shadows: shadows ?? this.shadows,
-      //decoration: decoration ?? this.decoration,
-      //decorationColor: decorationColor ?? this.decorationColor,
-      //decorationStyle: decorationStyle ?? this.decorationStyle,
-      //decorationThickness: decorationThickness ?? this.decorationThickness,
     );
   }
 }
@@ -152,7 +103,7 @@ class NeumorphicText extends StatelessWidget {
   final Curve curve;
   final Duration duration;
 
-  NeumorphicText(
+  const NeumorphicText(
     this.text, {
     Key? key,
     this.duration = Neumorphic.DEFAULT_DURATION,
@@ -165,17 +116,17 @@ class NeumorphicText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = NeumorphicTheme.currentTheme(context);
-    final NeumorphicStyle style = (this.style ?? NeumorphicStyle())
+    final NeumorphicStyle style = (this.style ?? const NeumorphicStyle())
         .copyWithThemeIfNull(theme)
         .applyDisableDepth();
 
     return _NeumorphicText(
-      textStyle: (this.textStyle ?? NeumorphicTextStyle()).textStyle,
-      textAlign: this.textAlign,
-      text: this.text,
-      duration: this.duration,
+      textStyle: (textStyle ?? NeumorphicTextStyle()).textStyle,
+      textAlign: textAlign,
+      text: text,
+      duration: duration,
       style: style,
-      curve: this.curve,
+      curve: curve,
     );
   }
 }
@@ -190,7 +141,7 @@ class _NeumorphicText extends material.StatefulWidget {
 
   final TextAlign textAlign;
 
-  _NeumorphicText({
+  const _NeumorphicText({
     Key? key,
     required this.duration,
     required this.curve,
@@ -207,31 +158,31 @@ class _NeumorphicText extends material.StatefulWidget {
 class __NeumorphicTextState extends material.State<_NeumorphicText> {
   @override
   Widget build(BuildContext context) {
-    final TextPainter _textPainter = TextPainter(
-        textDirection: TextDirection.ltr, textAlign: this.widget.textAlign);
-    final textStyle = this.widget.textStyle;
-    _textPainter.text = TextSpan(
-      text: this.widget.text,
-      style: this.widget.textStyle,
+    final TextPainter textPainter = TextPainter(
+        textDirection: TextDirection.ltr, textAlign: widget.textAlign);
+    final textStyle = widget.textStyle;
+    textPainter.text = TextSpan(
+      text: widget.text,
+      style: widget.textStyle,
     );
 
     return LayoutBuilder(builder: (context, constraints) {
-      _textPainter.layout(minWidth: 0, maxWidth: constraints.maxWidth);
-      final double width = _textPainter.width;
-      final double height = _textPainter.height;
+      textPainter.layout(minWidth: 0, maxWidth: constraints.maxWidth);
+      final double width = textPainter.width;
+      final double height = textPainter.height;
 
       return DefaultTextStyle(
         style: textStyle,
         child: AnimatedContainer(
-          duration: this.widget.duration,
-          curve: this.widget.curve,
+          duration: widget.duration,
+          curve: widget.curve,
           foregroundDecoration: NeumorphicTextDecoration(
             isForeground: true,
             textStyle: textStyle,
             textAlign: widget.textAlign,
             renderingByPath: true,
-            style: this.widget.style,
-            text: this.widget.text,
+            style: widget.style,
+            text: widget.text,
           ),
           child: SizedBox(
             width: width,

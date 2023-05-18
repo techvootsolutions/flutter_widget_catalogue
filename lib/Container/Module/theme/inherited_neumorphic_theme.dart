@@ -1,9 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_components/flutter_component.dart';
-
-import 'theme.dart';
-import 'theme_wrapper.dart';
 
 export 'theme.dart';
 export 'theme_wrapper.dart';
@@ -12,11 +7,13 @@ typedef NeumorphicThemeUpdater = NeumorphicThemeData Function(
     NeumorphicThemeData? current);
 
 class NeumorphicThemeInherited extends InheritedWidget {
+  @override
+  // ignore: overridden_fields
   final Widget child;
   final ThemeWrapper value;
   final ValueChanged<ThemeWrapper> onChanged;
 
-  NeumorphicThemeInherited(
+  const NeumorphicThemeInherited(
       {Key? key,
       required this.child,
       required this.value,
@@ -24,10 +21,11 @@ class NeumorphicThemeInherited extends InheritedWidget {
       : super(key: key, child: child);
 
   @override
+  // ignore: avoid_renaming_method_parameters
   bool updateShouldNotify(NeumorphicThemeInherited old) => value != old.value;
 
   NeumorphicThemeData? get current {
-    return this.value.current;
+    return value.current;
   }
 
   bool get isUsingDark {
@@ -37,18 +35,18 @@ class NeumorphicThemeInherited extends InheritedWidget {
   ThemeMode get themeMode => value.themeMode;
 
   set themeMode(ThemeMode currentTheme) {
-    this.onChanged(value.copyWith(currentTheme: currentTheme));
+    onChanged(value.copyWith(currentTheme: currentTheme));
   }
 
   void updateCurrentTheme(NeumorphicThemeData update) {
     if (value.useDark) {
       final newValue = value.copyWith(darkTheme: update);
       //this.value = newValue;
-      this.onChanged(newValue);
+      onChanged(newValue);
     } else {
       final newValue = value.copyWith(theme: update);
       //this.value = newValue;
-      this.onChanged(newValue);
+      onChanged(newValue);
     }
   }
 
@@ -57,11 +55,11 @@ class NeumorphicThemeInherited extends InheritedWidget {
     if (value.useDark) {
       final newValue = value.copyWith(darkTheme: update);
       //this.value = newValue;
-      this.onChanged(newValue);
+      onChanged(newValue);
     } else {
       final newValue = value.copyWith(theme: update);
       //this.value = newValue;
-      this.onChanged(newValue);
+      onChanged(newValue);
     }
   }
 }

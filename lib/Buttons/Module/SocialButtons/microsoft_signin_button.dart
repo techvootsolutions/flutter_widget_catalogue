@@ -21,7 +21,7 @@ class SignInWithMicrosoft extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Microsoft',
-        buttonColor ?? Color(0xFFF0EFE7),
+        buttonColor ?? const Color(0xFFF0EFE7),
         onPressed,
         fontColor ?? Colors.black,
         fontSize ?? 24.0,

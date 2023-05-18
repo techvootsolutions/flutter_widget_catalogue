@@ -21,7 +21,7 @@ class FacebookButton extends StatelessWidget {
       splashColor: Colors.white,
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
-      backgroundColor: buttonColor ?? Color(0xFF49659F),
+      backgroundColor: buttonColor ?? const Color(0xFF49659F),
       child: Icon(
         FontAwesomeIcons.facebookF,
         color: iconColor ?? Colors.white,

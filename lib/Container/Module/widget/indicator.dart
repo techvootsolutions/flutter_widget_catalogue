@@ -1,19 +1,7 @@
-import 'dart:ui';
-
 import 'package:flutter/widgets.dart';
 
 import 'container.dart';
 
-/// A Style to customize the [NeumorphicIndicator]
-///
-/// the gradient will use [accent] and [variant]
-///
-/// the gradient shape will be a roundrect, using [borderRadius]
-///
-/// you can define a custom [depth] for the roundrect
-///
-/// you can update the gradient orientation using [gradientStart] & [gradientEnd]
-///
 class IndicatorStyle {
   //final double borderRadius;
   final double depth;
@@ -61,47 +49,6 @@ class IndicatorStyle {
 
 enum NeumorphicIndicatorOrientation { vertical, horizontal }
 
-/// An indicator is a horizontal / vertical bar that display a percentage
-///
-/// Like a ProgressBar, but with an [orientation] @see [NeumorphicIndicatorOrientation]
-///
-/// it takes a [padding], a [width] and [height]
-///
-/// the current accented roundrect use the [percent] field
-///
-/// Widget _buildIndicators() {
-///
-///    final width = 14.0;
-///
-///    return SizedBox(
-///      height: 130,
-///      child: Row(
-///        mainAxisAlignment: MainAxisAlignment.center,
-///        children: <Widget>[
-///          NeumorphicIndicator(
-///            width: width,
-///            percent: 0.4,
-///          ),
-///          SizedBox(width: 10),
-///          NeumorphicIndicator(
-///            width: width,
-///            percent: 0.2,
-///          ),
-///          SizedBox(width: 10),
-///          NeumorphicIndicator(
-///            width: width,
-///            percent: 0.5,
-///          ),
-///          SizedBox(width: 10),
-///          NeumorphicIndicator(
-///            width: width,
-///            percent: 1,
-///          ),
-///        ],
-///      ),
-///    );
-///  }
-///
 @immutable
 class NeumorphicIndicator extends StatefulWidget {
   final double percent;
@@ -199,7 +146,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
       child: Neumorphic(
         padding: EdgeInsets.zero,
         style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.stadium(),
+          boxShape: const NeumorphicBoxShape.stadium(),
           lightSource: widget.style.lightSource ?? theme.lightSource,
           disableDepth: widget.style.disableDepth,
           depth: widget.style.depth,
@@ -225,7 +172,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                   padding: widget.padding,
                   child: Neumorphic(
                     style: NeumorphicStyle(
-                      boxShape: NeumorphicBoxShape.stadium(),
+                      boxShape: const NeumorphicBoxShape.stadium(),
                       lightSource:
                           widget.style.lightSource ?? theme.lightSource,
                     ),

@@ -21,7 +21,7 @@ class SignInWithPinterest extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
         title ?? 'Sign in with Pinterest',
-        buttonColor ?? Color(0xFFE60023),
+        buttonColor ?? const Color(0xFFE60023),
         onPressed,
         fontColor ?? Colors.white,
         fontSize ?? 24.0,

@@ -1,7 +1,5 @@
 import 'package:flutter_components/flutter_component.dart';
 
-import 'neumorphic_path_provider.dart';
-
 class RRectPathProvider extends NeumorphicPathProvider {
   final BorderRadius borderRadius;
 

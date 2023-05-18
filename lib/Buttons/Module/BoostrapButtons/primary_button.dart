@@ -8,6 +8,7 @@ class PrimaryButton extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customFlatButton(title, Color(0xFF0077E0), onPressed);
+    return CustomButtons.customFlatButton(
+        title, const Color(0xFF0077E0), onPressed);
   }
 }
