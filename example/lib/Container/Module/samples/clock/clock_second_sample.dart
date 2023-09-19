@@ -1,6 +1,6 @@
 import 'package:example/Container/Module/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ClockAlarmPage extends StatelessWidget {
   const ClockAlarmPage({super.key});

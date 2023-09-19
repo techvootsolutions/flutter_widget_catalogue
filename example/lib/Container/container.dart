@@ -4,7 +4,7 @@ import 'package:example/Container/Module/samples/sample_home.dart';
 import 'package:example/Container/Module/tips/tips_home.dart';
 import 'package:example/Container/Module/widgets/widgets_home.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class NeumorphicContainer extends StatefulWidget {
   const NeumorphicContainer({super.key});

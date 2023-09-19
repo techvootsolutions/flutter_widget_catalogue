@@ -1,6 +1,6 @@
 import 'package:example/Container/Module/widgets/toggle/widget_toggle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'background/widget_background.dart';
 import 'button/widget_button.dart';
 import 'container/widget_container.dart';

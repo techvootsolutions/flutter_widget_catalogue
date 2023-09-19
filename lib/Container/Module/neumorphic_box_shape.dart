@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_components/Container/Module/shape/rrect_path_provider.dart';
-import 'package:flutter_components/Container/Module/shape/stadium_path_provider.dart';
+import 'package:flutter_widget_catalogue/Container/Module/shape/rrect_path_provider.dart';
+import 'package:flutter_widget_catalogue/Container/Module/shape/stadium_path_provider.dart';
 
 import 'shape/beveled_path_provider.dart';
 import 'shape/circle_path_provider.dart';

@@ -1,8 +1,8 @@
 import 'dart:ui' as ui show FontFeature;
 
 import 'package:flutter/material.dart' as material;
-import 'package:flutter_components/Container/Module/decoration/neumorphic_text_decorations.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/Container/Module/decoration/neumorphic_text_decorations.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 export '../decoration/neumorphic_decorations.dart';
 export '../neumorphic_box_shape.dart';

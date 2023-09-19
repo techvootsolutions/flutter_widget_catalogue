@@ -4,7 +4,7 @@ import 'package:example/Container/Module/code.dart';
 import 'package:example/Container/Module/color_selector.dart';
 import 'package:example/Container/Module/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ProgressWidgetPage extends StatefulWidget {
   const ProgressWidgetPage({Key? key}) : super(key: key);

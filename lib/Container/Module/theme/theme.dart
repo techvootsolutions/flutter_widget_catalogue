@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 // import 'package:flutter/material.dart' show IconThemeData, TextTheme;
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 export '../colors.dart';
 export '../light_source.dart';

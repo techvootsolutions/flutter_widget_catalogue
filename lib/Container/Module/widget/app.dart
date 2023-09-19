@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class NeumorphicApp extends StatelessWidget {
   final String title;
@@ -90,9 +90,8 @@ class NeumorphicApp extends StatelessWidget {
       // accentColor: theme.variantColor,
       iconTheme: theme.iconTheme,
       brightness: ThemeData.estimateBrightnessForColor(theme.baseColor),
-      // ignore: deprecated_member_use
-      primaryColorBrightness:
-          ThemeData.estimateBrightnessForColor(theme.accentColor),
+      // primaryColorBrightness:
+      //     ThemeData.estimateBrightnessForColor(theme.accentColor),
       // ignore: deprecated_member_use
       // accentColorBrightness:
       //     ThemeData.estimateBrightnessForColor(theme.accentColor),

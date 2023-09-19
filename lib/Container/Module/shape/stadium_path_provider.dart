@@ -1,5 +1,4 @@
-import 'package:flutter_components/flutter_component.dart';
-
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'rrect_path_provider.dart';
 
 class StadiumPathProvider extends RRectPathProvider {

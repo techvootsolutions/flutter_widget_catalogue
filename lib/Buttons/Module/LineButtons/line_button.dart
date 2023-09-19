@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_components/Buttons/Module/custom_buttons.dart';
+import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 
 class LineButton extends StatelessWidget {
   final Color? lineColor;

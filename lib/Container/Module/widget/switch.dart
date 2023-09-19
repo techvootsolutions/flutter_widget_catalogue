@@ -1,7 +1,7 @@
-import 'package:flutter_components/Container/Module/widget/animation/animated_scale.dart'
+import 'package:flutter_widget_catalogue/Container/Module/widget/animation/animated_scale.dart'
     // ignore: library_prefixes
     as animationScale;
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class NeumorphicSwitchStyle {
   final double? trackDepth;

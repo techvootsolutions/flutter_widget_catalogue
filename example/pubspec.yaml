@@ -29,7 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_components:
+  flutter_widget_catalogue:
     path: ../
   flutter_colorpicker: ^1.0.3
 

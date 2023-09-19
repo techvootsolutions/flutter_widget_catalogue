@@ -1,4 +1,4 @@
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 typedef NeumorphicSliderListener = void Function(double percent);
 

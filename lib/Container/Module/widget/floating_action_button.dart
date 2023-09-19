@@ -1,4 +1,4 @@
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 const BoxConstraints _kSizeConstraints = BoxConstraints.tightFor(
   width: 56.0,

@@ -2,7 +2,7 @@ import 'package:example/Container/Module/code.dart';
 import 'package:example/Container/Module/theme_configurator.dart';
 import 'package:example/Container/Module/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class BackgroundWidgetPage extends StatefulWidget {
   const BackgroundWidgetPage({Key? key}) : super(key: key);

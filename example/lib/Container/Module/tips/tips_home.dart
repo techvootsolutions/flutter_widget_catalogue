@@ -1,6 +1,6 @@
 import 'package:example/Container/Module/top_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 import 'border/tips_border.dart';
 import 'border/tips_emboss_inside_emboss.dart';

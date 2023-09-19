@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class AppBarWidgetPage extends StatelessWidget {
   const AppBarWidgetPage({Key? key}) : super(key: key);

@@ -6,16 +6,16 @@ Create awesome apps very faster with Flutter's collection of visual, structural,
 
 1.  Add dependency to `pubspec.yaml`
 
-    *Get the latest version in the 'Installing' tab on [pub.dev](https://pub.dev/packages/flutter_components)*
+    *Get the latest version in the 'Installing' tab on [pub.dev](https://pub.dev/packages/flutter_widget_catalogue)*
 
 ```dart
   dependencies:
-      flutter_components: <latest-version>
+      flutter_widget_catalogue: <latest-version>
 ```
 
 2.  Import the package
 ```dart
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 ```
 
 # 1) Neumorphic Widgets
@@ -38,7 +38,7 @@ Screenshot | Screenshot | Screenshot
 
 ```
 import 'package:flutter/material.dart';
-import 'package:flutter_components/flutter_component.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catelogue.dart';
 
 void main() => runApp(MyApp());
 

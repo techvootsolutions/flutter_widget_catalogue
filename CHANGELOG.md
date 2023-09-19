@@ -18,3 +18,14 @@
 ## [1.0.5] - TODO: Add release date.
 
 - Add flutter latest version compatibility
+
+## [1.0.0] - TODO: 19/9/2023.
+- Change package name
+
+## [1.1.1] - TODO: 19/9/2023.
+
+- Change package name
+
+## [1.1.2] - TODO: 19/9/2023.
+
+- Change Theme mode and colors
