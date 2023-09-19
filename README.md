@@ -18,7 +18,7 @@ Create awesome apps very faster with Flutter's collection of visual, structural,
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 ```
 
-# 1) Neumorphic Widgets
+### 1) Neumorphic Widgets
 
 Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
@@ -28,13 +28,13 @@ Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
 ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/4.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/5.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/6.jpg)
 
-# 2) Buttons
+### 2) Buttons
 
 Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
 ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 
-# How to use
+## How to use
 
 ```
 import 'package:flutter/material.dart';
@@ -73,7 +73,7 @@ class _ButtonsPageState extends State<Buttons> {
           child: Column(
             children: [
   ```
- # Simple Buttons
+ ### Simple Buttons
  ```
               customContainer(
                   child: SuccessButton(
@@ -82,7 +82,7 @@ class _ButtonsPageState extends State<Buttons> {
               )),
 
  ```
-# Icon Button
+### Icon Button
  ```
               customContainer(
                 child: ButttonWithIcon(
@@ -94,7 +94,7 @@ class _ButtonsPageState extends State<Buttons> {
                 ),
               ),
  ```
-# Floating Button
+### Floating Button
  ```
               Wrap(
                 children: [
@@ -112,7 +112,7 @@ class _ButtonsPageState extends State<Buttons> {
                 ],
               ),
  ```
-# Line Button
+### Line Button
  ```
               customContainer(
                   child: PrimaryLineButton(
@@ -126,7 +126,7 @@ class _ButtonsPageState extends State<Buttons> {
                 title: "Info Line Button",
               )),
    ```
-# Rounded Button
+### Rounded Button
  ```
               customContainer(
                   child: RoundedButtonWithIcon(
@@ -136,7 +136,7 @@ class _ButtonsPageState extends State<Buttons> {
                 buttonColor: Colors.green,
               )),
    ```
-# Social Button
+### Social Button
  ```
               Wrap(
                 children: <Widget>[
@@ -162,7 +162,7 @@ class _ButtonsPageState extends State<Buttons> {
               ),
              )),
    ```
-# Gradiant Button
+### Gradiant Button
  ```
               customContainer(
                   child: GradientButton(
