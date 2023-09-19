@@ -1,7 +1,6 @@
-# Component
+# Flutter widget catalogue
 
-Creating Flutter component.
-
+Create awesome apps very faster with Flutter's collection of visual, structural, platform, UI and interactive widgets.
 
 ## Installing
 
