@@ -254,11 +254,11 @@ class __PageContentState extends State<_PageContent> {
   }
 
   Widget _buildBalance(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28.0),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 28.0),
       child: Stack(
         alignment: Alignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           Align(
               alignment: Alignment.centerLeft,
               child: Text("Balance",
@@ -300,8 +300,8 @@ class __PageContentState extends State<_PageContent> {
           const SizedBox(
             height: 8,
           ),
-          Stack(
-            children: const <Widget>[
+          const Stack(
+            children: <Widget>[
               Align(
                   alignment: Alignment.centerLeft, child: Text("Credit limit")),
               Align(

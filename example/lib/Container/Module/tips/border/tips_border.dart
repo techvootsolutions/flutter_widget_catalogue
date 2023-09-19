@@ -35,10 +35,10 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
+    return const NeumorphicBackground(
+      padding: EdgeInsets.all(8),
       child: Scaffold(
-        appBar: const TopBar(
+        appBar: TopBar(
           title: "Border",
           actions: <Widget>[
             ThemeConfigurator(),
@@ -50,7 +50,7 @@ class _PageState extends State<_Page> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
-            children: const [
+            children: [
               _CustomWidget(
                 title: "Emboss Inside Flat",
                 firstStyle: NeumorphicStyle(

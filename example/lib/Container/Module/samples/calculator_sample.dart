@@ -103,15 +103,15 @@ class _TopScreenWidget extends StatelessWidget {
         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
         depth: -1 * NeumorphicTheme.of(context)!.current!.depth,
       ),
-      child: FractionallySizedBox(
+      child: const FractionallySizedBox(
         widthFactor: 1,
         child: Padding(
-          padding: const EdgeInsets.all(18.0),
+          padding: EdgeInsets.all(18.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
-            children: const <Widget>[
+            children: <Widget>[
               Text(
                 "3 x 7 =",
                 style: TextStyle(fontSize: 30, color: _calcTextColor),

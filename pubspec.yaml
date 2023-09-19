@@ -15,8 +15,8 @@ description: Create all flutter components and create custom components and widg
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.5+2
-homepage: https://github.com/techvootsolutions/TV_Flutter_Component
+version: 1.0.5+5
+homepage: https://github.com/techvootsolutions/Flutter_Widget_catalogue
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

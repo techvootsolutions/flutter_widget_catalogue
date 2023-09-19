@@ -217,11 +217,11 @@ class _ContainersListPageState extends State<WidgetsSample> {
 
   Widget _buildIndicators() {
     const width = 14.0;
-    return SizedBox(
+    return const SizedBox(
       height: 130,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const <Widget>[
+        children: <Widget>[
           NeumorphicIndicator(
             width: width,
             percent: 0.4,
