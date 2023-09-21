@@ -187,8 +187,8 @@ class _ButtonsPageState extends State<Buttons> {
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/tvPrincy"><img src="https://avatars.githubusercontent.com/u/81419917" width="100px;" alt=""/><br /><sub><b>Varsani Princy</b></sub></a></td>
-    <td align="center"><a href="https://github.com/techkevin"><img src="https://avatars.githubusercontent.com/u/37235824" width="100px;" alt=""/><br /><sub><b>Baldha Kevin</b></sub></a></td>
+    <td align="center"><a href="https://github.com/tvPrincy"><b>Varsani Princy</b></a></td>
+    <td align="center"><a href="https://github.com/techkevin">Baldha Kevin</a></td>
   </tr>
 </table>
 
