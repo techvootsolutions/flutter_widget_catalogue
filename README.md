@@ -186,10 +186,5 @@ class _ButtonsPageState extends State<Buttons> {
 ### Main Contributors
 <ul>
   <li><a href="https://github.com/tvPrincy"><b>Varsani Princy</b></a></li>
-  <li><a href="https://github.com/techkevin"><b>Baldha Kevin</b></a></li>
+  <li><a href="https://github.com/techkevin">Baldha Kevin</a></li>
 </ul>
-<ul>
-  <li>Coffee</li>
-  <li>Tea</li>
-  <li>Milk</li>
-</ul>  
