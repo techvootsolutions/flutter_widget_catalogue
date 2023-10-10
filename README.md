@@ -43,8 +43,7 @@ Screenshot | Screenshot | Screenshot
 
 Screenshot
 -----------
-![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg)
-
+![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.png)
 
 ### How to use Buttons
 
