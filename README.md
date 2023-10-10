@@ -182,7 +182,10 @@ class _ButtonsPageState extends State<Buttons> {
   }
 }
 
-``` 
+```
+### Changelog
+<p>Please see <a href="https://github.com/techvootsolutions/flutter_widget_catalogue/blob/main/CHANGELOG.md"><b>CHANGELOG</b></a>for more information what has changed recently.</p>
+
 ### Main Contributors
 <ul>
   <li><a href="https://github.com/tvPrincy"><b>Princy Varsani</b></a></li>
