@@ -1,4 +1,3 @@
-
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class NeumorphicFlutterLogoPathProvider extends NeumorphicPathProvider {
