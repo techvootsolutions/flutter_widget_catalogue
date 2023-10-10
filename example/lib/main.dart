@@ -1,6 +1,6 @@
-import 'package:example/Container/Module/widgets/widgets_home.dart';
+import 'package:example/Neumorphic/Module/widgets/widgets_home.dart';
 import 'package:flutter/material.dart';
-
+import 'Switch/switch.dart';
 import 'Button/buttons.dart';
 
 void main() {
@@ -36,9 +36,10 @@ class _MyHomePageState extends State<MyHomePage> {
   List items = [
     'Button',
     "Neumorphic Container Widgets",
-    "Slider",
-    "Text Field",
-    "Segment"
+    "Switch",
+    // "Slider",
+    // "Text Field",
+    // "Segment"
   ];
 
   @override
@@ -67,6 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const WidgetsHome()),
+                    );
+                  } else if (index == 2) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MySwitch()),
                     );
                   }
                 },

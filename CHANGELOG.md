@@ -56,3 +56,15 @@ All notable changes to flutter_widget_catalogue will be documented in this file
 ### What's Changed - 10-10-2023
 
 - Change README.md file
+
+## 1.1.3
+### What's Changed - 10-10-2023
+
+- Add new one more widget switch
+- Change README.md file
+- Change CHANGELOG.md file
+
+## 1.1.3+1
+### What's Changed - 10-10-2023
+
+- Add switch code and screenshot in README.md file
