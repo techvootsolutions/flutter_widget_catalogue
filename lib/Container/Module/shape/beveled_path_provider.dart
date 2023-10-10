@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
-
 class BeveledPathProvider extends NeumorphicPathProvider {
   final BorderRadius borderRadius;
 
