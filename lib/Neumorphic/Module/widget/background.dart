@@ -8,7 +8,8 @@ class NeumorphicBackground extends StatelessWidget {
   final Color backendColor;
   final BorderRadius? borderRadius;
 
-  const NeumorphicBackground({super.key,
+  const NeumorphicBackground({
+    super.key,
     this.child,
     this.padding,
     this.margin,

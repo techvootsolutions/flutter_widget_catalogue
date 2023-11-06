@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, library_private_types_in_public_api
+
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 export 'inherited_neumorphic_theme.dart';
@@ -10,7 +12,8 @@ class NeumorphicTheme extends StatefulWidget {
   final Widget child;
   final ThemeMode themeMode;
 
-  const NeumorphicTheme({super.key,
+  const NeumorphicTheme({
+    super.key,
     required this.child,
     this.theme = neumorphicDefaultTheme,
     this.darkTheme = neumorphicDefaultDarkTheme,

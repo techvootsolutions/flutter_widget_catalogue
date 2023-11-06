@@ -63,7 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   } else if (index == 1) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const WidgetsHome()),
+                      MaterialPageRoute(
+                          builder: (context) => const WidgetsHome()),
                     );
                   } else if (index == 2) {
                     Navigator.push(

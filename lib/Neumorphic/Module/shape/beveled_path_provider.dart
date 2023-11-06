@@ -21,6 +21,7 @@ class BeveledPathProvider extends NeumorphicPathProvider {
         bottomRight: borderRadius.bottomRight);
     return _getPath(rrect);
   }
+
   Path _getPath(RRect rrect) {
     final Offset centerLeft = Offset(rrect.left, rrect.center.dy);
     final Offset centerRight = Offset(rrect.right, rrect.center.dy);

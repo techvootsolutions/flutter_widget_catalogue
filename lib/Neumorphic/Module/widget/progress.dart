@@ -1,4 +1,4 @@
-// ignore_for_file: empty_catches
+// ignore_for_file: empty_catches, invalid_override_of_non_virtual_member, library_private_types_in_public_api
 
 import 'package:flutter/widgets.dart';
 
@@ -133,7 +133,6 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
 
   @override
   Widget build(BuildContext context) {
-
     final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
     return SizedBox(
       height: widget.height,

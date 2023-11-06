@@ -34,8 +34,7 @@ class Neumorphic extends StatelessWidget {
   final EdgeInsets margin;
   final Curve curve;
   final Duration duration;
-  final bool
-      drawSurfaceAboveChild;
+  final bool drawSurfaceAboveChild;
 
   const Neumorphic({
     Key? key,

@@ -78,13 +78,11 @@ abstract class AbstractNeumorphicEmbossPainterCache {
     return false;
   }
 
-  bool?
-      _cacheOppositeShadowLightSource;
+  bool? _cacheOppositeShadowLightSource;
   LightSource? _cacheLightSource;
 
   LightSource? _lightSource;
-  LightSource get lightSource =>
-      _lightSource ?? LightSource.bottom;
+  LightSource get lightSource => _lightSource ?? LightSource.bottom;
   bool updateLightSource(
       LightSource newLightSource, bool newOppositeShadowLightSource) {
     bool invalidateLightSource = false;
@@ -166,6 +164,7 @@ abstract class AbstractNeumorphicEmbossPainterCache {
     }
     return invalidate;
   }
+
   void updateTranslations();
 
   final List<Path> subPaths = [];

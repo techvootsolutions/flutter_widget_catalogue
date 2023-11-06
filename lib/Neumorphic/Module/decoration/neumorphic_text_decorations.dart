@@ -72,7 +72,6 @@ class NeumorphicTextDecoration extends Decoration {
 
   static NeumorphicTextDecoration? lerp(
       NeumorphicTextDecoration? a, NeumorphicTextDecoration? b, double t) {
-
     if (a == null && b == null) return null;
     if (a == null) return b!.scale(t);
     if (b == null) return a.scale(1.0 - t);

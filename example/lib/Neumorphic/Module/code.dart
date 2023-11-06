@@ -36,8 +36,8 @@ class MyIntWidgetState extends State<MyIntWidget>
   @override
   void initState() {
     _value = widget.value;
-    _controller =
-        AnimationController(duration: const Duration(milliseconds: 300), vsync: this);
+    _controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
     super.initState();
   }
 

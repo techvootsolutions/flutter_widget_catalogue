@@ -15,8 +15,7 @@ class NeumorphicPainterCache extends AbstractNeumorphicEmbossPainterCache {
   }
 
   @override
-  void updateTranslations() {
-  }
+  void updateTranslations() {}
 
   @override
   Rect updateLayerRect({required Offset newOffset, required Size newSize}) {

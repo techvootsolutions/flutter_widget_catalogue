@@ -67,7 +67,8 @@ class NeumorphicRangeSlider extends StatefulWidget {
   final Function(ActiveThumb)? onPanEnded;
   final Widget? thumb;
 
-  const NeumorphicRangeSlider({super.key,
+  const NeumorphicRangeSlider({
+    super.key,
     this.style = const RangeSliderStyle(),
     this.min = 0,
     this.max = 10,
@@ -146,9 +147,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
           child: _generateSlider(context),
         ),
         Align(
-          alignment: Alignment(
-              (widget.percentLow * 2) - 1,
-              0),
+          alignment: Alignment((widget.percentLow * 2) - 1, 0),
           child: GestureDetector(
               onHorizontalDragStart: (DragStartDetails details) {
                 _canChangeActiveThumb = true;
@@ -169,9 +168,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
                   _generateThumb(context, thumbSize, widget.style.variant)),
         ),
         Align(
-          alignment: Alignment(
-              (widget.percentHigh * 2) - 1,
-              0),
+          alignment: Alignment((widget.percentHigh * 2) - 1, 0),
           child: GestureDetector(
               onHorizontalDragStart: (DragStartDetails details) {
                 _canChangeActiveThumb = true;

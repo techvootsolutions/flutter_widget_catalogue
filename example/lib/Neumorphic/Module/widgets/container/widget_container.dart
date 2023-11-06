@@ -267,7 +267,8 @@ Neumorphic(
           const SizedBox(width: 12),
           Neumorphic(
             style: NeumorphicStyle(
-                color: currentColor, boxShape: const NeumorphicBoxShape.circle()),
+                color: currentColor,
+                boxShape: const NeumorphicBoxShape.circle()),
             child: const SizedBox(
               height: 100,
               width: 100,

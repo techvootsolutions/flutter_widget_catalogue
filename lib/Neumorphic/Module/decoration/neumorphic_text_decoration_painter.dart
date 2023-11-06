@@ -13,9 +13,7 @@ class NeumorphicEmptyTextPainter extends BoxPainter {
       : super(onChanged);
 
   @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-
-  }
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {}
 }
 
 class NeumorphicDecorationTextPainter extends BoxPainter {

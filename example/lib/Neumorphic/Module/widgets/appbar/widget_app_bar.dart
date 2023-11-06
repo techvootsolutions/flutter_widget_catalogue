@@ -171,8 +171,9 @@ class _MyDrawer extends StatelessWidget {
                   height: NeumorphicAppBar.toolbarHeight),
               child: NeumorphicAppBar(
                 title: const Text('Menu'),
-                leading:
-                    isLead ? const NeumorphicBackButton() : const NeumorphicCloseButton(),
+                leading: isLead
+                    ? const NeumorphicBackButton()
+                    : const NeumorphicCloseButton(),
                 actions: <Widget>[
                   NeumorphicButton(
                     child: const Icon(Icons.style),

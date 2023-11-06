@@ -267,8 +267,7 @@ NeumorphicToggle(
               ),
             ),
             onAnimationChangedFinished: (value) {
-              if (value == 0) {
-              }
+              if (value == 0) {}
             },
             onChanged: (value) {
               setState(() {

@@ -8,7 +8,8 @@ class AnimatedScale extends StatefulWidget {
   final Duration duration;
   final Alignment alignment;
 
-  const AnimatedScale({super.key,
+  const AnimatedScale({
+    super.key,
     this.child,
     this.scale = 1,
     this.duration = const Duration(milliseconds: 150),
