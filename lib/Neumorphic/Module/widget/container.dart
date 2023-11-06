@@ -35,7 +35,7 @@ class Neumorphic extends StatelessWidget {
   final Curve curve;
   final Duration duration;
   final bool
-      drawSurfaceAboveChild; //if true => boxDecoration & foreground decoration, else => boxDecoration does all the work
+      drawSurfaceAboveChild;
 
   const Neumorphic({
     Key? key,

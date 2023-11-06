@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:example/Neumorphic/Module/accessibility/neumorphic_accessibility.dart';
 import 'package:example/Neumorphic/Module/playground/text_playground.dart';
 import 'package:example/Neumorphic/Module/samples/sample_home.dart';
@@ -10,7 +12,6 @@ class NeumorphicContainer extends StatefulWidget {
   const NeumorphicContainer({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ButtonsPageState createState() => _ButtonsPageState();
 }
 
@@ -65,10 +66,6 @@ class _ButtonsPageState extends State<NeumorphicContainer> {
                     _buildButton(
                       text: "Submit",
                       onClick: () {
-                        // Navigator.of(context)
-                        //     .push(MaterialPageRoute(builder: (context) {
-                        //   return NeumorphicPlayground();
-                        // }));
                       },
                     ),
                     const SizedBox(height: 24),

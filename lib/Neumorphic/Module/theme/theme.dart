@@ -1,13 +1,9 @@
 import 'dart:ui';
-
-// import 'package:flutter/material.dart' show IconThemeData, TextTheme;
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
-
 export '../colors.dart';
 export '../light_source.dart';
 export '../shape.dart';
 
-//region theme
 const double _defaultDepth = 4;
 const double _defaultIntensity = 0.7;
 const Color _defaultAccent = NeumorphicColors.accent;
@@ -243,11 +239,8 @@ class NeumorphicThemeData {
     );
   }
 }
-//endregion
 
-//region style
 const NeumorphicShape _defaultShape = NeumorphicShape.flat;
-//const double _defaultBorderRadius = 5;
 
 const neumorphicDefaultTheme = NeumorphicThemeData();
 const neumorphicDefaultDarkTheme = NeumorphicThemeData.dark();
@@ -324,16 +317,12 @@ class NeumorphicStyle {
   final NeumorphicBoxShape? boxShape;
   final NeumorphicThemeData? theme;
 
-  //override the "white" color
   final Color? shadowLightColor;
 
-  //override the "dark" color
   final Color? shadowDarkColor;
 
-  //override the "white" color
   final Color? shadowLightColorEmboss;
 
-  //override the "dark" color
   final Color? shadowDarkColorEmboss;
 
   const NeumorphicStyle({
@@ -341,7 +330,7 @@ class NeumorphicStyle {
     this.lightSource = LightSource.topLeft,
     this.border = const NeumorphicBorder.none(),
     this.color,
-    this.boxShape, //nullable by default, will use the one defined in theme if not set
+    this.boxShape,
     this.shadowLightColor,
     this.shadowDarkColor,
     this.shadowLightColorEmboss,
@@ -356,7 +345,6 @@ class NeumorphicStyle {
         _intensity = intensity,
         _surfaceIntensity = surfaceIntensity;
 
-  // with theme constructor is only available privately, please use copyWithThemeIfNull
   const NeumorphicStyle._withTheme({
     this.theme,
     this.shape = _defaultShape,
@@ -499,4 +487,3 @@ class NeumorphicStyle {
     }
   }
 }
-//endregion

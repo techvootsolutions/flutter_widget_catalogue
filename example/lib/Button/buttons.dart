@@ -1,10 +1,11 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class Buttons extends StatefulWidget {
   const Buttons({super.key});
   @override
-  // ignore: library_private_types_in_public_api
   _ButtonsPageState createState() => _ButtonsPageState();
 }
 

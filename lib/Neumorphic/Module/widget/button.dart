@@ -1,8 +1,9 @@
+// ignore_for_file: library_prefixes, constant_identifier_names, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
-// ignore: library_prefixes
 import 'animation/animated_scale.dart' as animationScale;
 
 typedef NeumorphicButtonClickListener = void Function();
@@ -41,9 +42,7 @@ typedef NeumorphicButtonClickListener = void Function();
 ///
 @immutable
 class NeumorphicButton extends StatefulWidget {
-  // ignore: constant_identifier_names
   static const double PRESSED_SCALE = 0.98;
-  // ignore: constant_identifier_names
   static const double UNPRESSED_SCALE = 1.0;
 
   final Widget? child;
@@ -51,7 +50,7 @@ class NeumorphicButton extends StatefulWidget {
   final double minDistance;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
-  final bool? pressed; //null, true, false
+  final bool? pressed;
   final Duration duration;
   final Curve curve;
   final NeumorphicButtonClickListener? onPressed;
@@ -66,10 +65,9 @@ class NeumorphicButton extends StatefulWidget {
     this.child,
     this.tooltip,
     this.drawSurfaceAboveChild = true,
-    this.pressed, //true/false if you want to change the state of the button
+    this.pressed,
     this.duration = Neumorphic.DEFAULT_DURATION,
     this.curve = Neumorphic.DEFAULT_CURVE,
-    //this.accent,
     this.onPressed,
     this.minDistance = 0,
     this.style,
@@ -79,7 +77,6 @@ class NeumorphicButton extends StatefulWidget {
   bool get isEnabled => onPressed != null;
 
   @override
-  // ignore: library_private_types_in_public_api
   _NeumorphicButtonState createState() => _NeumorphicButtonState();
 }
 
@@ -87,7 +84,7 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
   late NeumorphicStyle initialStyle;
 
   late double depth;
-  bool pressed = false; //overwrite widget.pressed when click for animation
+  bool pressed = false;
 
   void updateInitialStyle() {
     final appBarPresent = NeumorphicAppBarTheme.of(context) != null;
@@ -123,10 +120,9 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
       depth = widget.minDistance;
     });
 
-    await Future.delayed(widget.duration); //wait until animation finished
+    await Future.delayed(widget.duration);
     hasFinishedAnimationDown = true;
 
-    //haptic vibration
     if (widget.provideHapticFeedback) {
       HapticFeedback.lightImpact();
     }
@@ -142,7 +138,6 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
     hasDisposed = true;
   }
 
-  //used to stay pressed if no tap up
   void _resetIfTapUp() {
     if (hasFinishedAnimationDown == true && hasTapUp == true && !hasDisposed) {
       setState(() {
@@ -226,7 +221,6 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
 
   double _getScale() {
     if (widget.pressed != null) {
-      //defined by the widget that use it
       return widget.pressed!
           ? NeumorphicButton.PRESSED_SCALE
           : NeumorphicButton.UNPRESSED_SCALE;

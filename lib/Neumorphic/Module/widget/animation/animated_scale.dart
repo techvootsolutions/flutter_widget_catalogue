@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/widgets.dart';
 
 class AnimatedScale extends StatefulWidget {
@@ -6,8 +8,7 @@ class AnimatedScale extends StatefulWidget {
   final Duration duration;
   final Alignment alignment;
 
-  // ignore: use_key_in_widget_constructors
-  const AnimatedScale({
+  const AnimatedScale({super.key,
     this.child,
     this.scale = 1,
     this.duration = const Duration(milliseconds: 150),
@@ -15,7 +16,6 @@ class AnimatedScale extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _AnimatedScaleState createState() => _AnimatedScaleState();
 }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'package:flutter/widgets.dart';
 
 import 'container.dart';
@@ -77,13 +79,11 @@ class NeumorphicProgress extends StatefulWidget {
         super(key: key);
 
   @override
-  // ignore: library_private_types_in_public_api
   _NeumorphicProgressState createState() => _NeumorphicProgressState();
 
   double? get percent => _percent?.clamp(0, 1);
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is NeumorphicProgress &&
@@ -94,7 +94,6 @@ class NeumorphicProgress extends StatefulWidget {
           curve == other.curve;
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   int get hashCode =>
       percent.hashCode ^ height.hashCode ^ style.hashCode ^ curve.hashCode;
 }
@@ -134,14 +133,12 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
 
   @override
   Widget build(BuildContext context) {
-    //print("widget.style.depth: ${widget.style.depth}");
 
     final NeumorphicThemeData theme = NeumorphicTheme.currentTheme(context);
     return SizedBox(
       height: widget.height,
       child: FractionallySizedBox(
         widthFactor: 1,
-        //width: constraints.maxWidth,
         child: Neumorphic(
           padding: EdgeInsets.zero,
           style: NeumorphicStyle(
@@ -213,7 +210,6 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
   createState() => _NeumorphicProgressIndeterminateState();
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is NeumorphicProgressIndeterminate &&
@@ -225,7 +221,6 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
           curve == other.curve;
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   int get hashCode =>
       height.hashCode ^
       style.hashCode ^
@@ -254,7 +249,6 @@ class _NeumorphicProgressIndeterminateState
       await _controller
           .repeat(min: 0, max: 1, reverse: widget.reverse)
           .orCancel;
-      // ignore: empty_catches
     } on TickerCanceled {}
   }
 

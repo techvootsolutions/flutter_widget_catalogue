@@ -65,9 +65,7 @@ class NeumorphicSlider extends StatefulWidget {
   final Widget? thumb;
   final double? sliderHeight;
 
-  // ignore: use_key_in_widget_constructors
-  const NeumorphicSlider({
-    Key? key,
+  const NeumorphicSlider({super.key,
     this.style = const SliderStyle(),
     this.min = 0,
     this.value = 0,
@@ -128,7 +126,6 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
         ),
         Align(
             alignment: Alignment(
-                //because left = -1 & right = 1, so the "width" = 2, and minValue = 1
                 (widget.percent * 2) - 1,
                 0),
             child: widget.thumb ?? _generateThumb(context, thumbSize))

@@ -62,9 +62,6 @@ class __PageState extends State<_Page> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: NeumorphicTheme.baseColor(context),
-        //appBar: NeumorphicAppBar(
-        //  title: Text('Playground'),
-        //),
         body: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -289,15 +286,8 @@ class __PageState extends State<_Page> {
       drawSurfaceAboveChild: drawAboveChild,
       style: NeumorphicStyle(
         boxShape: boxShape,
-        //border: NeumorphicBorder(),
         shape: shape,
         intensity: intensity,
-        /*
-        shadowLightColor: Colors.red,
-        shadowDarkColor: Colors.blue,
-        shadowLightColorEmboss: Colors.red,
-        shadowDarkColorEmboss: Colors.blue,
-         */
         surfaceIntensity: surfaceIntensity,
         depth: depth,
         lightSource: lightSource,
@@ -320,7 +310,6 @@ class __PageState extends State<_Page> {
       drawSurfaceAboveChild: true,
       style: NeumorphicStyle(
           boxShape: boxShape,
-          //shape: this.shape,
           intensity: intensity,
           surfaceIntensity: surfaceIntensity,
           depth: childDepth,
@@ -573,7 +562,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: intensity,
             onChanged: (value) {
@@ -600,7 +589,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: surfaceIntensity,
             onChanged: (value) {

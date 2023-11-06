@@ -55,7 +55,6 @@ class ToggleElement {
 
 @immutable
 class NeumorphicToggle extends StatelessWidget {
-  // ignore: constant_identifier_names
   static const MIN_EMBOSS_DEPTH = -1.0;
 
   final EdgeInsets padding;
@@ -166,7 +165,6 @@ class NeumorphicToggle extends StatelessWidget {
             (displayForegroundOnlyIfSelected && selectedIndex == index)
         ? children[index].foreground
         : const SizedBox.expand();
-    //wrap with opacity animation
     if (style != null && style!.animateOpacity) {
       child = AnimatedOpacity(
         curve: alphaAnimationCurve,

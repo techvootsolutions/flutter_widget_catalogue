@@ -14,7 +14,7 @@ class NeumorphicEmptyTextPainter extends BoxPainter {
 
   @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    //does nothing
+
   }
 }
 
@@ -194,7 +194,6 @@ class NeumorphicDecorationTextPainter extends BoxPainter {
 
     _gradientParagraph = gradientParagraphBuilder.build()
       ..layout(ui.ParagraphConstraints(width: _cache.width));
-    //endregion
 
     if (invalidateDepth || invalidateLightSource) {
       _cache.updateDepthOffset();

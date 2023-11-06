@@ -425,7 +425,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: intensity,
             onChanged: (value) {
@@ -503,7 +503,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: surfaceIntensity,
             onChanged: (value) {

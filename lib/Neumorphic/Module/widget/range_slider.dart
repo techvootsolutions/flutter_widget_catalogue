@@ -67,9 +67,7 @@ class NeumorphicRangeSlider extends StatefulWidget {
   final Function(ActiveThumb)? onPanEnded;
   final Widget? thumb;
 
-  // ignore: use_key_in_widget_constructors
-  const NeumorphicRangeSlider({
-    Key? key,
+  const NeumorphicRangeSlider({super.key,
     this.style = const RangeSliderStyle(),
     this.min = 0,
     this.max = 10,
@@ -149,7 +147,6 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
         ),
         Align(
           alignment: Alignment(
-              //because left = -1 & right = 1, so the "width" = 2, and minValue = 1
               (widget.percentLow * 2) - 1,
               0),
           child: GestureDetector(
@@ -173,7 +170,6 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
         ),
         Align(
           alignment: Alignment(
-              //because left = -1 & right = 1, so the "width" = 2, and minValue = 1
               (widget.percentHigh * 2) - 1,
               0),
           child: GestureDetector(

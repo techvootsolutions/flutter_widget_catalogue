@@ -119,10 +119,8 @@ class NeumorphicAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class NeumorphicAppBarTheme extends InheritedWidget {
   @override
-  // ignore: overridden_fields
   final Widget child;
 
-  // ignore: use_key_in_widget_constructors
   const NeumorphicAppBarTheme({required this.child}) : super(child: child);
 
   @override
@@ -181,9 +179,7 @@ class NeumorphicAppBarState extends State<NeumorphicAppBar> {
 
     Widget? title = widget.title;
     if (title != null) {
-      // final AppBarTheme appBarTheme = AppBarTheme.of(context);
       title = DefaultTextStyle(
-        // ignore: deprecated_member_use
         style: (Theme.of(context).textTheme.headlineLarge!)
             .merge(widget.textStyle ?? nTheme?.current?.appBarTheme.textStyle),
         softWrap: false,

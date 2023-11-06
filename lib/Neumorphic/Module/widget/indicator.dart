@@ -1,9 +1,10 @@
+// ignore_for_file: invalid_override_of_non_virtual_member
+
 import 'package:flutter/widgets.dart';
 
 import 'container.dart';
 
 class IndicatorStyle {
-  //final double borderRadius;
   final double depth;
   final bool? disableDepth;
   final Color? accent;
@@ -76,7 +77,6 @@ class NeumorphicIndicator extends StatefulWidget {
   createState() => _NeumorphicIndicatorState();
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   bool operator ==(Object other) =>
       identical(this, other) ||
       super == other &&
@@ -92,7 +92,6 @@ class NeumorphicIndicator extends StatefulWidget {
           curve == other.curve;
 
   @override
-  // ignore: invalid_override_of_non_virtual_member
   int get hashCode =>
       super.hashCode ^
       percent.hashCode ^

@@ -365,8 +365,6 @@ class _ContainersListPageState extends State<WidgetsSample> {
           //match parent height
           heightFactor: 1,
           child: NeumorphicBackground(
-            //margin: EdgeInsets.all(10),
-            //borderRadius: BorderRadius.circular(40),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -387,21 +385,6 @@ class _ContainersListPageState extends State<WidgetsSample> {
                           ),
                         ),
                       ),
-                      /*
-                      Positioned(
-                        right: 0,
-                        bottom: 0,
-                        child: NeumorphicButton(
-                          onClick: (){
-                            setState(() {
-                              useDark = !useDark;
-                            });
-                          },
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          child: Text(useDark ? "Dark" : "Light"),
-                        ),
-                      )
-                       */
                     ],
                   ),
                   Padding(

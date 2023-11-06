@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 export 'theme.dart';
@@ -8,7 +10,6 @@ typedef NeumorphicThemeUpdater = NeumorphicThemeData Function(
 
 class NeumorphicThemeInherited extends InheritedWidget {
   @override
-  // ignore: overridden_fields
   final Widget child;
   final ThemeWrapper value;
   final ValueChanged<ThemeWrapper> onChanged;
@@ -21,7 +22,6 @@ class NeumorphicThemeInherited extends InheritedWidget {
       : super(key: key, child: child);
 
   @override
-  // ignore: avoid_renaming_method_parameters
   bool updateShouldNotify(NeumorphicThemeInherited old) => value != old.value;
 
   NeumorphicThemeData? get current {
@@ -41,11 +41,9 @@ class NeumorphicThemeInherited extends InheritedWidget {
   void updateCurrentTheme(NeumorphicThemeData update) {
     if (value.useDark) {
       final newValue = value.copyWith(darkTheme: update);
-      //this.value = newValue;
       onChanged(newValue);
     } else {
       final newValue = value.copyWith(theme: update);
-      //this.value = newValue;
       onChanged(newValue);
     }
   }
@@ -54,11 +52,9 @@ class NeumorphicThemeInherited extends InheritedWidget {
     final update = themeUpdater(value.current);
     if (value.useDark) {
       final newValue = value.copyWith(darkTheme: update);
-      //this.value = newValue;
       onChanged(newValue);
     } else {
       final newValue = value.copyWith(theme: update);
-      //this.value = newValue;
       onChanged(newValue);
     }
   }

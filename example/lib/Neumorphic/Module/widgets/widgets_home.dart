@@ -65,14 +65,6 @@ class WidgetsHome extends StatelessWidget {
                           return const ContainerWidgetPage();
                         }));
                       }),
-                  // _buildButton(
-                  //     text: "App bar",
-                  //     onClick: () {
-                  //       Navigator.of(context)
-                  //           .push(MaterialPageRoute(builder: (context) {
-                  //         return AppBarWidgetPage();
-                  //       }));
-                  //     }),
                   _buildButton(
                       text: "Button",
                       onClick: () {
@@ -153,14 +145,6 @@ class WidgetsHome extends StatelessWidget {
                           return const ProgressWidgetPage();
                         }));
                       }),
-                  // _buildButton(
-                  //     text: "IndeterminateProgress",
-                  //     onClick: () {
-                  //       Navigator.of(context)
-                  //           .push(MaterialPageRoute(builder: (context) {
-                  //         return IndeterminateProgressWidgetPage();
-                  //       }));
-                  //     }),
                   _buildButton(
                       text: "Background",
                       onClick: () {

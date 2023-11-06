@@ -24,16 +24,13 @@ class NeumorphicDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    //print("createBoxPainter : ${style.depth}");
     if (style.depth != null && style.depth! >= 0) {
       return NeumorphicDecorationPainter(
         style: style,
         drawGradient: (isForeground && splitBackgroundForeground) ||
             (!isForeground && !splitBackgroundForeground),
         drawBackground: !isForeground,
-        //only box draw background
         drawShadow: !isForeground,
-        //only box draw shadow
         renderingByPath: renderingByPath,
         onChanged: onChanged ?? () {},
         shape: shape,
@@ -79,17 +76,13 @@ class NeumorphicDecoration extends Decoration {
 
   static NeumorphicDecoration? lerp(
       NeumorphicDecoration? a, NeumorphicDecoration? b, double t) {
-    //print("lerp $t ${a.style.depth}, ${b.style.depth}");
-
     if (a == null && b == null) return null;
     if (a == null) return b!.scale(t);
     if (b == null) return a.scale(1.0 - t);
     if (t == 0.0) {
-      //print("return a");
       return a;
     }
     if (t == 1.0) {
-      //print("return b (1.0)");
       return b;
     }
 

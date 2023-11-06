@@ -37,7 +37,6 @@ class NeumorphicAppBarIcons {
   })  : _backIcon = backIcon,
         _forwardIcon = forwardIcon;
 
-  //if back icon null then get platform oriented icon
   Icon get backIcon => _backIcon ?? _getBackIcon;
   Icon get _getBackIcon => Platform.isIOS || Platform.isMacOS
       ? const Icon(Icons.arrow_back_ios)
@@ -63,7 +62,6 @@ class NeumorphicAppBarIcons {
   }
 
   @override
-  // ignore: avoid_renaming_method_parameters
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 

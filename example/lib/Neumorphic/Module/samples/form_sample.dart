@@ -129,19 +129,6 @@ class __PageState extends State<_Page> {
                   const SizedBox(
                     height: 8,
                   ),
-                  /*
-                  _RideField(
-                    rides: this.rides,
-                    onChanged: (rides) {
-                      setState(() {
-                        this.rides = rides;
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                   */
                   const SizedBox(
                     height: 20,
                   ),

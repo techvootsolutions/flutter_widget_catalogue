@@ -119,9 +119,6 @@ Expanded(
           Expanded(
             child: NeumorphicToggle(
               height: 50,
-              style: const NeumorphicToggleStyle(
-                  //backgroundColor: Colors.red,
-                  ),
               selectedIndex: _selectedIndex,
               displayForegroundOnlyIfSelected: true,
               children: [
@@ -171,7 +168,6 @@ Expanded(
               onChanged: (value) {
                 setState(() {
                   _selectedIndex = value;
-                  // print("_firstSelected: $_selectedIndex");
                 });
               },
             ),
@@ -272,16 +268,11 @@ NeumorphicToggle(
             ),
             onAnimationChangedFinished: (value) {
               if (value == 0) {
-                // Scaffold.of(context).showSnackBar(new SnackBar(
-                //     content: new Text(value)
-                // ));
-                // print("onAnimationChangedFinished: $_selectedIndex");
               }
             },
             onChanged: (value) {
               setState(() {
                 _selectedIndex = value;
-                // print("_firstSelected: $_selectedIndex");
               });
             },
           ),

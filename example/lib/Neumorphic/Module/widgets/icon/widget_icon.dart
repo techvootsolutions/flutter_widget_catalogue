@@ -54,10 +54,6 @@ class _PageState extends State<_Page> {
               child: NeumorphicIcon(
                 icons[index],
                 size: 80,
-                style: const NeumorphicStyle(
-                    //shape: NeumorphicShape.convex,
-                    //surfaceIntensity: 1.0
-                    ),
               ),
             );
           },

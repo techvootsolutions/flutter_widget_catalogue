@@ -21,11 +21,8 @@ class ThemeWrapper {
   });
 
   bool get useDark =>
-      //forced to use DARK by user
       themeMode == ThemeMode.dark ||
-      //The setting indicating the current brightness mode of the host platform. If the platform has no preference, platformBrightness defaults to Brightness.light.
       (themeMode == ThemeMode.system &&
-          // ignore: deprecated_member_use
           window.platformBrightness == Brightness.dark);
 
   NeumorphicThemeData? get current {
