@@ -1,4 +1,3 @@
-import 'package:example/Neumorphic/Module/widgets/toggle/widget_toggle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'background/widget_background.dart';
@@ -12,39 +11,66 @@ import 'radiobutton/widget_radio_button.dart';
 import 'range_slider/widget_range_slider.dart';
 import 'slider/widget_slider.dart';
 import 'switch/widget_switch.dart';
+import 'toggle/widget_toggle.dart';
 
 class WidgetsHome extends StatelessWidget {
   const WidgetsHome({super.key});
 
-  Widget _buildButton({String? text, VoidCallback? onClick}) {
+  Widget _buildButton({
+    required String text,
+    required VoidCallback onClick,
+    required IconData icon,
+  }) {
     return NeumorphicButton(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.symmetric(
-        vertical: 18,
+        vertical: 16,
         horizontal: 24,
       ),
       style: NeumorphicStyle(
-        boxShape: NeumorphicBoxShape.roundRect(
-          BorderRadius.circular(12),
-        ),
-        shape: NeumorphicShape.flat,
+        depth: 4,
+        intensity: 0.8,
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(16)),
+        color: NeumorphicColors.background,
+        shadowLightColor: Colors.white,
+        shadowDarkColor: Colors.grey.shade500,
       ),
       onPressed: onClick,
-      child: Center(child: Text(text!)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, color: Colors.blueGrey.shade800, size: 22),
+          const SizedBox(width: 12),
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueGrey.shade800,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-      theme: const NeumorphicThemeData(depth: 8),
+      theme: const NeumorphicThemeData(
+        depth: 4,
+        baseColor: NeumorphicColors.background,
+        lightSource: LightSource.topLeft,
+        intensity: 0.8,
+      ),
       child: Scaffold(
-        backgroundColor: NeumorphicColors.background,
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.cyan,
+          backgroundColor: Colors.blue.shade600,
+          elevation: 4,
           title: const Text(
-            "Neumorphic Container Widgets",
-            style: TextStyle(fontSize: 20.0, color: Colors.white),
+            "Neumorphic Widgets",
+            style: TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
         body: SafeArea(
@@ -53,106 +79,126 @@ class WidgetsHome extends StatelessWidget {
               padding: const EdgeInsets.all(18.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
                 children: [
-                  // TopBar(title: "Widgets"),
+                  Text(
+                    "Choose a Widget",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey.shade800,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+            
                   _buildButton(
-                      text: "Container",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const ContainerWidgetPage();
-                        }));
-                      }),
+                    text: "Container",
+                    icon: Icons.crop_square,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ContainerWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Button",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const ButtonWidgetPage();
-                        }));
-                      }),
+                    text: "Button",
+                    icon: Icons.touch_app,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ButtonWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Icon",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const IconWidgetPage();
-                        }));
-                      }),
+                    text: "Icon",
+                    icon: Icons.insert_emoticon,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const IconWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "RadioButton",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const RadioButtonWidgetPage();
-                        }));
-                      }),
+                    text: "RadioButton",
+                    icon: Icons.radio_button_checked,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const RadioButtonWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Checkbox",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const CheckboxWidgetPage();
-                        }));
-                      }),
+                    text: "Checkbox",
+                    icon: Icons.check_box,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const CheckboxWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Switch",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const SwitchWidgetPage();
-                        }));
-                      }),
+                    text: "Switch",
+                    icon: Icons.toggle_on,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SwitchWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Toggle",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const ToggleWidgetPage();
-                        }));
-                      }),
+                    text: "Toggle",
+                    icon: Icons.toggle_off,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ToggleWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Slider",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const SliderWidgetPage();
-                        }));
-                      }),
+                    text: "Slider",
+                    icon: Icons.linear_scale,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const SliderWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Range slider",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const RangeSliderWidgetPage();
-                        }));
-                      }),
+                    text: "Range Slider",
+                    icon: Icons.tune,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const RangeSliderWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Indicator",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const IndicatorWidgetPage();
-                        }));
-                      }),
+                    text: "Indicator",
+                    icon: Icons.speed,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const IndicatorWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Progress",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const ProgressWidgetPage();
-                        }));
-                      }),
+                    text: "Progress",
+                    icon: Icons.hourglass_top,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const ProgressWidgetPage(),
+                      ));
+                    },
+                  ),
                   _buildButton(
-                      text: "Background",
-                      onClick: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return const BackgroundWidgetPage();
-                        }));
-                      }),
+                    text: "Background",
+                    icon: Icons.wallpaper,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const BackgroundWidgetPage(),
+                      ));
+                    },
+                  ),
                 ],
               ),
             ),

@@ -7,14 +7,14 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final List<Widget>? actions;
 
-  static const double kToolbarHeight = 110.0;
+  static const double kToolbarHeight = 70.0;
 
   const TopBar({super.key, this.title = "", this.actions});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 18.0),
+      padding: const EdgeInsets.only(bottom: 0.0, top: 15),
       child: Stack(
         alignment: Alignment.center,
         children: [

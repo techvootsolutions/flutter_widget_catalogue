@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Widgets',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Widgets'),
     );
@@ -32,72 +34,78 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List items = [
-    'Button',
-    "Neumorphic Container Widgets",
-    "Switch",
+  final List<Map<String, dynamic>> items = [
+    {'title': 'Button Widgets', 'route': const Buttons()},
+    {'title': 'Neumorphic Widgets', 'route': const WidgetsHome()},
+    {'title': 'Switch Widgets', 'route': const MySwitch()},
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
         title: Text(
           widget.title,
-          style: const TextStyle(color: Colors.white),
+          style: const TextStyle(
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
         ),
+        backgroundColor: Colors.blue.shade600,
+        elevation: 4,
       ),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-        child: ListView.builder(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade100, Colors.blue.shade50],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: ListView.builder(
             itemCount: items.length,
             itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () {
-                  if (index == 0) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const Buttons()),
-                    );
-                  } else if (index == 1) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WidgetsHome()),
-                    );
-                  } else if (index == 2) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MySwitch()),
-                    );
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: listItem(items[index], index),
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: listItem(
+                  title: items[index]['title'],
+                  widget: items[index]['route'],
                 ),
               );
-            }),
+            },
+          ),
+        ),
       ),
     );
   }
-}
 
-Widget listItem(String title, int index) {
-  return Container(
-    height: 50,
-    width: double.infinity,
-    padding: const EdgeInsets.symmetric(vertical: 13),
-    decoration: BoxDecoration(
-        color: Colors.cyan,
-        border: Border.all(
-          color: Colors.white,
+  Widget listItem({required String title, required Widget widget}) {
+    return Card(
+      elevation: 6,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () {
+          // ✅ Ensure navigation works correctly
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => widget),
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 18),
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.blue.shade700,
+              ),
+            ),
+          ),
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(10))),
-    child: Text(title,
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 20.0, fontWeight: FontWeight.w700)),
-  );
+      ),
+    );
+  }
 }
