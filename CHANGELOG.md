@@ -68,3 +68,23 @@ All notable changes to flutter_widget_catalogue will be documented in this file
 ### What's Changed - 10-10-2023
 
 - Add switch code and screenshot in README.md file
+
+## 1.1.3+2
+### What's Changed - 06-11-2023
+
+- Change README.md file
+- Remove un-used comment
+
+## 1.1.3+3
+### What's Changed - 06-11-2023
+
+- Change CHANGELOG.md file
+- Remove un-used comment 
+
+## 1.1.4
+### What's Changed - 05-03-2025
+
+- Improve UI design and set attractive colors
+- Change CHANGELOG.md file
+- Remove un-used comment and code
+- Update flutter 3.20.0 and set all latest dependency

@@ -71,9 +71,7 @@ class __PageState extends State<_Page> {
   Widget _buildTopBar(BuildContext context) {
     return Center(
       child: NeumorphicButton(
-        onPressed: () {
-          // print("click");
-        },
+        onPressed: () {},
         style: const NeumorphicStyle(
           shape: NeumorphicShape.flat,
           boxShape: NeumorphicBoxShape.circle(),

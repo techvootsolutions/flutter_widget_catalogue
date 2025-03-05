@@ -1,5 +1,6 @@
+// ignore_for_file: library_prefixes, constant_identifier_names
+
 import 'package:flutter_widget_catalogue/Neumorphic/Module/widget/animation/animated_scale.dart'
-    // ignore: library_prefixes
     as animationScale;
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
@@ -65,7 +66,6 @@ class NeumorphicSwitchStyle {
 
 @immutable
 class NeumorphicSwitch extends StatelessWidget {
-  // ignore: constant_identifier_names
   static const MIN_EMBOSS_DEPTH = -1.0;
 
   final bool value;
@@ -96,7 +96,6 @@ class NeumorphicSwitch extends StatelessWidget {
         aspectRatio: 2 / 1,
         child: GestureDetector(
           onTap: () {
-            // animation breaking prevention
             if (!isEnabled) {
               return;
             }
@@ -159,7 +158,6 @@ class NeumorphicSwitch extends StatelessWidget {
 
   double? _getTrackDepth(double? themeDepth) {
     if (themeDepth == null) return themeDepth;
-    //force negative to have emboss
     final double depth = -1 * (style.trackDepth ?? themeDepth).abs();
     return depth.clamp(Neumorphic.MIN_DEPTH, NeumorphicSwitch.MIN_EMBOSS_DEPTH);
   }
@@ -207,7 +205,6 @@ class AnimatedThumb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // This Container is actually the inner track containing the thumb
     return AnimatedAlign(
       curve: curve,
       alignment: alignment,

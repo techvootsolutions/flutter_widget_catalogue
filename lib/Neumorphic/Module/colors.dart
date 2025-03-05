@@ -17,13 +17,10 @@ class NeumorphicColors {
   static const Color defaultBorder = Color(0x33000000);
   static const Color darkDefaultBorder = Color(0x33FFFFFF);
 
-  static const Color decorationMaxWhiteColor =
-      Color(0xFFFFFFFF); //for intensity = 1
-  static const Color decorationMaxDarkColor =
-      Color(0x8A000000); //for intensity = 1
+  static const Color decorationMaxWhiteColor = Color(0xFFFFFFFF);
+  static const Color decorationMaxDarkColor = Color(0x8A000000);
 
-  static const Color embossMaxWhiteColor =
-      Color(0x99FFFFFF); //for intensity = 1
+  static const Color embossMaxWhiteColor = Color(0x99FFFFFF);
   static const Color embossMaxDarkColor = Color(0x73000000); //for intensity = 1
 
   static const Color _gradientShaderDarkColor = Color(0x8A000000);
@@ -34,7 +31,6 @@ class NeumorphicColors {
   const NeumorphicColors._();
 
   static Color decorationWhiteColor(Color color, {required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
       maxColor: color,
       percent: intensity,
@@ -42,7 +38,6 @@ class NeumorphicColors {
   }
 
   static Color decorationDarkColor(Color color, {required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
       maxColor: color,
       percent: intensity,
@@ -50,7 +45,6 @@ class NeumorphicColors {
   }
 
   static Color embossWhiteColor(Color color, {required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
       maxColor: color,
       percent: intensity,
@@ -58,7 +52,6 @@ class NeumorphicColors {
   }
 
   static Color embossDarkColor(Color color, {required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
       maxColor: color,
       percent: intensity,
@@ -66,14 +59,12 @@ class NeumorphicColors {
   }
 
   static Color gradientShaderDarkColor({required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
         maxColor: NeumorphicColors._gradientShaderDarkColor,
         percent: intensity);
   }
 
   static Color gradientShaderWhiteColor({required double intensity}) {
-    // intensity act on opacity;
     return _applyPercentageOnOpacity(
         maxColor: NeumorphicColors._gradientShaderWhiteColor,
         percent: intensity);

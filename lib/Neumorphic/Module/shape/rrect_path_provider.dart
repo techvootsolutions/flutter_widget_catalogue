@@ -22,5 +22,5 @@ class RRectPathProvider extends NeumorphicPathProvider {
   }
 
   @override
-  bool get oneGradientPerPath => false; //because only 1 path
+  bool get oneGradientPerPath => false;
 }

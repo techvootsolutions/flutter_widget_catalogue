@@ -179,7 +179,8 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style: const NeumorphicSwitchStyle(thumbShape: NeumorphicShape.flat),
+                style: const NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.flat),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -202,8 +203,8 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style:
-                    const NeumorphicSwitchStyle(thumbShape: NeumorphicShape.concave),
+                style: const NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.concave),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -226,8 +227,8 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style:
-                    const NeumorphicSwitchStyle(thumbShape: NeumorphicShape.convex),
+                style: const NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.convex),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -460,8 +461,8 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style:
-                    const NeumorphicSwitchStyle(thumbShape: NeumorphicShape.concave),
+                style: const NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.concave),
                 value: isChecked1,
                 onChanged: (value) {
                   setState(() {
@@ -485,8 +486,8 @@ NeumorphicSwitch(
               const SizedBox(width: 12),
               NeumorphicSwitch(
                 isEnabled: false,
-                style:
-                    const NeumorphicSwitchStyle(thumbShape: NeumorphicShape.convex),
+                style: const NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.convex),
                 value: isChecked2,
                 onChanged: (value) {
                   setState(() {

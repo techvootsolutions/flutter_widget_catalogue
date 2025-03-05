@@ -77,8 +77,8 @@ class NeumorphicCheckbox extends StatelessWidget {
   final Duration duration;
   final Curve curve;
 
-  // ignore: use_key_in_widget_constructors
   const NeumorphicCheckbox({
+    super.key,
     this.style = const NeumorphicCheckboxStyle(),
     required this.value,
     required this.onChanged,

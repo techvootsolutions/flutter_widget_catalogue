@@ -41,9 +41,9 @@ abstract class AbstractNeumorphicEmbossPainterCache {
 
   Rect updateLayerRect({required Offset newOffset, required Size newSize});
 
-  double? _cacheStyleDepth; //old style depth
-  double? _depth; //depth used to draw
-  double get depth => _depth ?? 0; //depth used to draw
+  double? _cacheStyleDepth;
+  double? _depth;
+  double get depth => _depth ?? 0;
   bool updateStyleDepth(double newStyleDepth, double radiusFactor) {
     if (_cacheStyleDepth != newStyleDepth) {
       _cacheStyleDepth = newStyleDepth;
@@ -78,13 +78,11 @@ abstract class AbstractNeumorphicEmbossPainterCache {
     return false;
   }
 
-  bool?
-      _cacheOppositeShadowLightSource; //store the old style lightsource property
-  LightSource? _cacheLightSource; //store the old style lightsource
+  bool? _cacheOppositeShadowLightSource;
+  LightSource? _cacheLightSource;
 
-  LightSource? _lightSource; //used to draw
-  LightSource get lightSource =>
-      _lightSource ?? LightSource.bottom; //used to draw
+  LightSource? _lightSource;
+  LightSource get lightSource => _lightSource ?? LightSource.bottom;
   bool updateLightSource(
       LightSource newLightSource, bool newOppositeShadowLightSource) {
     bool invalidateLightSource = false;
@@ -148,7 +146,6 @@ abstract class AbstractNeumorphicEmbossPainterCache {
       invalidateIntensity = true;
       _styleIntensity = newIntensity;
     }
-    //light
     if (invalidateIntensity ||
         _styleShadowLightColor != newShadowLightColorEmboss) {
       _styleShadowLightColor = newShadowLightColorEmboss;
@@ -157,7 +154,6 @@ abstract class AbstractNeumorphicEmbossPainterCache {
 
       invalidate = true;
     }
-    //dark
     if (invalidate || _styleShadowDarkColor != newShadowDarkColorEmboss) {
       _styleShadowDarkColor = newShadowDarkColorEmboss;
       _shadowDarkColor = generateShadowDarkColor(
@@ -169,7 +165,6 @@ abstract class AbstractNeumorphicEmbossPainterCache {
     return invalidate;
   }
 
-  //call after _cacheWidth & _cacheHeight set
   void updateTranslations();
 
   final List<Path> subPaths = [];

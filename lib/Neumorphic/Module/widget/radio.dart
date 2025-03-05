@@ -10,8 +10,8 @@ class NeumorphicRadioStyle {
   final double? unselectedDepth;
   final bool disableDepth;
 
-  final Color? selectedColor; //null for default
-  final Color? unselectedColor; //null for unchanged color
+  final Color? selectedColor;
+  final Color? unselectedColor;
 
   final double? intensity;
   final NeumorphicShape? shape;
@@ -77,7 +77,6 @@ class NeumorphicRadio<T> extends StatelessWidget {
   final Duration duration;
   final Curve curve;
 
-  // ignore: use_key_in_widget_constructors
   const NeumorphicRadio({
     this.child,
     this.style = const NeumorphicRadioStyle(),
@@ -95,7 +94,6 @@ class NeumorphicRadio<T> extends StatelessWidget {
   void _onClick() {
     if (onChanged != null) {
       if (value == groupValue) {
-        //unselect
         onChanged!(null);
       } else {
         onChanged!(value);

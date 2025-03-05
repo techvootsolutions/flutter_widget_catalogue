@@ -22,7 +22,6 @@ class BeveledPathProvider extends NeumorphicPathProvider {
     return _getPath(rrect);
   }
 
-  //from material
   Path _getPath(RRect rrect) {
     final Offset centerLeft = Offset(rrect.left, rrect.center.dy);
     final Offset centerRight = Offset(rrect.right, rrect.center.dy);
@@ -53,5 +52,5 @@ class BeveledPathProvider extends NeumorphicPathProvider {
   }
 
   @override
-  bool get oneGradientPerPath => false; //because only 1 path
+  bool get oneGradientPerPath => false;
 }

@@ -45,8 +45,8 @@ class _PageState extends State<_Page> {
         ),
         backgroundColor: Colors.transparent,
         body: GridView.builder(
-          gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4),
           itemCount: icons.length,
           itemBuilder: (context, index) {
             return Padding(
@@ -54,10 +54,6 @@ class _PageState extends State<_Page> {
               child: NeumorphicIcon(
                 icons[index],
                 size: 80,
-                style: const NeumorphicStyle(
-                    //shape: NeumorphicShape.convex,
-                    //surfaceIntensity: 1.0
-                    ),
               ),
             );
           },

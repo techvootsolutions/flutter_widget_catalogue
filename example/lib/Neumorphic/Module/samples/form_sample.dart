@@ -71,8 +71,8 @@ class __PageState extends State<_Page> {
                     alignment: Alignment.centerRight,
                     child: NeumorphicButton(
                       onPressed: _isButtonEnabled() ? () {} : null,
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(fontWeight: FontWeight.w800),
@@ -129,19 +129,6 @@ class __PageState extends State<_Page> {
                   const SizedBox(
                     height: 8,
                   ),
-                  /*
-                  _RideField(
-                    rides: this.rides,
-                    onChanged: (rides) {
-                      setState(() {
-                        this.rides = rides;
-                      });
-                    },
-                  ),
-                  SizedBox(
-                    height: 28,
-                  ),
-                   */
                   const SizedBox(
                     height: 20,
                   ),

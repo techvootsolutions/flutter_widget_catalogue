@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, library_private_types_in_public_api
+
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 export 'inherited_neumorphic_theme.dart';
@@ -10,9 +12,8 @@ class NeumorphicTheme extends StatefulWidget {
   final Widget child;
   final ThemeMode themeMode;
 
-  // ignore: use_key_in_widget_constructors
   const NeumorphicTheme({
-    Key? key,
+    super.key,
     required this.child,
     this.theme = neumorphicDefaultTheme,
     this.darkTheme = neumorphicDefaultDarkTheme,
@@ -20,7 +21,6 @@ class NeumorphicTheme extends StatefulWidget {
   });
 
   @override
-  // ignore: library_private_types_in_public_api
   _NeumorphicThemeState createState() => _NeumorphicThemeState();
 
   static NeumorphicThemeInherited? of(BuildContext context) {
@@ -69,7 +69,6 @@ class NeumorphicTheme extends StatefulWidget {
   }
 
   static double? embossDepth(BuildContext context) {
-    // ignore: unnecessary_null_comparison
     if (currentTheme(context).depth == null) return null;
     return -currentTheme(context).depth.abs();
   }

@@ -188,11 +188,8 @@ class __PageContentState extends State<_PageContent> {
           Expanded(
             flex: 2,
             child: GridView.count(
-              // Create a grid with 2 columns. If you change the scrollDirection to
-              // horizontal, this produces 2 rows.
               crossAxisCount: 4,
               padding: const EdgeInsets.only(left: 40, right: 40.0),
-              // Generate 100 widgets that display their index in the List.
               children: List.generate(buttons.length, (index) {
                 return WidgetCalcButton(buttons[index]);
               }),

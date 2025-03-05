@@ -26,5 +26,5 @@ class NeumorphicFlutterLogoPathProvider extends NeumorphicPathProvider {
   }
 
   @override
-  bool get oneGradientPerPath => true; //one shape(convex/concave) / subPath
+  bool get oneGradientPerPath => true;
 }

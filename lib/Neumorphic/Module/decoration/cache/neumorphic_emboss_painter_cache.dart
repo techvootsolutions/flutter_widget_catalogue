@@ -42,7 +42,6 @@ class NeumorphicEmbossPainterCache
   late double scaleX;
   late double scaleY;
 
-  //call after _cacheWidth & _cacheHeight set
   @override
   void updateTranslations() {
     xDepth = lightSource.dx * depth;

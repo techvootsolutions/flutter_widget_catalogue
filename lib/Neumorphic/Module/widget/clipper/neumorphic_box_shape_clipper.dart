@@ -6,8 +6,7 @@ class NeumorphicBoxShapeClipper extends StatelessWidget {
   final NeumorphicBoxShape shape;
   final Widget? child;
 
-  // ignore: use_key_in_widget_constructors
-  const NeumorphicBoxShapeClipper({required this.shape, this.child});
+  const NeumorphicBoxShapeClipper({super.key, required this.shape, this.child});
 
   CustomClipper<Path>? _getClipper(NeumorphicBoxShape shape) {
     return shape.customShapePathProvider;

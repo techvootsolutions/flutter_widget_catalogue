@@ -157,7 +157,6 @@ class NeumorphicClock extends StatelessWidget {
               fit: StackFit.expand,
               alignment: Alignment.center,
               children: [
-                //the click center
                 const Neumorphic(
                   style: NeumorphicStyle(
                     depth: -1,
@@ -169,7 +168,6 @@ class NeumorphicClock extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Stack(
                     children: <Widget>[
-                      //those childs are not "good" for a real clock, but will fork for a sample
                       Align(
                         alignment: Alignment.topCenter,
                         child: _createDot(context),

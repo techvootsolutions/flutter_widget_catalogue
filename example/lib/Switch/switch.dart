@@ -24,302 +24,194 @@ class SwitchPageState extends State<MySwitch> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        textTheme: TextTheme(
-          titleMedium: TextStyle(color: _textColor),
-          titleSmall: TextStyle(color: _textColor),
+    return Scaffold(
+      backgroundColor: _scaffoldBgColor,
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade600,
+        elevation: 4,
+        title: const Text(
+          "Switch UI",
+          style: TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.cyan,
-          title: const Text(
-            "Switch",
-            style: TextStyle(fontSize: 20.0, color: Colors.white),
-          ),
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text("Default"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      value: status1,
-                      onToggle: (val) {
-                        setState(() {
-                          status1 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status1",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Custom Colors with Border"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      width: 100.0,
-                      height: 55.0,
-                      toggleSize: 45.0,
-                      value: status2,
-                      borderRadius: 30.0,
-                      padding: 2.0,
-                      toggleColor: const Color.fromRGBO(225, 225, 225, 1),
-                      switchBorder: Border.all(
-                        color: const Color.fromRGBO(2, 107, 206, 1),
-                        width: 6.0,
-                      ),
-                      toggleBorder: Border.all(
-                        color: const Color.fromRGBO(2, 107, 206, 1),
-                        width: 5.0,
-                      ),
-                      activeColor: const Color.fromRGBO(51, 226, 255, 1),
-                      inactiveColor: Colors.black38,
-                      onToggle: (val) {
-                        setState(() {
-                          status2 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status2",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("With 'On' and 'Off' text and custom text colors"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      showOnOff: true,
-                      activeTextColor: Colors.black,
-                      inactiveTextColor: Colors.blue.shade50,
-                      value: status3,
-                      onToggle: (val) {
-                        setState(() {
-                          status3 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status3",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Custom size"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      width: 55.0,
-                      height: 25.0,
-                      valueFontSize: 12.0,
-                      toggleSize: 18.0,
-                      value: status4,
-                      onToggle: (val) {
-                        setState(() {
-                          status4 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status4",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Custom border radius and padding"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      width: 125.0,
-                      height: 55.0,
-                      valueFontSize: 25.0,
-                      toggleSize: 45.0,
-                      value: status5,
-                      borderRadius: 30.0,
-                      padding: 8.0,
-                      showOnOff: true,
-                      onToggle: (val) {
-                        setState(() {
-                          status5 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status5",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Custom text"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      activeText: "All Good. Negative.",
-                      inactiveText: "Under Quarantine.",
-                      value: status6,
-                      valueFontSize: 10.0,
-                      width: 110,
-                      borderRadius: 30.0,
-                      showOnOff: true,
-                      onToggle: (val) {
-                        setState(() {
-                          status6 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Value: $status6",
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20.0),
-                const Text("Icon in toggle"),
-                const Text(
-                  "Inspired by the colors from Github Dark Mode switch",
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    fontStyle: FontStyle.italic,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          children: <Widget>[
+            buildSwitchCard("Default Switch", status1, (val) {
+              setState(() => status1 = val);
+            }),
+            buildSwitchCard("Custom Colors & Border", status2, (val) {
+              setState(() => status2 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  width: 90.0,
+                  height: 45.0,
+                  toggleSize: 38.0,
+                  value: status2,
+                  borderRadius: 24.0,
+                  padding: 2.0,
+                  toggleColor: Colors.white,
+                  switchBorder: Border.all(color: Colors.blueAccent, width: 3.0),
+                  activeColor: Colors.cyan,
+                  inactiveColor: Colors.grey.shade400,
+                  onToggle: (val) {
+                    setState(() {
+                      status2 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Text On/Off", status3, (val) {
+              setState(() => status3 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  showOnOff: true,
+                  activeTextColor: Colors.black,
+                  inactiveTextColor: Colors.white,
+                  activeColor: Colors.green,
+                  inactiveColor: Colors.red,
+                  value: status3,
+                  onToggle: (val) {
+                    setState(() {
+                      status3 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Custom Size", status4, (val) {
+              setState(() => status4 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  width: 60.0,
+                  height: 30.0,
+                  toggleSize: 22.0,
+                  valueFontSize: 12.0,
+                  value: status4,
+                  onToggle: (val) {
+                    setState(() {
+                      status4 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Rounded & Padding", status5, (val) {
+              setState(() => status5 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  width: 120.0,
+                  height: 50.0,
+                  valueFontSize: 20.0,
+                  toggleSize: 40.0,
+                  borderRadius: 30.0,
+                  padding: 6.0,
+                  showOnOff: true,
+                  activeColor: Colors.blue.shade700,
+                  inactiveColor: Colors.grey.shade600,
+                  value: status5,
+                  onToggle: (val) {
+                    setState(() {
+                      status5 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Custom Labels", status6, (val) {
+              setState(() => status6 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  activeText: "Enabled",
+                  inactiveText: "Disabled",
+                  value: status6,
+                  valueFontSize: 12.0,
+                  width: 100,
+                  borderRadius: 20.0,
+                  showOnOff: true,
+                  activeColor: Colors.greenAccent.shade700,
+                  inactiveColor: Colors.redAccent.shade400,
+                  onToggle: (val) {
+                    setState(() {
+                      status6 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Icon in Toggle", status7, (val) {
+              setState(() {
+                status7 = val;
+                _textColor = val ? Colors.white : Colors.black;
+                _appBarColor = val ? Colors.black87 : Colors.blueAccent;
+                _scaffoldBgColor = val ? Colors.black : Colors.white;
+              });
+            },
+                switchWidget: FlutterSwitch(
+                  width: 90.0,
+                  height: 45.0,
+                  toggleSize: 38.0,
+                  borderRadius: 24.0,
+                  padding: 2.0,
+                  activeToggleColor: Colors.deepPurpleAccent,
+                  inactiveToggleColor: Colors.grey.shade600,
+                  activeIcon: const Icon(Icons.dark_mode, color: Colors.yellow),
+                  inactiveIcon: const Icon(Icons.light_mode, color: Colors.orange),
+                  activeColor: Colors.black,
+                  inactiveColor: Colors.white,
+                  value: status7,
+                  onToggle: (val) {
+                    setState(() {
+                      status7 = val;
+                    });
+                  },
+                )),
+            buildSwitchCard("Image as Toggle Icon", status8, (val) {
+              setState(() => status8 = val);
+            },
+                switchWidget: FlutterSwitch(
+                  width: 100.0,
+                  height: 50.0,
+                  toggleSize: 40.0,
+                  borderRadius: 30.0,
+                  padding: 5,
+                  activeToggleColor: Colors.blue,
+                  inactiveToggleColor: Colors.grey,
+                  activeIcon: Image.network(
+                    "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png",
+                    width: 30,
                   ),
-                ),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      width: 100.0,
-                      height: 55.0,
-                      toggleSize: 45.0,
-                      value: status7,
-                      borderRadius: 30.0,
-                      padding: 2.0,
-                      activeToggleColor: const Color(0xFF6E40C9),
-                      inactiveToggleColor: const Color(0xFF2F363D),
-                      activeSwitchBorder: Border.all(
-                        color: const Color(0xFF3C1E70),
-                        width: 6.0,
-                      ),
-                      inactiveSwitchBorder: Border.all(
-                        color: const Color(0xFFD1D5DA),
-                        width: 6.0,
-                      ),
-                      activeColor: const Color(0xFF271052),
-                      inactiveColor: Colors.white,
-                      activeIcon: const Icon(
-                        Icons.nightlight_round,
-                        color: Color(0xFFF8E3A1),
-                      ),
-                      inactiveIcon: const Icon(
-                        Icons.wb_sunny,
-                        color: Color(0xFFFFDF5D),
-                      ),
-                      onToggle: (val) {
-                        setState(() {
-                          status7 = val;
+                  inactiveIcon: Image.network(
+                    "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
+                    width: 20,
+                  ),
+                  activeColor: Colors.lightBlue,
+                  inactiveColor: Colors.grey.shade400,
+                  value: status8,
+                  onToggle: (val) {
+                    setState(() {
+                      status8 = val;
+                    });
+                  },
+                )),
+          ],
+        ),
+      ),
+    );
+  }
 
-                          if (val) {
-                            _textColor = Colors.white;
-                            _appBarColor = const Color.fromRGBO(22, 27, 34, 1);
-                            _scaffoldBgColor = const Color(0xFF0D1117);
-                          } else {
-                            _textColor = Colors.black;
-                            _appBarColor = const Color.fromRGBO(36, 41, 46, 1);
-                            _scaffoldBgColor = Colors.white;
-                          }
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text("Value: $status7"),
-                    ),
-                  ],
+  /// 📌 **Reusable Switch Card UI**
+  Widget buildSwitchCard(String title, bool status, Function(bool) onToggle, {Widget? switchWidget}) {
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            switchWidget ??
+                FlutterSwitch(
+                  value: status,
+                  onToggle: onToggle,
+                  activeColor: Colors.teal,
+                  inactiveColor: Colors.redAccent,
                 ),
-                const SizedBox(height: 20.0),
-                const Text("Image as toggle icon"),
-                const SizedBox(height: 10.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    FlutterSwitch(
-                      width: 100.0,
-                      height: 55.0,
-                      toggleSize: 45.0,
-                      value: status8,
-                      borderRadius: 30.0,
-                      padding: 2.0,
-                      activeToggleColor: const Color(0xFF0082C8),
-                      inactiveToggleColor: const Color(0xFF01579B),
-                      activeSwitchBorder: Border.all(
-                        color: const Color(0xFF00D2B8),
-                        width: 6.0,
-                      ),
-                      inactiveSwitchBorder: Border.all(
-                        color: const Color(0xFF29B6F6),
-                        width: 6.0,
-                      ),
-                      activeColor: const Color(0xFF55DDCA),
-                      inactiveColor: const Color(0xFF54C5F8),
-                      activeIcon: Image.network(
-                        "https://img2.pngio.com/functional-bits-in-flutter-flutter-community-medium-flutter-png-1000_1000.png",
-                      ),
-                      inactiveIcon: Image.network(
-                        "https://upload.wikimedia.org/wikipedia/commons/7/7e/Dart-logo.png",
-                      ),
-                      onToggle: (val) {
-                        setState(() {
-                          status8 = val;
-                        });
-                      },
-                    ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      child: Text("Value: $status8"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          ],
         ),
       ),
     );

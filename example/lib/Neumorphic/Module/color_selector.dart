@@ -9,7 +9,11 @@ class ColorSelector extends StatelessWidget {
   final double width;
 
   const ColorSelector(
-      {super.key, this.height = 40, this.width = 40, this.color, this.onColorChanged});
+      {super.key,
+      this.height = 40,
+      this.width = 40,
+      this.color,
+      this.onColorChanged});
 
   @override
   Widget build(BuildContext context) {

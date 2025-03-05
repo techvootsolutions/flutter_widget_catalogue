@@ -20,7 +20,7 @@ Shader getGradientShader(
     ],
     stops: const [
       0,
-      0.75, //was 1 but set to 0.75 to be less dark
+      0.75,
     ],
   );
 

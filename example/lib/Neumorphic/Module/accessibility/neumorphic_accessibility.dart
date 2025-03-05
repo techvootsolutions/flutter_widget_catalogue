@@ -311,12 +311,6 @@ class __PageState extends State<_Page> {
             isEnabled: true, width: borderWidth, color: borderColor),
         shape: shape,
         intensity: intensity,
-        /*
-        shadowLightColor: Colors.red,
-        shadowDarkColor: Colors.blue,
-        shadowLightColorEmboss: Colors.red,
-        shadowDarkColorEmboss: Colors.blue,
-         */
         surfaceIntensity: surfaceIntensity,
         depth: depth,
         lightSource: lightSource,
@@ -463,7 +457,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: intensity,
             onChanged: (value) {
@@ -490,7 +484,7 @@ class __PageState extends State<_Page> {
         ),
         Expanded(
           child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
+            min: Neumorphic.MIN_INTENSITY,
             max: Neumorphic.MAX_INTENSITY,
             value: surfaceIntensity,
             onChanged: (value) {
