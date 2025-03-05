@@ -80,3 +80,11 @@ All notable changes to flutter_widget_catalogue will be documented in this file
 
 - Change CHANGELOG.md file
 - Remove un-used comment 
+
+## 1.1.4
+### What's Changed - 05-03-2025
+
+- Improve UI design and set attractive colors
+- Change CHANGELOG.md file
+- Remove un-used comment and code
+- Update flutter 3.20.0 and set all latest dependency
