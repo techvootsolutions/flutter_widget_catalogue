@@ -159,7 +159,9 @@ class _AvatarField extends StatelessWidget {
         child: Icon(
           Icons.insert_emoticon,
           size: 120,
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black.withValues(
+            alpha: (0.2 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+          ),
         ),
       ),
     );

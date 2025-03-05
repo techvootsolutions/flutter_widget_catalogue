@@ -121,7 +121,7 @@ class NeumorphicAppBarTheme extends InheritedWidget {
   @override
   final Widget child;
 
-  const NeumorphicAppBarTheme({required this.child}) : super(child: child);
+  const NeumorphicAppBarTheme({super.key, required this.child}) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {

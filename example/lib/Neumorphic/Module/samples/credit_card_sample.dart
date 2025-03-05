@@ -86,8 +86,12 @@ class __PageContentState extends State<_PageContent> {
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
                             colors: [
-                          Colors.purple.withOpacity(0.5),
-                          Colors.red.withOpacity(0.5)
+                        Colors.purple.withValues(
+                        alpha: (0.5 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                    ),
+                              Colors.red.withValues(
+                                alpha: (0.5 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                              ),
                         ])),
                   ),
                 ),
@@ -113,7 +117,10 @@ class __PageContentState extends State<_PageContent> {
                             "1234 5678",
                             style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.black.withOpacity(0.7)),
+                                color: Colors.black.withValues(
+                                  alpha: (0.7 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                                ),
+                            ),
                           ),
                           const SizedBox(
                             height: 3,
@@ -122,7 +129,9 @@ class __PageContentState extends State<_PageContent> {
                             "1234 5678",
                             style: TextStyle(
                                 fontSize: 30,
-                                color: Colors.black.withOpacity(0.7)),
+                                color: Colors.black.withValues(
+                                  alpha: (0.7 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                                ),),
                           ),
                         ],
                       ),
@@ -157,7 +166,9 @@ class __PageContentState extends State<_PageContent> {
                             "09/24",
                             style: TextStyle(
                                 fontSize: 20,
-                                color: Colors.white.withOpacity(0.7)),
+                                color: Colors.white.withValues(
+                                  alpha: (0.7 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                                ),),
                           ),
                           const SizedBox(
                             height: 8,

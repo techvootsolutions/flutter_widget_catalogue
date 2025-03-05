@@ -39,7 +39,7 @@ Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
 ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 
-#### 2) Switch
+#### 3) Switch
 
 Screenshot
 -----------

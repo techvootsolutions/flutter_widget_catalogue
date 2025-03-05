@@ -9,7 +9,7 @@ class CustomButtons {
     return !isIconButton
         ? TextButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(bgColor)),
+                backgroundColor: WidgetStateProperty.all(bgColor)),
             onPressed: onPressed as void Function()?,
             child: Text(
               title,
@@ -18,7 +18,7 @@ class CustomButtons {
           )
         : TextButton.icon(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(bgColor)),
+                backgroundColor: WidgetStateProperty.all(bgColor)),
             onPressed: onPressed as void Function()?,
             icon: Icon(
               icon,
@@ -34,7 +34,7 @@ class CustomButtons {
       String title, Color lineColor, Function onPressed, Color textColor) {
     return OutlinedButton(
       style: ButtonStyle(
-          side: MaterialStateProperty.all(BorderSide(color: lineColor))),
+          side: WidgetStateProperty.all(BorderSide(color: lineColor))),
       onPressed: onPressed as void Function()?,
       child: Text(
         title,
@@ -50,8 +50,8 @@ class CustomButtons {
       IconData icon = Icons.mail]) {
     return TextButton(
       style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(buttonColor),
-          padding: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(buttonColor),
+          padding: WidgetStateProperty.all(
               const EdgeInsets.symmetric(vertical: 12.0))),
       onPressed: onPressed as void Function()?,
       child: Row(
