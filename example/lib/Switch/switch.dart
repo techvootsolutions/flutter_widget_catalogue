@@ -18,14 +18,14 @@ class SwitchPageState extends State<MySwitch> {
   bool status8 = false;
   bool isSwitchOn = false;
 
-  Color _textColor = Colors.black;
-  Color _appBarColor = const Color.fromRGBO(36, 41, 46, 1);
-  Color _scaffoldBgColor = Colors.white;
+  Color textColor = Colors.black;
+  Color appBarColor = const Color.fromRGBO(36, 41, 46, 1);
+  Color scaffoldBgColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: _scaffoldBgColor,
+      backgroundColor: scaffoldBgColor,
       appBar: AppBar(
         backgroundColor: Colors.blue.shade600,
         elevation: 4,
@@ -134,9 +134,9 @@ class SwitchPageState extends State<MySwitch> {
             buildSwitchCard("Icon in Toggle", status7, (val) {
               setState(() {
                 status7 = val;
-                _textColor = val ? Colors.white : Colors.black;
-                _appBarColor = val ? Colors.black87 : Colors.blueAccent;
-                _scaffoldBgColor = val ? Colors.black : Colors.white;
+                textColor = val ? Colors.white : Colors.black;
+                appBarColor = val ? Colors.black87 : Colors.blueAccent;
+                scaffoldBgColor = val ? Colors.black : Colors.white;
               });
             },
                 switchWidget: FlutterSwitch(

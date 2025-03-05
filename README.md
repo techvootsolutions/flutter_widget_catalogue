@@ -1,6 +1,6 @@
 # Flutter widget catalogue
 
-Create awesome apps very faster with Flutter's collection of visual, structural, platform, UI and interactive widgets. Its a open source package.
+Create an awesome apps very faster with Flutter's collection of visual, structural, platform, UI and interactive widgets. Its a open source package.
 #### Buttons
 All types of buttons set in this package. Auth Buttons for authenticating with the most popular social networks like: Google, Facebook, Apple and too other and add more buttons like (Rounded buttons, simple buttons, border color button, etc....).
 #### Switch
@@ -39,11 +39,11 @@ Screenshot | Screenshot | Screenshot
 ------------ | ------------- | -------------
 ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg)
 
-#### 2) Switch
+#### 3) Switch
 
 Screenshot
 -----------
-![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.png)
+![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.jpg)
 
 ### How to use Buttons
 

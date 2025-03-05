@@ -62,14 +62,14 @@ class NeumorphicAppBarIcons {
   }
 
   @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
 
-    return o is NeumorphicAppBarIcons &&
-        o.backIcon == backIcon &&
-        o.closeIcon == closeIcon &&
-        o.menuIcon == menuIcon &&
-        o.forwardIcon == forwardIcon;
+    return other is NeumorphicAppBarIcons &&
+        other.backIcon == backIcon &&
+        other.closeIcon == closeIcon &&
+        other.menuIcon == menuIcon &&
+        other.forwardIcon == forwardIcon;
   }
 
   @override
