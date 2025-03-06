@@ -8,8 +8,8 @@ class CustomButtons {
       Color textColor = Colors.white]) {
     return !isIconButton
         ? TextButton(
-            style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(bgColor)),
+            style:
+                ButtonStyle(backgroundColor: WidgetStateProperty.all(bgColor)),
             onPressed: onPressed as void Function()?,
             child: Text(
               title,
@@ -17,8 +17,8 @@ class CustomButtons {
             ),
           )
         : TextButton.icon(
-            style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(bgColor)),
+            style:
+                ButtonStyle(backgroundColor: WidgetStateProperty.all(bgColor)),
             onPressed: onPressed as void Function()?,
             icon: Icon(
               icon,

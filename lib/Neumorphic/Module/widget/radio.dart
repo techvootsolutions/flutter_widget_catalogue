@@ -77,7 +77,8 @@ class NeumorphicRadio<T> extends StatelessWidget {
   final Duration duration;
   final Curve curve;
 
-  const NeumorphicRadio({super.key,
+  const NeumorphicRadio({
+    super.key,
     this.child,
     this.style = const NeumorphicRadioStyle(),
     this.value,

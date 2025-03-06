@@ -10,12 +10,15 @@ class Code extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       color: Colors.grey.withValues(
-        alpha: (0.2 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+        alpha: (0.2 * 255)
+            .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
       ),
       child: Text(
         text,
-        style: TextStyle(color: Colors.black.withValues(
-          alpha: (0.8 * 255).toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+        style: TextStyle(
+            color: Colors.black.withValues(
+          alpha: (0.8 * 255)
+              .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
         )),
       ),
     );
