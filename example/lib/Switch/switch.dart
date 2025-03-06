@@ -31,7 +31,8 @@ class SwitchPageState extends State<MySwitch> {
         elevation: 4,
         title: const Text(
           "Switch UI",
-          style: TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       body: SingleChildScrollView(
@@ -52,7 +53,8 @@ class SwitchPageState extends State<MySwitch> {
                   borderRadius: 24.0,
                   padding: 2.0,
                   toggleColor: Colors.white,
-                  switchBorder: Border.all(color: Colors.blueAccent, width: 3.0),
+                  switchBorder:
+                      Border.all(color: Colors.blueAccent, width: 3.0),
                   activeColor: Colors.cyan,
                   inactiveColor: Colors.grey.shade400,
                   onToggle: (val) {
@@ -148,7 +150,8 @@ class SwitchPageState extends State<MySwitch> {
                   activeToggleColor: Colors.deepPurpleAccent,
                   inactiveToggleColor: Colors.grey.shade600,
                   activeIcon: const Icon(Icons.dark_mode, color: Colors.yellow),
-                  inactiveIcon: const Icon(Icons.light_mode, color: Colors.orange),
+                  inactiveIcon:
+                      const Icon(Icons.light_mode, color: Colors.orange),
                   activeColor: Colors.black,
                   inactiveColor: Colors.white,
                   value: status7,
@@ -193,7 +196,8 @@ class SwitchPageState extends State<MySwitch> {
   }
 
   /// 📌 **Reusable Switch Card UI**
-  Widget buildSwitchCard(String title, bool status, Function(bool) onToggle, {Widget? switchWidget}) {
+  Widget buildSwitchCard(String title, bool status, Function(bool) onToggle,
+      {Widget? switchWidget}) {
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -203,7 +207,9 @@ class SwitchPageState extends State<MySwitch> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
             switchWidget ??
                 FlutterSwitch(
                   value: status,

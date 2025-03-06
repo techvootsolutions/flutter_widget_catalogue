@@ -337,7 +337,7 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""    
+    return const Code("""
 NeumorphicButton(
      isEnabled: false,
      child: Text("Second"),

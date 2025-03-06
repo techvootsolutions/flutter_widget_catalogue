@@ -302,7 +302,7 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""    
+    return const Code("""
 int groupValue;
 
 NeumorphicRadio(

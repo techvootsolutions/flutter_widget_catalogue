@@ -70,7 +70,10 @@ class WidgetsHome extends StatelessWidget {
           elevation: 4,
           title: const Text(
             "Neumorphic Widgets",
-            style: TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontSize: 22.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold),
           ),
         ),
         body: SafeArea(
@@ -90,7 +93,6 @@ class WidgetsHome extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
-            
                   _buildButton(
                     text: "Container",
                     icon: Icons.crop_square,

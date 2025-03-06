@@ -74,13 +74,15 @@ class NeumorphicColors {
       {required Color maxColor, required double percent}) {
     final maxAlpha = maxColor.a; // Get alpha (0-255)
     const maxIntensity = Neumorphic.MAX_INTENSITY;
-    final newAlpha = (percent * maxAlpha / maxIntensity).clamp(0, 255).toInt(); // Ensure valid range
+    final newAlpha = (percent * maxAlpha / maxIntensity)
+        .clamp(0, 255)
+        .toInt(); // Ensure valid range
 
     final newColor = Color.fromRGBO(
       maxColor.r.toInt(), // Convert double to int
       maxColor.g.toInt(), // Convert double to int
       maxColor.b.toInt(), // Convert double to int
-      newAlpha / 255.0,   // Convert alpha (0-255) to opacity (0.0 - 1.0)
+      newAlpha / 255.0, // Convert alpha (0-255) to opacity (0.0 - 1.0)
     );
 
     return newColor;
