@@ -86,105 +86,109 @@ class _ButtonsPageState extends State<Buttons> {
   ```
  #### Simple Buttons
  ```
-              customContainer(
-                  child: SuccessButton(
-                title: "Success Button",
-                onPressed: () {},
-              )),
+            SuccessButton(title: "Success Button", onPressed: () {}),
 
  ```
 #### Icon Button
  ```
-              customContainer(
-                child: ButttonWithIcon(
-                  icon: Icons.local_cafe,
-                  title: "Icon Button",
-                  color: Colors.white,
-                  buttonColor: Colors.cyan,
-                  onPressed: () {},
-                ),
+              ButtonWithIcon(
+                icon: Icons.local_cafe,
+                title: "Icon Button",
+                color: Colors.white,
+                buttonColor: Colors.cyan,
+                onPressed: () {},
               ),
  ```
 #### Floating Button
  ```
               Wrap(
+                spacing: 8.0,
                 children: [
+                  FloatingIconButton(icon: Icons.home, onPressed: () {}),
                   FloatingIconButton(
-                    icon: Icons.home,
-                    onPressed: () {},
-                    buttonColor: Colors.orange,
-                  ),
+                      icon: Icons.home,
+                      onPressed: () {},
+                      buttonColor: Colors.orange),
                   FloatingIconButton(
-                    icon: Icons.home,
-                    onPressed: () {},
-                    buttonColor: Colors.cyan,
-                    color: Colors.white,
-                  )
+                      icon: Icons.home,
+                      onPressed: () {},
+                      buttonColor: Colors.cyan,
+                      color: Colors.white),
                 ],
               ),
  ```
 #### Line Button
  ```
-              customContainer(
-                  child: PrimaryLineButton(
-                onPressed: () {},
-                title: "Line Button",
-              )),
-              customContainer(
-                  child: InfoLineButton(
-                textColor: Colors.black,
-                onPressed: () {},
-                title: "Info Line Button",
-              )),
+              PrimaryLineButton(title: "Line Button", onPressed: () {}),
+              DefaultLineButton(title: "Default Line Button", onPressed: () {}),
+              SecondaryLineButton(
+                  title: "Secondary Line Button", onPressed: () {}),
+              InfoLineButton(
+                  title: "Info Line Button",
+                  textColor: Colors.black,
+                  onPressed: () {}),
+              SuccessLineButton(title: "Success Line Button", onPressed: () {}),
+              WarningLineButton(
+                  title: "Warning Line Button",
+                  textColor: Colors.red,
+                  onPressed: () {}),
+              DangerLineButton(
+                  title: "Danger Line Button",
+                  textColor: Colors.black,
+                  onPressed: () {}),
    ```
 #### Rounded Button
  ```
-              customContainer(
-         child: RoundedButtonWithIcon(
-                onPressed: () {},
-                icon: Icons.title,
-                title: "Rounded Button With Icon",
-                buttonColor: Colors.green,
-              )),
+              RoundedButton(title: "Rounded Button", onPressed: () {}),
+              RoundedButtonWithIcon(
+                  title: "Rounded Button With Icon",
+                  icon: Icons.title,
+                  buttonColor: Colors.green,
+                  onPressed: () {}),
+              RoundedButtonWithIcon(
+                  title: "Home",
+                  icon: Icons.home,
+                  buttonColor: Colors.blueGrey,
+                  onPressed: () {}),
    ```
 #### Social Button
  ```
               Wrap(
-                children: <Widget>[
-                  FacebookButton(
-                    onPressed: () {},
-                  ),
-                  TwitterButton(
-                    onPressed: () {},
-                  ),
+                spacing: 8.0,
+                runSpacing: 8.0,
+                children: [
+                  FacebookButton(onPressed: () {}),
+                  TwitterButton(onPressed: () {}),
+                  GithubButton(onPressed: () {}),
+                  InstagramButton(onPressed: () {}),
+                  LinkedinButton(onPressed: () {}),
+                  MicrosoftButton(onPressed: () {}),
+                  GoogleButton(onPressed: () {}),
                 ],
               ),
-              SignInWithEmail(
-                onPressed: () {},
-              ),
-              SignInWithGoogle(
-                onPressed: () {},
-              ),
-              SignInWithMicrosoft(
-                onPressed: () {},
-              ),
-              SignInWithApple(
-                onPressed: () {},
-              ),
-             )),
    ```
 #### Gradiant Button
  ```
-              customContainer(
-                  child: GradientButton(
-                onPressed: () {},
-                splashColor: Colors.orange,
-                colors: const [
-                  Colors.red,
-                  Colors.orange,
-                ],
-                title: "Gradient Button",
-              )),
+              GradientButton(
+                  onPressed: () {},
+                  splashColor: Colors.orange,
+                  colors: const [Colors.red, Colors.orange],
+                  title: "Gradient Button"),
+              GradientButton(
+                  onPressed: () {},
+                  splashColor: Colors.orange,
+                  colors: const [Colors.blue, Colors.blueGrey],
+                  title: "Gradient Button"),
+              GradientButton(
+                  onPressed: () {},
+                  splashColor: Colors.orange,
+                  colors: const [Color(0xFFC33764), Color(0xFF1D2671)],
+                  title: "Gradient Button"),
+              GradientButton(
+                  onPressed: () {},
+                  splashColor: Colors.orange,
+                  colors: const [Color(0xFFF7971E), Color(0xFFFFD200)],
+                  title: "Gradient Button"),
             ],
           ),
         ),
@@ -214,19 +218,24 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Container(
           child: FlutterSwitch(
-            width: 125.0,
-            height: 55.0,
-            valueFontSize: 25.0,
-            toggleSize: 45.0,
-            value: status,
-            borderRadius: 30.0,
-            padding: 8.0,
-            showOnOff: true,
-            onToggle: (val) {
-              setState(() {
-                status = val;
-              });
-            },
+                  width: 90.0,
+                  height: 45.0,
+                  toggleSize: 38.0,
+                  value: status2,
+                  borderRadius: 24.0,
+                  padding: 2.0,
+                  toggleColor: Colors.white,
+                  switchBorder:
+                      Border.all(color: Colors.blueAccent, width: 3.0),
+                  activeColor: Colors.cyan,
+                  inactiveColor: Colors.grey.shade400,
+                  onToggle: (val) {
+                    setState(() {
+                      status2 = val;
+                    });
+                  },
+                )
+             ),
           ),
         ),
       ),
