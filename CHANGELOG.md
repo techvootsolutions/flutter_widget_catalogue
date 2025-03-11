@@ -2,6 +2,11 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 1.1.4+3
+### What's Changed - 10-03-2025
+
+- Update a dependency to the latest release.
+
 ## 1.1.4+2
 ### What's Changed - 10-03-2025
 
