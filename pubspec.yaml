@@ -1,11 +1,8 @@
 name: flutter_widget_catalogue
 description: Create awesome apps very faster with Flutter's collection of visual, structural, platform, UI, and interactive widgets.
-homepage: https://techvoot.com
-#publish_to: none
+homepage: https://github.com/techvootsolutions/flutter_widget_catalogue
 
-version: 1.1.4+3
-
-repository: https://github.com/techvootsolutions/flutter_widget_catalogue
+version: 1.1.4+4
 
 environment:
   sdk: ">=3.0.1 <4.0.0"
