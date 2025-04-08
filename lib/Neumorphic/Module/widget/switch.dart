@@ -172,12 +172,6 @@ class NeumorphicSwitch extends StatelessWidget {
         ? style.activeTrackColor ?? theme.accentColor
         : style.inactiveTrackColor ?? theme.baseColor;
   }
-
-  Color _getThumbColor(NeumorphicThemeData theme) {
-    Color? color =
-        value == true ? style.activeThumbColor : style.inactiveThumbColor;
-    return color ?? theme.baseColor;
-  }
 }
 
 class AnimatedThumb extends StatelessWidget {
