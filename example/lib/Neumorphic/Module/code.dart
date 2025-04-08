@@ -9,17 +9,10 @@ class Code extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      color: Colors.grey.withValues(
-        alpha: (0.2 * 255)
-            .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
-      ),
+      color: const Color(0xffD3D3D3),
       child: Text(
         text,
-        style: TextStyle(
-            color: Colors.black.withValues(
-          alpha: (0.8 * 255)
-              .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
-        )),
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }

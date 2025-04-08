@@ -38,12 +38,11 @@ class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
       child: Scaffold(
         appBar: const TopBar(
           title: "Progress",
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

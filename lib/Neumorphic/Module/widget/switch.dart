@@ -1,5 +1,6 @@
 // ignore_for_file: library_prefixes, constant_identifier_names
 
+import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/Neumorphic/Module/widget/animation/animated_scale.dart'
     as animationScale;
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
@@ -127,7 +128,7 @@ class NeumorphicSwitch extends StatelessWidget {
                 shape: _getThumbShape,
                 lightSource: style.lightSource ?? theme.lightSource,
                 border: style.thumbBorder,
-                thumbColor: _getThumbColor(theme),
+                thumbColor: Colors.white,
               ),
             ),
           ),

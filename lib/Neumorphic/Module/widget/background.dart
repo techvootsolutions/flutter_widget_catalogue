@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 @immutable
@@ -20,8 +21,8 @@ class NeumorphicBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: margin,
-      color: backendColor,
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      color: Colors.white,
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(0),
         child: AnimatedContainer(
