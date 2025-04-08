@@ -37,15 +37,17 @@ class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
       child: Scaffold(
         appBar: const TopBar(
           title: "Container",
           actions: <Widget>[
-            ThemeConfigurator(),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ThemeConfigurator(),
+            ),
           ],
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

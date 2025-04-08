@@ -35,7 +35,7 @@ class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
     return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
+      // padding: const EdgeInsets.all(8),
       child: Scaffold(
         appBar: const TopBar(
           title: "Icons",
@@ -43,7 +43,7 @@ class _PageState extends State<_Page> {
             ThemeConfigurator(),
           ],
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         body: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4),
