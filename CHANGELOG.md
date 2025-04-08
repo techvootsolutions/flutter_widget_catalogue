@@ -2,6 +2,13 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 1.1.4+5
+
+* Remove unnecessary code and container decorations for pixelation shader.
+* Change CHANGELOG.md file
+* Update Button UI
+
+
 ## 1.1.4+4
 
 * Remove unnecessary code and container decorations for pixelation shader.
