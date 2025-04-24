@@ -22,25 +22,28 @@ class FlutterTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? cursorColor;
 
-  const FlutterTextField({
-    super.key,
-    this.width,
-    this.backgroundColor,
-    this.borderRadius,
-    this.iconBackgroundColor,
-    this.customTextFieldIcon,
-    this.leadingIconColor,
-    this.leadingIconSize,
-    this.hintText,
-    this.textEditingController,
-    this.hintStyling,
-    this.textFieldTextStyle,
-    this.isNumber,
-    this.isPasswordField,
-    this.trailingWidget,
-    this.customLeadingIcon,
-    this.isIconShow, this.readOnly, this.borderColor, this.fillColor, this.cursorColor
-  });
+  const FlutterTextField(
+      {super.key,
+      this.width,
+      this.backgroundColor,
+      this.borderRadius,
+      this.iconBackgroundColor,
+      this.customTextFieldIcon,
+      this.leadingIconColor,
+      this.leadingIconSize,
+      this.hintText,
+      this.textEditingController,
+      this.hintStyling,
+      this.textFieldTextStyle,
+      this.isNumber,
+      this.isPasswordField,
+      this.trailingWidget,
+      this.customLeadingIcon,
+      this.isIconShow,
+      this.readOnly,
+      this.borderColor,
+      this.fillColor,
+      this.cursorColor});
 
   @override
   State<FlutterTextField> createState() => _FlutterTextFieldState();
@@ -69,9 +72,8 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
         readOnly: widget.readOnly!,
         controller: widget.textEditingController,
         cursorColor: widget.cursorColor ?? Colors.blue,
-        keyboardType: widget.isNumber == true
-            ? TextInputType.number
-            : TextInputType.text,
+        keyboardType:
+            widget.isNumber == true ? TextInputType.number : TextInputType.text,
         style: widget.textFieldTextStyle ??
             const TextStyle(
               decoration: TextDecoration.none,
@@ -79,24 +81,27 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
         decoration: InputDecoration(
           fillColor: widget.fillColor,
           filled: widget.fillColor == null ? false : true,
-          prefixIcon: widget.isIconShow == true ? widget.customTextFieldIcon ??
-              Icon(
-                widget.customLeadingIcon ?? Icons.add,
-                color: widget.leadingIconColor ?? Colors.white,
-                size: widget.leadingIconSize != null
-                    ? double.parse(widget.leadingIconSize.toString())
-                    : 25,
-              ) : null,
+          prefixIcon: widget.isIconShow == true
+              ? widget.customTextFieldIcon ??
+                  Icon(
+                    widget.customLeadingIcon ?? Icons.add,
+                    color: widget.leadingIconColor ?? Colors.white,
+                    size: widget.leadingIconSize != null
+                        ? double.parse(widget.leadingIconSize.toString())
+                        : 25,
+                  )
+              : null,
           suffixIcon: widget.isPasswordField == true
               ? IconButton(
-            onPressed: showHidePassword,
-            icon: Icon(
-              showPassword == true
-                  ? Icons.visibility_off
-                  : Icons.visibility,
-              color: Colors.grey,
-            ),
-          ) : widget.trailingWidget ?? const SizedBox(),
+                  onPressed: showHidePassword,
+                  icon: Icon(
+                    showPassword == true
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: Colors.grey,
+                  ),
+                )
+              : widget.trailingWidget ?? const SizedBox(),
           hintText: widget.hintText ?? "",
           hintStyle: widget.hintStyling ??
               const TextStyle(
@@ -104,53 +109,55 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                 fontSize: 16,
               ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius != null
-                ? double.parse(widget.borderRadius.toString())
-                : 10,),
-            borderSide: BorderSide(
-                color:
-                widget.readOnly! == true
-                    ? (widget.borderColor == null)
-                    ? const Color(0xffF0F0F0)
-                    : widget.borderColor!
-                    : widget.borderColor!
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius != null
+                  ? double.parse(widget.borderRadius.toString())
+                  : 10,
             ),
+            borderSide: BorderSide(
+                color: widget.readOnly! == true
+                    ? (widget.borderColor == null)
+                        ? const Color(0xffF0F0F0)
+                        : widget.borderColor!
+                    : widget.borderColor!),
           ),
           errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius != null
-                ? double.parse(widget.borderRadius.toString())
-                : 10,),
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius != null
+                  ? double.parse(widget.borderRadius.toString())
+                  : 10,
+            ),
             borderSide: const BorderSide(
               width: 1,
               color: Colors.red,
             ),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius != null
-                ? double.parse(widget.borderRadius.toString())
-                : 10,),
-            borderSide: BorderSide(
-              color:
-              widget.readOnly! == true
-                  ? (widget.borderColor == null)
-                  ? const Color(0xffF0F0F0)
-                  : widget.borderColor!
-                  : widget.borderColor!
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius != null
+                  ? double.parse(widget.borderRadius.toString())
+                  : 10,
             ),
+            borderSide: BorderSide(
+                color: widget.readOnly! == true
+                    ? (widget.borderColor == null)
+                        ? const Color(0xffF0F0F0)
+                        : widget.borderColor!
+                    : widget.borderColor!),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius != null
-                ? double.parse(widget.borderRadius.toString())
-                : 10,),
+            borderRadius: BorderRadius.circular(
+              widget.borderRadius != null
+                  ? double.parse(widget.borderRadius.toString())
+                  : 10,
+            ),
             borderSide: BorderSide(
                 width: 1,
-                color:
-                widget.readOnly! == true
+                color: widget.readOnly! == true
                     ? (widget.borderColor == null)
-                    ? const Color(0xffF0F0F0)
-                    : widget.borderColor!
-                    : widget.borderColor!
-            ),
+                        ? const Color(0xffF0F0F0)
+                        : widget.borderColor!
+                    : widget.borderColor!),
           ),
         ),
       ),

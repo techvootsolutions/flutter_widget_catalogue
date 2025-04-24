@@ -45,7 +45,9 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.blue,
               cursorColor: Colors.black,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               isIconShow: false,
               iconBackgroundColor: Colors.white10,
@@ -54,7 +56,9 @@ class _TextFieldPageState extends State<TextFields> {
               readOnly: true,
               borderColor: Colors.blue,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               isIconShow: false,
               iconBackgroundColor: Colors.white10,
@@ -64,7 +68,9 @@ class _TextFieldPageState extends State<TextFields> {
               readOnly: false,
               borderColor: Colors.yellow,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               iconBackgroundColor: Colors.black,
               borderRadius: 20,
@@ -81,7 +87,9 @@ class _TextFieldPageState extends State<TextFields> {
               cursorColor: Colors.black,
               leadingIconColor: Colors.black,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               borderRadius: 20,
               hintText: "Error border",
@@ -90,7 +98,9 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.red,
               cursorColor: Colors.red,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               borderRadius: 20,
               hintText: "Disable border",
@@ -99,7 +109,9 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.transparent,
               cursorColor: Colors.blue,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               borderRadius: 50,
               hintText: "Fill Color",
@@ -108,7 +120,9 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.transparent,
               cursorColor: Colors.white,
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const FlutterTextField(
               borderRadius: 50,
               hintText: "Fill Color with border",
