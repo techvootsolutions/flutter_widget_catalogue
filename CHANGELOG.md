@@ -2,6 +2,12 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 2.0.0
+
+* Update flutter latest dependency
+* Change CHANGELOG.md file
+* Update README.md file
+
 ## 1.1.4+5
 
 * Remove unnecessary code and container decorations for pixelation shader.
