@@ -43,7 +43,9 @@ class _TextFieldPageState extends State<TextFields> {
               readOnly: false,
               fillColor: Colors.white,
               borderColor: Colors.blue,
-              cursorColor: Colors.black,
+              cursorColor: Colors.blue,
+              labelName: "Email",
+              labelNameTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 10,
@@ -67,6 +69,7 @@ class _TextFieldPageState extends State<TextFields> {
               hintText: "Enter your number",
               readOnly: false,
               borderColor: Colors.yellow,
+              labelName: "Phone number",
             ),
             const SizedBox(
               height: 10,
@@ -86,6 +89,7 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.black,
               cursorColor: Colors.black,
               leadingIconColor: Colors.black,
+              labelName: "Password",
             ),
             const SizedBox(
               height: 10,
@@ -115,10 +119,11 @@ class _TextFieldPageState extends State<TextFields> {
             const FlutterTextField(
               borderRadius: 50,
               hintText: "Fill Color",
+              hintStyling: TextStyle(color: Colors.black),
               readOnly: false,
               fillColor: Colors.pink,
               borderColor: Colors.transparent,
-              cursorColor: Colors.white,
+              cursorColor: Colors.black,
             ),
             const SizedBox(
               height: 10,
@@ -126,10 +131,11 @@ class _TextFieldPageState extends State<TextFields> {
             const FlutterTextField(
               borderRadius: 50,
               hintText: "Fill Color with border",
+              hintStyling: TextStyle(color: Colors.white),
               readOnly: false,
               fillColor: Colors.pink,
               borderColor: Colors.black,
-              cursorColor: Colors.black,
+              cursorColor: Colors.white,
             ),
           ],
         ),

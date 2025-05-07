@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
     {'title': 'Button Widgets', 'route': const Buttons()},
     {'title': 'Neumorphic Widgets', 'route': const WidgetsHome()},
     {'title': 'Switch Widgets', 'route': const MySwitch()},
-    // {'title': 'TextField Widgets', 'route': const TextFields()},
+    {'title': 'TextField Widgets', 'route': const TextFields()},
   ];
 
   @override

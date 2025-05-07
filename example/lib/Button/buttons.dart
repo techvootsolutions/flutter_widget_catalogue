@@ -118,7 +118,8 @@ class _ButtonsPageState extends State<Buttons> {
               GradientButton(
                   onPressed: () {},
                   splashColor: Colors.orange,
-                  colors: const [Color(0xFFC33764), Color(0xFF1D2671)],
+                  colors: [Color(0xFFC33764), Color(0xFF1D2671)],
+                  // colors: const [Color(0xFFC33764), Color(0xFF1D2671)],
                   title: "Gradient Button"),
               GradientButton(
                   onPressed: () {},
