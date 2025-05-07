@@ -2,6 +2,13 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 3.0.0
+
+* Add New flutter widget TextField
+* Update flutter latest dependency
+* Change CHANGELOG.md file
+* Update README.md file
+
 ## 2.0.0
 
 * Update flutter latest dependency
