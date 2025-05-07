@@ -33,6 +33,13 @@ Ready-to-use Neumorphic-styled widgets:
 - Buttons, Switches, Containers, Sliders, Texts, Icons
 - Checkboxes, Toggles, Indicators, Range Sliders, and more
 
+### 🔤 Text Fields
+Fully customizable and themeable text input fields:
+- Outline, filled, underlined, or borderless styles
+- Support for icons, hint text, labels
+- Password visibility toggle, character counter, input formatter support
+- Focus, validation, and keyboard behavior control
+
 ---
 
 ## 📦 Installation
@@ -72,6 +79,12 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 | |
 |--|
 | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.jpg) |
+
+### TextField
+
+|                                                                                                  |
+|--------------------------------------------------------------------------------------------------|
+| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/t1.png) |
 
 ---
 
@@ -115,6 +128,47 @@ FlutterSwitch(
       status = val;
     });
   },
+);
+```
+
+### TextField Example
+
+```dart
+FlutterTextField(
+  borderRadius: 50,
+  hintText: "Fill Color",
+  hintStyling: TextStyle(color: Colors.black),
+  readOnly: false,
+  fillColor: Colors.pink,
+  borderColor: Colors.transparent,
+  cursorColor: Colors.black,
+);
+FlutterTextField(
+  iconBackgroundColor: Colors.black,
+  borderRadius: 20,
+  customTextFieldIcon: Icon(
+  Icons.lock,
+  color: Colors.black,),
+  hintText: "Enter your password",
+  isPasswordField: true,
+  isIconShow: true,
+  readOnly: false,
+  fillColor: Colors.white,
+  borderColor: Colors.black,
+  cursorColor: Colors.black,
+  leadingIconColor: Colors.black,
+  labelName: "Password",
+);
+FlutterTextField(
+  isIconShow: false,
+  iconBackgroundColor: Colors.white10,
+  borderRadius: 30,
+  isNumber: true,
+  hintText: "Enter your number",
+  readOnly: false,
+  borderColor: Colors.yellow,
+  labelName: "Phone number",
+  labelNameTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
 );
 ```
 
