@@ -45,7 +45,10 @@ class _TextFieldPageState extends State<TextFields> {
               borderColor: Colors.blue,
               cursorColor: Colors.blue,
               labelName: "Email",
-              labelNameTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+              labelNameTextStyle: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
             ),
             const SizedBox(
               height: 10,
