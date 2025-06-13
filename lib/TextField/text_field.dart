@@ -23,31 +23,34 @@ class FlutterTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? cursorColor;
   final String? labelName;
+  final String? Function(String?)? validator;
 
-  const FlutterTextField(
-      {super.key,
-      this.width,
-      this.backgroundColor,
-      this.borderRadius,
-      this.iconBackgroundColor,
-      this.customTextFieldIcon,
-      this.leadingIconColor,
-      this.leadingIconSize,
-      this.hintText,
-      this.textEditingController,
-      this.hintStyling,
-      this.textFieldTextStyle,
-      this.labelNameTextStyle,
-      this.isNumber,
-      this.isPasswordField,
-      this.trailingWidget,
-      this.customLeadingIcon,
-      this.isIconShow,
-      this.readOnly,
-      this.borderColor,
-      this.fillColor,
-      this.cursorColor,
-      this.labelName});
+  const FlutterTextField({
+    super.key,
+    this.width,
+    this.backgroundColor,
+    this.borderRadius,
+    this.iconBackgroundColor,
+    this.customTextFieldIcon,
+    this.leadingIconColor,
+    this.leadingIconSize,
+    this.hintText,
+    this.textEditingController,
+    this.hintStyling,
+    this.textFieldTextStyle,
+    this.labelNameTextStyle,
+    this.isNumber,
+    this.isPasswordField,
+    this.trailingWidget,
+    this.customLeadingIcon,
+    this.isIconShow,
+    this.readOnly,
+    this.borderColor,
+    this.fillColor,
+    this.cursorColor,
+    this.labelName,
+    this.validator,
+  });
 
   @override
   State<FlutterTextField> createState() => _FlutterTextFieldState();
@@ -80,8 +83,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                   children: [
                     Text(
                       widget.labelName!,
-                      style: widget.labelNameTextStyle ??
-                          const TextStyle(color: Colors.black, fontSize: 14),
+                      style: widget.labelNameTextStyle ?? const TextStyle(color: Colors.black, fontSize: 14),
                     ),
                     const Padding(padding: EdgeInsets.only(top: 10)),
                   ],
@@ -92,9 +94,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
             readOnly: widget.readOnly!,
             controller: widget.textEditingController,
             cursorColor: widget.cursorColor ?? Colors.blue,
-            keyboardType: widget.isNumber == true
-                ? TextInputType.number
-                : TextInputType.text,
+            keyboardType: widget.isNumber == true ? TextInputType.number : TextInputType.text,
             style: widget.textFieldTextStyle ??
                 const TextStyle(
                   decoration: TextDecoration.none,
@@ -107,18 +107,14 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                       Icon(
                         widget.customLeadingIcon ?? Icons.add,
                         color: widget.leadingIconColor ?? Colors.white,
-                        size: widget.leadingIconSize != null
-                            ? double.parse(widget.leadingIconSize.toString())
-                            : 25,
+                        size: widget.leadingIconSize != null ? double.parse(widget.leadingIconSize.toString()) : 25,
                       )
                   : null,
               suffixIcon: widget.isPasswordField == true
                   ? IconButton(
                       onPressed: showHidePassword,
                       icon: Icon(
-                        showPassword == true
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                        showPassword == true ? Icons.visibility_off : Icons.visibility,
                         color: Colors.grey,
                       ),
                     )
@@ -131,9 +127,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                   ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
+                  widget.borderRadius != null ? double.parse(widget.borderRadius.toString()) : 10,
                 ),
                 borderSide: BorderSide(
                     color: widget.readOnly! == true
@@ -144,9 +138,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
+                  widget.borderRadius != null ? double.parse(widget.borderRadius.toString()) : 10,
                 ),
                 borderSide: const BorderSide(
                   width: 1,
@@ -155,9 +147,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
+                  widget.borderRadius != null ? double.parse(widget.borderRadius.toString()) : 10,
                 ),
                 borderSide: BorderSide(
                     color: widget.readOnly! == true
@@ -168,9 +158,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
+                  widget.borderRadius != null ? double.parse(widget.borderRadius.toString()) : 10,
                 ),
                 borderSide: BorderSide(
                     width: 1,
@@ -181,6 +169,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                         : widget.borderColor!),
               ),
             ),
+            validator: widget.validator,
           ),
         ],
       ),
