@@ -19,7 +19,8 @@ class _TextFieldPageState extends State<TextFields> {
         elevation: 4,
         title: const Text(
           "Flutter TextField",
-          style: TextStyle(fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
       body: Form(
@@ -57,7 +58,10 @@ class _TextFieldPageState extends State<TextFields> {
                 borderColor: Colors.blue,
                 cursorColor: Colors.blue,
                 labelName: "Email",
-                labelNameTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+                labelNameTextStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
