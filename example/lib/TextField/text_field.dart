@@ -36,7 +36,7 @@ class _TextFieldPageState extends State<TextFields> {
                   color: Colors.blue,
                 ),
                 hintText: "Enter your email",
-                textFieldTextStyle: const TextStyle(color: Colors.white),
+                textFieldTextStyle: const TextStyle(color: Colors.black),
                 trailingWidget: IconButton(
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {

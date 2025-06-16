@@ -2,6 +2,13 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 3.0.1
+
+* Add validation in flutter widget TextField
+* Update flutter latest dependency
+* Change CHANGELOG.md file
+* Update README.md file
+
 ## 3.0.0
 
 * Add New flutter widget TextField
