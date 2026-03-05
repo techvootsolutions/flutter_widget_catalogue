@@ -1,39 +1,30 @@
-allprojects {
-    ext.kotlin_version = '2.0.20'
-    repositories {
-        google()
-        mavenCentral()
-    }
-    configurations.all {
-        resolutionStrategy {
-            force 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-        }
-    }
-}
-
 buildscript {
+    ext.kotlin_version = '2.1.10'
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        // Uncomment and update if needed
-        // classpath 'com.google.gms:google-services:4.4.2'
+        classpath 'com.android.tools.build:gradle:8.9.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
-// Updated to latest stable version
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 
-rootProject.buildDir = "../build"
-
+rootProject.buildDir = '../build'
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-
 subprojects {
-    project.evaluationDependsOn(":app")
+    project.evaluationDependsOn(':app')
 }
 
 tasks.register("clean", Delete) {
-    delete rootProject.buildDir
+    delete rootProject.layout.buildDirectory
 }

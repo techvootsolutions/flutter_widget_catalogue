@@ -10,13 +10,12 @@ class SignInWithLinkedin extends StatelessWidget {
   final String? title;
 
   const SignInWithLinkedin(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(

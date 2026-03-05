@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class RadioButtonWidgetPage extends StatefulWidget {
-  const RadioButtonWidgetPage({Key? key}) : super(key: key);
+  const RadioButtonWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

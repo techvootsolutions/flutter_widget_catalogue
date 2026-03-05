@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ToggleWidgetPage extends StatefulWidget {
-  const ToggleWidgetPage({Key? key}) : super(key: key);
+  const ToggleWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

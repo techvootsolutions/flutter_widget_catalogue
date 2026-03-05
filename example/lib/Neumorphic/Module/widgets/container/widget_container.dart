@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ContainerWidgetPage extends StatefulWidget {
-  const ContainerWidgetPage({Key? key}) : super(key: key);
+  const ContainerWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
@@ -487,135 +487,115 @@ Neumorphic(
   }
 
   Widget _buildWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: <Widget>[
-          const SizedBox(height: 12),
-          Text(
-            "DrawAbove",
-            style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
-          ),
-          const SizedBox(height: 12),
-          Row(children: [
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: 100,
-              child: const Center(child: Text("false")),
-            ),
-            const SizedBox(width: 12),
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: 100,
-              child: const Center(child: Text("true\n(concave)")),
-            ),
-            const SizedBox(width: 12),
-            Container(
-              margin: const EdgeInsets.all(8),
-              width: 100,
-              child: const Center(child: Text("true\n(convex)")),
-            ),
-          ]),
-          Row(
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final bool isLargeScreen = constraints.maxWidth > 400;
+        final double itemSize =
+            isLargeScreen ? 100 : (constraints.maxWidth / 3) - 24;
+
+        return Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
             children: <Widget>[
-              Neumorphic(
-                drawSurfaceAboveChild: false,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  surfaceIntensity: 1,
-                  shape: NeumorphicShape.concave,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
+              const SizedBox(height: 12),
+              Text(
+                "DrawAbove",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
               ),
-              const SizedBox(width: 12),
-              Neumorphic(
-                drawSurfaceAboveChild: true,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  surfaceIntensity: 1,
-                  shape: NeumorphicShape.concave,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
+              const SizedBox(height: 12),
+
+              // Header Row
+              Row(
+                children: [
+                  _buildHeader(itemSize, "false"),
+                  _buildHeader(itemSize, "true\n(concave)"),
+                  _buildHeader(itemSize, "true\n(convex)"),
+                ],
               ),
-              const SizedBox(width: 12),
-              Neumorphic(
-                drawSurfaceAboveChild: true,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  intensity: 1,
-                  shape: NeumorphicShape.convex,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
+
+              // Rectangle image Row
+              Row(
+                children: <Widget>[
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: false,
+                    shape: NeumorphicShape.concave,
+                  ),
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: true,
+                    shape: NeumorphicShape.concave,
+                  ),
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: true,
+                    shape: NeumorphicShape.convex,
+                    isConvex: true,
+                  ),
+                ],
+              ),
+
+              // Circle image Row
+              Row(
+                children: <Widget>[
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: false,
+                    shape: NeumorphicShape.concave,
+                    isCircle: true,
+                  ),
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: true,
+                    shape: NeumorphicShape.concave,
+                    isCircle: true,
+                  ),
+                  _buildNeumorphicImage(
+                    itemSize: itemSize,
+                    drawSurfaceAboveChild: true,
+                    shape: NeumorphicShape.convex,
+                    isCircle: true,
+                  ),
+                ],
               ),
             ],
           ),
-          Row(
-            children: <Widget>[
-              Neumorphic(
-                drawSurfaceAboveChild: false,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  surfaceIntensity: 1,
-                  shape: NeumorphicShape.concave,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Neumorphic(
-                drawSurfaceAboveChild: true,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  surfaceIntensity: 1,
-                  boxShape: NeumorphicBoxShape.circle(),
-                  shape: NeumorphicShape.concave,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Neumorphic(
-                drawSurfaceAboveChild: true,
-                margin: const EdgeInsets.all(8),
-                style: const NeumorphicStyle(
-                  surfaceIntensity: 1,
-                  boxShape: NeumorphicBoxShape.circle(),
-                  shape: NeumorphicShape.convex,
-                ),
-                child: Image.asset(
-                  "assets/images/weeknd.jpg",
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
-        ],
+        );
+      },
+    );
+  }
+
+  Widget _buildHeader(double size, String text) {
+    return SizedBox(
+      width: size,
+      child: Center(
+        child: Text(text, textAlign: TextAlign.center),
+      ),
+    );
+  }
+
+  Widget _buildNeumorphicImage({
+    required double itemSize,
+    required bool drawSurfaceAboveChild,
+    required NeumorphicShape shape,
+    bool isCircle = false,
+    bool isConvex = false,
+  }) {
+    return Neumorphic(
+      drawSurfaceAboveChild: drawSurfaceAboveChild,
+      margin: const EdgeInsets.all(8),
+      style: NeumorphicStyle(
+        surfaceIntensity: 1,
+        intensity: isConvex ? 1 : null,
+        shape: shape,
+        boxShape: isCircle ? const NeumorphicBoxShape.circle() : null,
+      ),
+      child: Image.asset(
+        "assets/images/weeknd.jpg",
+        height: itemSize,
+        width: itemSize,
+        fit: BoxFit.cover,
       ),
     );
   }

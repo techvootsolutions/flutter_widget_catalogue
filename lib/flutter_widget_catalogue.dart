@@ -1,4 +1,4 @@
-library flutter_widget_catalogue;
+library;
 
 export 'package:flutter/material.dart'
     show

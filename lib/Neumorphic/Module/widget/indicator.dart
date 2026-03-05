@@ -62,7 +62,7 @@ class NeumorphicIndicator extends StatefulWidget {
   final Curve curve;
 
   const NeumorphicIndicator({
-    Key? key,
+    super.key,
     this.percent = 0.5,
     this.orientation = NeumorphicIndicatorOrientation.vertical,
     this.height = double.maxFinite,
@@ -71,7 +71,7 @@ class NeumorphicIndicator extends StatefulWidget {
     this.style = const IndicatorStyle(),
     this.duration = const Duration(milliseconds: 300),
     this.curve = Curves.easeOutCubic,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _NeumorphicIndicatorState();

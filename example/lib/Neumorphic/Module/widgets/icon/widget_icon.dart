@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class IconWidgetPage extends StatefulWidget {
-  const IconWidgetPage({Key? key}) : super(key: key);
+  const IconWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

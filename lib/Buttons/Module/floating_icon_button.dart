@@ -7,15 +7,15 @@ class FloatingIconButton extends StatelessWidget {
   final Color? color;
 
   const FloatingIconButton(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       required this.icon,
-      this.color})
-      : super(key: key);
+      this.color});
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+        heroTag: UniqueKey(),
         onPressed: onPressed as void Function()?,
         backgroundColor: buttonColor ?? Colors.blue,
         child: Icon(icon));

@@ -7,11 +7,11 @@ class NeumorphicCloseButton extends StatelessWidget {
   final EdgeInsets? padding;
 
   const NeumorphicCloseButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.style,
     this.padding,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

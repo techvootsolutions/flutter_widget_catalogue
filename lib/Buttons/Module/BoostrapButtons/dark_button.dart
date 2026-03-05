@@ -4,8 +4,7 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 class DarkButton extends StatelessWidget {
   final String title;
   final Function onPressed;
-  const DarkButton({Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+  const DarkButton({super.key, required this.title, required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customFlatButton(

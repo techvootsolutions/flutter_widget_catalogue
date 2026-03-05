@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+// ignore: depend_on_referenced_packages
+import 'package:vector_math/vector_math_64.dart' as vector;
 import '../neumorphic_box_shape.dart';
 import '../theme/theme.dart';
 import 'cache/neumorphic_emboss_painter_cache.dart';
@@ -128,7 +129,7 @@ class NeumorphicEmbossDecorationPainter extends BoxPainter {
 
   void _paintShadows(Canvas canvas, Path path) {
     final Matrix4 matrix4 = Matrix4.identity()
-      ..scale(_cache.scaleX, _cache.scaleY);
+      ..scaleByVector3(vector.Vector3(_cache.scaleX, _cache.scaleY, 1.0));
 
     canvas
       ..saveLayer(_cache.layerRect, _whiteShadowPaint)

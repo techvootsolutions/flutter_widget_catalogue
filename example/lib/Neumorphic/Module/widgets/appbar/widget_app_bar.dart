@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class AppBarWidgetPage extends StatelessWidget {
-  const AppBarWidgetPage({Key? key}) : super(key: key);
+  const AppBarWidgetPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -157,7 +157,7 @@ class FirstThemeContent extends StatelessWidget {
 class _MyDrawer extends StatelessWidget {
   final bool isLead;
 
-  const _MyDrawer({Key? key, this.isLead = true}) : super(key: key);
+  const _MyDrawer({this.isLead = true});
 
   @override
   Widget build(BuildContext context) {

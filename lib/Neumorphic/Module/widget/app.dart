@@ -37,7 +37,7 @@ class NeumorphicApp extends StatelessWidget {
   final bool debugShowMaterialGrid;
 
   const NeumorphicApp({
-    Key? key,
+    super.key,
     this.title = '',
     this.color,
     this.initialRoute,
@@ -70,7 +70,7 @@ class NeumorphicApp extends StatelessWidget {
     this.debugShowMaterialGrid = false,
     this.shortcuts,
     this.actions,
-  }) : super(key: key);
+  });
 
   ThemeData _getMaterialTheme(NeumorphicThemeData theme) {
     final color = theme.accentColor;

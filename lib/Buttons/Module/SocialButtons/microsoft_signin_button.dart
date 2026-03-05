@@ -10,13 +10,12 @@ class SignInWithMicrosoft extends StatelessWidget {
   final String? title;
 
   const SignInWithMicrosoft(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(

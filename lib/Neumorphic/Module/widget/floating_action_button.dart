@@ -18,13 +18,13 @@ class NeumorphicFloatingActionButton extends StatelessWidget {
   final NeumorphicStyle? style;
 
   const NeumorphicFloatingActionButton({
-    Key? key,
+    super.key,
     this.mini = false,
     this.style,
     this.tooltip,
-    @required this.child,
-    @required this.onPressed,
-  }) : super(key: key);
+    required this.child,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {

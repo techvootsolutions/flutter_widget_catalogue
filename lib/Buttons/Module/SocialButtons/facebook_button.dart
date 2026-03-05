@@ -8,16 +8,16 @@ class FacebookButton extends StatelessWidget {
   final double? iconSize;
   final bool? isMinSize;
   const FacebookButton(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.iconColor,
       this.iconSize,
-      this.isMinSize})
-      : super(key: key);
+      this.isMinSize});
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      heroTag: UniqueKey(),
       splashColor: Colors.white,
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,

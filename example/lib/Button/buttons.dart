@@ -3,8 +3,9 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class Buttons extends StatefulWidget {
   const Buttons({super.key});
+
   @override
-  _ButtonsPageState createState() => _ButtonsPageState();
+  State<Buttons> createState() => _ButtonsPageState();
 }
 
 class _ButtonsPageState extends State<Buttons> {
@@ -143,11 +144,8 @@ class _ButtonsPageState extends State<Buttons> {
                 fontSize: 20.0,
                 fontWeight: FontWeight.bold)),
         const SizedBox(height: 10.0),
-        ...buttons
-            .map((button) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5.0),
-                child: button))
-            .toList(),
+        ...buttons.map((button) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0), child: button)),
         const SizedBox(height: 20.0),
         Divider(thickness: 1, color: Colors.grey.shade300),
         const SizedBox(height: 20.0),

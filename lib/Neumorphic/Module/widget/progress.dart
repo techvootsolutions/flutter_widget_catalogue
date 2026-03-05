@@ -69,14 +69,13 @@ class NeumorphicProgress extends StatefulWidget {
   final Curve curve;
 
   const NeumorphicProgress(
-      {Key? key,
+      {super.key,
       double? percent,
       this.height = 10,
       this.duration = const Duration(milliseconds: 300),
       this.style = const ProgressStyle(),
       this.curve = Curves.easeOutCubic})
-      : _percent = percent,
-        super(key: key);
+      : _percent = percent;
 
   @override
   _NeumorphicProgressState createState() => _NeumorphicProgressState();
@@ -197,13 +196,13 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
   final Curve curve;
 
   const NeumorphicProgressIndeterminate({
-    Key? key,
+    super.key,
     this.height = 10,
     this.style = const ProgressStyle(),
     this.duration = const Duration(seconds: 3),
     this.reverse = false,
     this.curve = Curves.easeInOut,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _NeumorphicProgressIndeterminateState();

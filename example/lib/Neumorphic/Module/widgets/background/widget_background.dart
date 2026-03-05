@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class BackgroundWidgetPage extends StatefulWidget {
-  const BackgroundWidgetPage({Key? key}) : super(key: key);
+  const BackgroundWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

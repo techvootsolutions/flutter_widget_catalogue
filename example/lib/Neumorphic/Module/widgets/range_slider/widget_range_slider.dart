@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class RangeSliderWidgetPage extends StatefulWidget {
-  const RangeSliderWidgetPage({Key? key}) : super(key: key);
+  const RangeSliderWidgetPage({super.key});
 
   @override
   createState() => _RangeWidgetPageState();

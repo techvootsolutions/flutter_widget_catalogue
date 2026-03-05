@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class TipsRecursiveeEmbossPage extends StatefulWidget {
-  const TipsRecursiveeEmbossPage({Key? key}) : super(key: key);
+  const TipsRecursiveeEmbossPage({super.key});
 
   @override
   createState() => _WidgetPageState();

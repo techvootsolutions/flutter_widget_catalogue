@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ButtonWidgetPage extends StatefulWidget {
-  const ButtonWidgetPage({Key? key}) : super(key: key);
+  const ButtonWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

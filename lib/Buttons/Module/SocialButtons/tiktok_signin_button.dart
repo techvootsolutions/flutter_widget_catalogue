@@ -15,8 +15,7 @@ class SignInWithTikTok extends StatelessWidget {
       this.fontColor,
       this.fontSize,
       this.title,
-      Key? key})
-      : super(key: key);
+      super.key});
 
   @override
   Widget build(BuildContext context) {

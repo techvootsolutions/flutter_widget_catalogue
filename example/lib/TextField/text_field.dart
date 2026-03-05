@@ -4,8 +4,9 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class TextFields extends StatefulWidget {
   const TextFields({super.key});
+
   @override
-  _TextFieldPageState createState() => _TextFieldPageState();
+  State<TextFields> createState() => _TextFieldPageState();
 }
 
 class _TextFieldPageState extends State<TextFields> {

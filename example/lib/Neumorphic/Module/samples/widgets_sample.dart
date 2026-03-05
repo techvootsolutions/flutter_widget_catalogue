@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class WidgetsSample extends StatefulWidget {
-  const WidgetsSample({Key? key}) : super(key: key);
+  const WidgetsSample({super.key});
 
   @override
   createState() => _ContainersListPageState();

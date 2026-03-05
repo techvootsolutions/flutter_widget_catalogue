@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class SwitchWidgetPage extends StatefulWidget {
-  const SwitchWidgetPage({Key? key}) : super(key: key);
+  const SwitchWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

@@ -14,12 +14,12 @@ class NeumorphicIcon extends StatelessWidget {
 
   const NeumorphicIcon(
     this.icon, {
-    Key? key,
+    super.key,
     this.duration = Neumorphic.DEFAULT_DURATION,
     this.curve = Neumorphic.DEFAULT_CURVE,
     this.style,
     this.size = 20,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class CheckboxWidgetPage extends StatefulWidget {
-  const CheckboxWidgetPage({Key? key}) : super(key: key);
+  const CheckboxWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
@@ -316,7 +316,7 @@ NeumorphicCheckbox(
 }
 
 class IndeterminateProgressWidgetPage extends StatefulWidget {
-  const IndeterminateProgressWidgetPage({Key? key}) : super(key: key);
+  const IndeterminateProgressWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState1();

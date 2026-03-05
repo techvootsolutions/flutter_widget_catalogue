@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class ProgressWidgetPage extends StatefulWidget {
-  const ProgressWidgetPage({Key? key}) : super(key: key);
+  const ProgressWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class TipsBorderPage extends StatefulWidget {
-  const TipsBorderPage({Key? key}) : super(key: key);
+  const TipsBorderPage({super.key});
 
   @override
   createState() => _WidgetPageState();
@@ -149,9 +149,9 @@ class _CustomWidget extends StatefulWidget {
   final NeumorphicStyle? secondStyle;
 
   const _CustomWidget(
-      {@required this.title,
-      @required this.firstStyle,
-      @required this.secondStyle});
+      {required this.title,
+      required this.firstStyle,
+      required this.secondStyle});
 
   @override
   createState() => _CustomWidgetState();

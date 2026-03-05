@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class IndicatorWidgetPage extends StatefulWidget {
-  const IndicatorWidgetPage({Key? key}) : super(key: key);
+  const IndicatorWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
