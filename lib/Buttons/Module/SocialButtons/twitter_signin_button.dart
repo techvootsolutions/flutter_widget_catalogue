@@ -19,11 +19,11 @@ class SignInWithTwitter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Twitter',
-        buttonColor ?? Colors.lightBlue,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.twitter);
+        title: title ?? 'Sign in with Twitter',
+        buttonColor: buttonColor ?? Colors.lightBlue,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.twitter);
   }
 }

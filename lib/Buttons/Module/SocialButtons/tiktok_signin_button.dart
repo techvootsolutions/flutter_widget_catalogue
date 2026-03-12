@@ -20,11 +20,11 @@ class SignInWithTikTok extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Tiktok',
-        buttonColor ?? Colors.black,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.tiktok);
+        title: title ?? 'Sign in with Tiktok',
+        buttonColor: buttonColor ?? Colors.black,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.tiktok);
   }
 }

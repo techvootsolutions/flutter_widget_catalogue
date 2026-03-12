@@ -19,11 +19,11 @@ class SignInWithMicrosoft extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Microsoft',
-        buttonColor ?? const Color(0xFFF0EFE7),
-        onPressed,
-        fontColor ?? Colors.black,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.microsoft);
+        title: title ?? 'Sign in with Microsoft',
+        buttonColor: buttonColor ?? const Color(0xFFF0EFE7),
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.black,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.microsoft);
   }
 }

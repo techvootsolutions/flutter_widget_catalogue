@@ -19,11 +19,11 @@ class SignInWithGithub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Github',
-        buttonColor ?? Colors.black,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.github);
+        title: title ?? 'Sign in with Github',
+        buttonColor: buttonColor ?? Colors.black,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.github);
   }
 }

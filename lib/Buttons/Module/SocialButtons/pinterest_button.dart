@@ -22,7 +22,7 @@ class PinterestButton extends StatelessWidget {
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
       backgroundColor: buttonColor ?? Colors.blue,
-      child: Icon(
+      child: FaIcon(
         FontAwesomeIcons.pinterest,
         color: iconColor ?? Colors.white,
         size: iconSize,

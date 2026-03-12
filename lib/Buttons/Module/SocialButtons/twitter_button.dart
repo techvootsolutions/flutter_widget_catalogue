@@ -22,7 +22,7 @@ class TwitterButton extends StatelessWidget {
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
       backgroundColor: buttonColor ?? const Color(0xFF1DA1F2),
-      child: Icon(
+      child: FaIcon(
         FontAwesomeIcons.twitter,
         color: iconColor ?? Colors.white,
         size: iconSize,

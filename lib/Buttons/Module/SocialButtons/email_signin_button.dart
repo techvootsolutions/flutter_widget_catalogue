@@ -18,11 +18,11 @@ class SignInWithEmail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Email',
-        buttonColor ?? Colors.lightBlue,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        Icons.mail);
+        title: title ?? 'Sign in with Email',
+        buttonColor: buttonColor ?? Colors.lightBlue,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        icon: Icons.mail);
   }
 }

@@ -22,7 +22,7 @@ class MicrosoftButton extends StatelessWidget {
       mini: isMinSize ?? true,
       onPressed: onPressed as void Function()?,
       backgroundColor: buttonColor ?? const Color(0xFFF0EFE7),
-      child: Icon(
+      child: FaIcon(
         FontAwesomeIcons.microsoft,
         color: iconColor ?? Colors.lightBlue,
         size: iconSize,
