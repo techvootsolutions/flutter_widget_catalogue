@@ -43,20 +43,32 @@ class _PageState extends State<_Page> {
             ThemeConfigurator(),
           ],
         ),
-        backgroundColor: Colors.white,
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4),
-          itemCount: icons.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: NeumorphicIcon(
-                icons[index],
-                size: 80,
+        backgroundColor: NeumorphicColors.neumorphicScreenBg,
+        body: LayoutBuilder(
+            builder: (context, constraints) {
+              final int columnCount = (constraints.maxWidth / 100).floor().clamp(2, 8);
+              final double itemSize = constraints.maxWidth / columnCount;
+              return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: columnCount,
+                childAspectRatio: 1,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0,
               ),
+              itemCount: icons.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  width: itemSize,
+                  height: itemSize,
+                  child: Center(
+                    child: NeumorphicIcon(
+                      icons[index],
+                      size: itemSize * 0.5, // icon takes 50% of cell
+                    ),
+                  ),
+                );
+              },
             );
-          },
+          }
         ),
       ),
     );

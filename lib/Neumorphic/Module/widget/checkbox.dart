@@ -148,9 +148,11 @@ class NeumorphicCheckbox extends StatelessWidget {
         intensity: isSelected ? selectedIntensity : unselectedIntensity,
         shape: NeumorphicShape.flat,
       ),
-      child: Icon(
+      child: NeumorphicIcon(
         NeumorphicIcons.check,
-        color: iconColor,
+        style: NeumorphicStyle(
+          color: iconColor,
+        ),
         size: 20.0,
       ),
     );

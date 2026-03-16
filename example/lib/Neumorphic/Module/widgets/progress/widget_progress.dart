@@ -42,7 +42,7 @@ class _PageState extends State<_Page> {
         appBar: const TopBar(
           title: "Progress",
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: NeumorphicColors.neumorphicScreenBg,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -47,7 +47,7 @@ class _PageState extends State<_Page> {
             ),
           ],
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: NeumorphicColors.neumorphicScreenBg,
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

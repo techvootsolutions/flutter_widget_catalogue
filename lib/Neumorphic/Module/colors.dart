@@ -3,16 +3,17 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 /// Defines default colors used in Neumorphic theme & shadows generators
 @immutable
 class NeumorphicColors {
-  static const background = Color(0xFFDDE6E8);
-  static const accent = Color(0xFF2196F3);
-  static const variant = Color(0xFF00BCD4);
-  static const disabled = Color(0xFF9E9E9E);
+  static const Color background = Color(0xFFDDE6E8);
+  static const Color neumorphicScreenBg = Color(0xFFDDE6E8);
+  static const Color accent = Color(0xFF2196F3);
+  static const Color variant = Color(0xFF00BCD4);
+  static const Color disabled = Color(0xFF9E9E9E);
 
-  static const darkBackground = Color(0xFF2D2F2F);
-  static const darkAccent = Color(0xFF4CAF50);
-  static const darkVariant = Color(0xFF607D8B);
-  static const darkDisabled = Color(0xB3FFFFFF);
-  static const darkDefaultTextColor = Color(0xB3FFFFFF);
+  static const Color darkBackground = Color(0xFF2D2F2F);
+  static const Color darkAccent = Color(0xFF4CAF50);
+  static const Color darkVariant = Color(0xFF607D8B);
+  static const Color darkDisabled = Color(0xB3FFFFFF);
+  static const Color darkDefaultTextColor = Color(0xB3FFFFFF);
 
   static const Color defaultBorder = Color(0x33000000);
   static const Color darkDefaultBorder = Color(0x33FFFFFF);
