@@ -76,6 +76,7 @@ class NeumorphicSwitch extends StatelessWidget {
   final Duration duration;
   final Curve curve;
   final bool isEnabled;
+  final bool isGlassMode;
 
   const NeumorphicSwitch({
     this.style = const NeumorphicSwitchStyle(),
@@ -86,6 +87,7 @@ class NeumorphicSwitch extends StatelessWidget {
     this.onChanged,
     this.height = 40,
     this.isEnabled = true,
+    this.isGlassMode = false,
   });
 
   @override
@@ -105,6 +107,7 @@ class NeumorphicSwitch extends StatelessWidget {
             }
           },
           child: Neumorphic(
+            isGlassMode: isGlassMode,
             drawSurfaceAboveChild: false,
             style: NeumorphicStyle(
               boxShape: const NeumorphicBoxShape.stadium(),
@@ -121,6 +124,7 @@ class NeumorphicSwitch extends StatelessWidget {
                   value ? const Alignment(0.5, 0) : const Alignment(-0.5, 0),
               child: AnimatedThumb(
                 curve: curve,
+                isGlassMode: isGlassMode,
                 disableDepth: style.disableDepth,
                 depth: _thumbDepth,
                 duration: duration,
@@ -128,7 +132,7 @@ class NeumorphicSwitch extends StatelessWidget {
                 shape: _getThumbShape,
                 lightSource: style.lightSource ?? theme.lightSource,
                 border: style.thumbBorder,
-                thumbColor: Colors.white,
+                thumbColor: isGlassMode ? Colors.white.withValues(alpha: 0.8) : Colors.white,
               ),
             ),
           ),
@@ -184,6 +188,7 @@ class AnimatedThumb extends StatelessWidget {
   final bool disableDepth;
   final NeumorphicBorder border;
   final LightSource lightSource;
+  final bool isGlassMode;
 
   const AnimatedThumb({
     super.key,
@@ -196,6 +201,7 @@ class AnimatedThumb extends StatelessWidget {
     this.border = const NeumorphicBorder.none(),
     this.lightSource = LightSource.topLeft,
     this.disableDepth = false,
+    this.isGlassMode = false,
   });
 
   @override
@@ -207,6 +213,7 @@ class AnimatedThumb extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: Neumorphic(
+          isGlassMode: isGlassMode,
           style: NeumorphicStyle(
             boxShape: const NeumorphicBoxShape.circle(),
             disableDepth: disableDepth,

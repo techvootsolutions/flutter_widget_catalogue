@@ -1,10 +1,10 @@
 import 'dart:math' show Random;
-
-import 'package:example/Neumorphic/Module/code.dart';
-import 'package:example/Neumorphic/Module/color_selector.dart';
-import 'package:example/Neumorphic/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/theme_configurator.dart';
+import 'package:example/Neumorphic/Module/top_bar.dart';
+import 'package:example/Neumorphic/Module/code.dart';
+import 'package:example/Neumorphic/Module/color_selector.dart';
 
 class ProgressWidgetPage extends StatefulWidget {
   const ProgressWidgetPage({super.key});
@@ -16,20 +16,27 @@ class ProgressWidgetPage extends StatefulWidget {
 class _WidgetPageState extends State<ProgressWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.5,
+          ),
+          child: const _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -37,33 +44,56 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Progress",
-        ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorWidget(),
-              _SizedWidget(),
-              _DurationWidget(),
-              _CurveWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          isGlassMode: isGlassMode,
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Progress",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      _SizedWidget(isGlassMode: isGlassMode),
+                      _ColorWidget(isGlassMode: isGlassMode),
+                      _DurationWidget(isGlassMode: isGlassMode),
+                      _CurveWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -95,7 +125,14 @@ Expanded(
           const SizedBox(width: 12),
           Expanded(
             child: NeumorphicProgress(
+              isGlassMode: widget.isGlassMode,
               percent: percent,
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
             ),
           ),
           const SizedBox(width: 12),
@@ -124,6 +161,10 @@ Expanded(
 }
 
 class _ColorWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorWidgetState();
 }
@@ -189,9 +230,13 @@ Expanded(
               const SizedBox(width: 12),
               Expanded(
                 child: NeumorphicProgress(
+                  isGlassMode: widget.isGlassMode,
                   style: ProgressStyle(
-                    accent: accent,
-                    variant: variant,
+                    accent:
+                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    variant: widget.isGlassMode
+                        ? variant.withValues(alpha: 0.2)
+                        : variant,
                   ),
                   percent: percent,
                 ),
@@ -217,6 +262,10 @@ Expanded(
 }
 
 class _SizedWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _SizedWidget({this.isGlassMode = false});
+
   @override
   createState() => _SizedWidgetState();
 }
@@ -253,8 +302,15 @@ Expanded(
               const SizedBox(width: 12),
               Expanded(
                 child: NeumorphicProgress(
+                  isGlassMode: widget.isGlassMode,
                   height: 30,
                   percent: percent,
+                  style: widget.isGlassMode
+                      ? ProgressStyle(
+                          accent: Colors.white.withValues(alpha: 0.3),
+                          variant: Colors.white.withValues(alpha: 0.1),
+                        )
+                      : const ProgressStyle(),
                 ),
               ),
               const SizedBox(width: 12),
@@ -278,6 +334,10 @@ Expanded(
 }
 
 class _DurationWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DurationWidget({this.isGlassMode = false});
+
   @override
   createState() => _DurationWidgetState();
 }
@@ -310,8 +370,15 @@ Expanded(
           const SizedBox(width: 12),
           Expanded(
             child: NeumorphicProgress(
+              isGlassMode: widget.isGlassMode,
               percent: percent,
               duration: const Duration(seconds: 1),
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
             ),
           ),
           const SizedBox(width: 12),
@@ -340,6 +407,10 @@ Expanded(
 }
 
 class _CurveWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _CurveWidget({this.isGlassMode = false});
+
   @override
   createState() => _CurveWidgetState();
 }
@@ -372,8 +443,15 @@ Expanded(
           const SizedBox(width: 12),
           Expanded(
             child: NeumorphicProgress(
+              isGlassMode: widget.isGlassMode,
               percent: percent,
               curve: Curves.bounceOut,
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
             ),
           ),
           const SizedBox(width: 12),

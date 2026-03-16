@@ -9,7 +9,11 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
 
   static const double kToolbarHeight = 70.0;
 
-  const TopBar({super.key, this.title = "", this.actions});
+  const TopBar({
+    super.key,
+    this.title = "",
+    this.actions,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,29 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           Align(
-              alignment: Alignment.centerRight,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: actions ?? [],
-              )),
+            alignment: Alignment.centerRight,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ValueListenableBuilder<bool>(
+                  valueListenable: GlassModeManager.instance.isGlassMode,
+                  builder: (context, isGlassMode, _) {
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: NeumorphicSwitch(
+                        height: 30,
+                        value: isGlassMode,
+                        onChanged: (value) {
+                          GlassModeManager.instance.setGlassMode(value);
+                        },
+                      ),
+                    );
+                  },
+                ),
+                ...?actions,
+              ],
+            ),
+          ),
         ],
       ),
     );

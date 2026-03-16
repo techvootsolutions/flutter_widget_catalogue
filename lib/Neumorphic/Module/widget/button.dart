@@ -72,7 +72,10 @@ class NeumorphicButton extends StatefulWidget {
     this.minDistance = 0,
     this.style,
     this.provideHapticFeedback = true,
+    this.isGlassMode = false,
   });
+
+  final bool isGlassMode;
 
   bool get isEnabled => onPressed != null;
 
@@ -195,6 +198,7 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
       child: animationScale.AnimatedScale(
         scale: _getScale(),
         child: Neumorphic(
+          isGlassMode: widget.isGlassMode,
           margin: widget.margin ?? const EdgeInsets.all(0),
           drawSurfaceAboveChild: widget.drawSurfaceAboveChild,
           duration: widget.duration,
@@ -205,7 +209,7 @@ class _NeumorphicButtonState extends State<NeumorphicButton> {
           style: initialStyle.copyWith(
             depth: _getDepth(),
           ),
-          child: widget.child,
+          child: widget.child ?? const SizedBox(),
         ),
       ),
     );

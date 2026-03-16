@@ -64,6 +64,7 @@ class NeumorphicSlider extends StatefulWidget {
 
   final Widget? thumb;
   final double? sliderHeight;
+  final bool isGlassMode;
 
   const NeumorphicSlider({
     super.key,
@@ -77,6 +78,7 @@ class NeumorphicSlider extends StatefulWidget {
     this.onChangeEnd,
     this.thumb,
     this.sliderHeight,
+    this.isGlassMode = false,
   });
 
   double get percent => (((value.clamp(min, max)) - min) / ((max - min)));
@@ -135,6 +137,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
   Widget _generateSlider(BuildContext context) {
     final theme = NeumorphicTheme.currentTheme(context);
     return NeumorphicProgress(
+      isGlassMode: widget.isGlassMode,
       duration: Duration.zero,
       percent: widget.percent,
       height: widget.height,
@@ -153,6 +156,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
   Widget _generateThumb(BuildContext context, double size) {
     final theme = NeumorphicTheme.currentTheme(context);
     return Neumorphic(
+      isGlassMode: widget.isGlassMode,
       style: NeumorphicStyle(
         disableDepth: widget.style.disableDepth,
         shape: NeumorphicShape.concave,

@@ -76,6 +76,7 @@ class NeumorphicCheckbox extends StatelessWidget {
   final EdgeInsets margin;
   final Duration duration;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicCheckbox({
     super.key,
@@ -87,6 +88,7 @@ class NeumorphicCheckbox extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     this.margin = const EdgeInsets.all(0),
     this.isEnabled = true,
+    this.isGlassMode = false,
   });
 
   bool get isSelected => value;
@@ -136,6 +138,7 @@ class NeumorphicCheckbox extends StatelessWidget {
           _onClick();
         }
       },
+      isGlassMode: isGlassMode,
       drawSurfaceAboveChild: true,
       minDistance: selectedDepth.abs(),
       style: NeumorphicStyle(
@@ -150,6 +153,7 @@ class NeumorphicCheckbox extends StatelessWidget {
       ),
       child: NeumorphicIcon(
         NeumorphicIcons.check,
+        isGlassMode: isGlassMode,
         style: NeumorphicStyle(
           color: iconColor,
         ),

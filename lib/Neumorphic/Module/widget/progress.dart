@@ -67,6 +67,7 @@ class NeumorphicProgress extends StatefulWidget {
   final Duration duration;
   final ProgressStyle style;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicProgress(
       {super.key,
@@ -74,6 +75,7 @@ class NeumorphicProgress extends StatefulWidget {
       this.height = 10,
       this.duration = const Duration(milliseconds: 300),
       this.style = const ProgressStyle(),
+      this.isGlassMode = false,
       this.curve = Curves.easeOutCubic})
       : _percent = percent;
 
@@ -138,6 +140,7 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
       child: FractionallySizedBox(
         widthFactor: 1,
         child: Neumorphic(
+          isGlassMode: widget.isGlassMode,
           padding: EdgeInsets.zero,
           style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(widget.style.borderRadius),
@@ -160,8 +163,12 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
                     end: widget.style.progressGradientEnd ??
                         Alignment.centerRight,
                     colors: [
-                      widget.style.variant ?? theme.variantColor,
-                      widget.style.accent ?? theme.accentColor,
+                      widget.isGlassMode
+                          ? (widget.style.variant ?? theme.variantColor).withValues(alpha: 0.3)
+                          : (widget.style.variant ?? theme.variantColor),
+                      widget.isGlassMode
+                          ? (widget.style.accent ?? theme.accentColor).withValues(alpha: 0.4)
+                          : (widget.style.accent ?? theme.accentColor),
                     ],
                   ),
                 );
@@ -194,6 +201,7 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
   final Duration duration;
   final bool reverse;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicProgressIndeterminate({
     super.key,
@@ -201,6 +209,7 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
     this.style = const ProgressStyle(),
     this.duration = const Duration(seconds: 3),
     this.reverse = false,
+    this.isGlassMode = false,
     this.curve = Curves.easeInOut,
   });
 
@@ -265,6 +274,7 @@ class _NeumorphicProgressIndeterminateState
       child: SizedBox(
         height: widget.height,
         child: Neumorphic(
+          isGlassMode: widget.isGlassMode,
           padding: EdgeInsets.zero,
           style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(widget.style.borderRadius),
@@ -293,8 +303,12 @@ class _NeumorphicProgressIndeterminateState
                         end: widget.style.progressGradientEnd ??
                             Alignment.centerRight,
                         colors: [
-                          widget.style.accent ?? theme.accentColor,
-                          widget.style.variant ?? theme.variantColor
+                          widget.isGlassMode
+                              ? (widget.style.accent ?? theme.accentColor).withValues(alpha: 0.4)
+                              : (widget.style.accent ?? theme.accentColor),
+                          widget.isGlassMode
+                              ? (widget.style.variant ?? theme.variantColor).withValues(alpha: 0.3)
+                              : (widget.style.variant ?? theme.variantColor)
                         ],
                       ),
                     ),

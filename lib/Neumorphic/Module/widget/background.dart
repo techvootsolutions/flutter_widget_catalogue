@@ -8,6 +8,7 @@ class NeumorphicBackground extends StatelessWidget {
   final EdgeInsets? margin;
   final Color backendColor;
   final BorderRadius? borderRadius;
+  final bool isGlassMode;
 
   const NeumorphicBackground({
     super.key,
@@ -16,17 +17,18 @@ class NeumorphicBackground extends StatelessWidget {
     this.margin,
     this.borderRadius,
     this.backendColor = const Color(0xFF000000),
+    this.isGlassMode = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
-      color: Colors.white,
+      color: isGlassMode ? Colors.transparent : Colors.white,
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(0),
         child: AnimatedContainer(
-          color: NeumorphicTheme.baseColor(context),
+          color: isGlassMode ? Colors.transparent : NeumorphicTheme.baseColor(context),
           padding: padding,
           duration: const Duration(milliseconds: 100),
           child: child,

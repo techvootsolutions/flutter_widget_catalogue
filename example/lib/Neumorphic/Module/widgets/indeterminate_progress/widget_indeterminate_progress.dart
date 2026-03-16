@@ -1,34 +1,41 @@
-import 'package:example/Neumorphic/Module/code.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'package:example/Neumorphic/Module/theme_configurator.dart';
 import 'package:example/Neumorphic/Module/color_selector.dart';
 import 'package:example/Neumorphic/Module/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
-class CheckboxWidgetPage extends StatefulWidget {
-  const CheckboxWidgetPage({super.key});
+class IndeterminateProgressWidgetPage extends StatefulWidget {
+  const IndeterminateProgressWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
 }
 
-class _WidgetPageState extends State<CheckboxWidgetPage> {
+class _WidgetPageState extends State<IndeterminateProgressWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.5,
+          ),
+          child: const _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -36,355 +43,61 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      // padding: const EdgeInsets.all(8),
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Checkbox",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorWidget(),
-              _EnabledDisabledWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          isGlassMode: isGlassMode,
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Indeterminate Progress",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      DefaultWidget1(isGlassMode: isGlassMode),
+                      ColorWidget1(isGlassMode: isGlassMode),
+                      _SizedWidget(isGlassMode: isGlassMode),
+                      _DurationWidget(isGlassMode: isGlassMode),
+                      _ReversedWidget(isGlassMode: isGlassMode),
+                      _CurveWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _DefaultWidget extends StatefulWidget {
-  @override
-  createState() => _DefaultWidgetState();
-}
-
-class _DefaultWidgetState extends State<_DefaultWidget> {
-  bool check1 = false;
-  bool check2 = false;
-  bool check3 = false;
-
-  Widget _buildCode(BuildContext context) {
-    return const Code("""
-    
-bool isChecked = false;  
-
-NeumorphicCheckbox(
-    value: isChecked,
-    onChanged: (value) {
-        setState(() {
-          isChecked = value;
-        });
-    },
-),
-""");
-  }
-
-  Widget _buildWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        children: <Widget>[
-          Text(
-            "Default",
-            style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            value: check1,
-            onChanged: (value) {
-              setState(() {
-                check1 = value;
-              });
-            },
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            value: check2,
-            onChanged: (value) {
-              setState(() {
-                check2 = value;
-              });
-            },
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            value: check3,
-            onChanged: (value) {
-              setState(() {
-                check3 = value;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _buildWidget(context),
-        _buildCode(context),
-      ],
-    );
-  }
-}
-
-class _ColorWidget extends StatefulWidget {
-  @override
-  createState() => _ColorWidgetState();
-}
-
-class _ColorWidgetState extends State<_ColorWidget> {
-  Color customColor = Colors.green;
-
-  bool checkColor1 = false;
-  bool checkColor2 = false;
-  bool checkColor3 = false;
-
-  Widget _buildWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        children: <Widget>[
-          Text(
-            "Colorizable",
-            style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
-          ),
-          const SizedBox(width: 12),
-          ColorSelector(
-            color: customColor,
-            onColorChanged: (color) {
-              setState(() {
-                customColor = color;
-              });
-            },
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
-            value: checkColor1,
-            onChanged: (value) {
-              setState(() {
-                checkColor1 = value;
-              });
-            },
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
-            value: checkColor2,
-            onChanged: (value) {
-              setState(() {
-                checkColor2 = value;
-              });
-            },
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            value: checkColor3,
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
-            onChanged: (value) {
-              setState(() {
-                checkColor3 = value;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCode(BuildContext context) {
-    return const Code("""
-    
-bool isChecked = false;  
-
-NeumorphicCheckbox(
-    value: isChecked,
-    style: NeumorphicCheckboxStyle(
-        selectedColor: Colors.green,
-    ),
-    onChanged: (value) {
-        setState(() {
-          isChecked = value;
-        });
-    },
-),
-""");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _buildWidget(context),
-        _buildCode(context),
-      ],
-    );
-  }
-}
-
-class _EnabledDisabledWidget extends StatefulWidget {
-  @override
-  createState() => _EnabledDisabledWidgetState();
-}
-
-class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
-  bool check1 = false;
-  bool check2 = false;
-
-  Widget _buildWidget(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        children: <Widget>[
-          Text(
-            "Enabled",
-            style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            value: check1,
-            onChanged: (value) {
-              setState(() {
-                check1 = value;
-              });
-            },
-          ),
-          const SizedBox(width: 24),
-          Text(
-            "Disabled",
-            style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
-          ),
-          const SizedBox(width: 12),
-          NeumorphicCheckbox(
-            isEnabled: false,
-            value: check2,
-            onChanged: (value) {
-              setState(() {
-                check2 = value;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCode(BuildContext context) {
-    return const Code("""
-    
-bool isChecked = false;  
-
-NeumorphicCheckbox(
-     isEnabled: false,
-     value: isChecked,
-     onChanged: (value) {
-       setState(() {
-         isChecked = value;
-       });
-     },
-),
-""");
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        _buildWidget(context),
-        _buildCode(context),
-      ],
-    );
-  }
-}
-
-class IndeterminateProgressWidgetPage extends StatefulWidget {
-  const IndeterminateProgressWidgetPage({super.key});
-
-  @override
-  createState() => _WidgetPageState1();
-}
-
-class _WidgetPageState1 extends State<IndeterminateProgressWidgetPage> {
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page1(),
-    );
-  }
-}
-
-class _Page1 extends StatefulWidget {
-  @override
-  createState() => _PageState1();
-}
-
-class _PageState1 extends State<_Page> {
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "IndeterminateProgress",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorWidget(),
-              _SizedWidget(),
-              _DurationWidget(),
-              _ReversedWidget(),
-              _CurveWidget(),
-              const SizedBox(height: 30),
-            ],
-          ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class DefaultWidget1 extends StatefulWidget {
-  const DefaultWidget1({super.key});
+  final bool isGlassMode;
+  const DefaultWidget1({super.key, this.isGlassMode = false});
 
   @override
   createState() => _DefaultWidgetState1();
 }
 
-class _DefaultWidgetState1 extends State<_DefaultWidget> {
+class _DefaultWidgetState1 extends State<DefaultWidget1> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
 Expanded(
@@ -403,8 +116,16 @@ Expanded(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const Expanded(
-            child: NeumorphicProgressIndeterminate(),
+          Expanded(
+            child: NeumorphicProgressIndeterminate(
+              isGlassMode: widget.isGlassMode,
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
+            ),
           ),
           const SizedBox(width: 12),
         ],
@@ -425,13 +146,14 @@ Expanded(
 }
 
 class ColorWidget1 extends StatefulWidget {
-  const ColorWidget1({super.key});
+  final bool isGlassMode;
+  const ColorWidget1({super.key, this.isGlassMode = false});
 
   @override
   createState() => _ColorWidgetState1();
 }
 
-class _ColorWidgetState1 extends State<_ColorWidget> {
+class _ColorWidgetState1 extends State<ColorWidget1> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
 Expanded(
@@ -487,9 +209,13 @@ Expanded(
               const SizedBox(width: 12),
               Expanded(
                 child: NeumorphicProgressIndeterminate(
+                  isGlassMode: widget.isGlassMode,
                   style: ProgressStyle(
-                    accent: accent,
-                    variant: variant,
+                    accent:
+                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    variant: widget.isGlassMode
+                        ? variant.withValues(alpha: 0.2)
+                        : variant,
                   ),
                 ),
               ),
@@ -514,6 +240,9 @@ Expanded(
 }
 
 class _SizedWidget extends StatefulWidget {
+  final bool isGlassMode;
+  const _SizedWidget({this.isGlassMode = false});
+
   @override
   createState() => _SizedWidgetState();
 }
@@ -543,9 +272,16 @@ Expanded(
                     TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: NeumorphicProgressIndeterminate(
+                  isGlassMode: widget.isGlassMode,
                   height: 30,
+                  style: widget.isGlassMode
+                      ? ProgressStyle(
+                          accent: Colors.white.withValues(alpha: 0.3),
+                          variant: Colors.white.withValues(alpha: 0.1),
+                        )
+                      : const ProgressStyle(),
                 ),
               ),
               const SizedBox(width: 12),
@@ -569,6 +305,9 @@ Expanded(
 }
 
 class _DurationWidget extends StatefulWidget {
+  final bool isGlassMode;
+  const _DurationWidget({this.isGlassMode = false});
+
   @override
   createState() => _DurationWidgetState();
 }
@@ -598,9 +337,16 @@ Expanded(
                     TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
               ),
               const SizedBox(width: 12),
-              const Expanded(
+              Expanded(
                 child: NeumorphicProgressIndeterminate(
-                  duration: Duration(seconds: 10),
+                  isGlassMode: widget.isGlassMode,
+                  duration: const Duration(seconds: 10),
+                  style: widget.isGlassMode
+                      ? ProgressStyle(
+                          accent: Colors.white.withValues(alpha: 0.3),
+                          variant: Colors.white.withValues(alpha: 0.1),
+                        )
+                      : const ProgressStyle(),
                 ),
               ),
               const SizedBox(width: 12),
@@ -624,6 +370,9 @@ Expanded(
 }
 
 class _ReversedWidget extends StatefulWidget {
+  final bool isGlassMode;
+  const _ReversedWidget({this.isGlassMode = false});
+
   @override
   createState() => _ReversedWidgetState();
 }
@@ -649,9 +398,16 @@ Expanded(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: NeumorphicProgressIndeterminate(
+              isGlassMode: widget.isGlassMode,
               reverse: true,
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
             ),
           ),
           const SizedBox(width: 12),
@@ -673,6 +429,9 @@ Expanded(
 }
 
 class _CurveWidget extends StatefulWidget {
+  final bool isGlassMode;
+  const _CurveWidget({this.isGlassMode = false});
+
   @override
   createState() => _CurveWidgetState();
 }
@@ -698,9 +457,16 @@ Expanded(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const Expanded(
+          Expanded(
             child: NeumorphicProgressIndeterminate(
+              isGlassMode: widget.isGlassMode,
               curve: Curves.bounceOut,
+              style: widget.isGlassMode
+                  ? ProgressStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const ProgressStyle(),
             ),
           ),
           const SizedBox(width: 12),

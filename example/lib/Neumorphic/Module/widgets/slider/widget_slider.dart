@@ -1,9 +1,9 @@
-import 'package:example/Neumorphic/Module/code.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'package:example/Neumorphic/Module/theme_configurator.dart';
 import 'package:example/Neumorphic/Module/color_selector.dart';
 import 'package:example/Neumorphic/Module/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class SliderWidgetPage extends StatefulWidget {
   const SliderWidgetPage({super.key});
@@ -15,20 +15,27 @@ class SliderWidgetPage extends StatefulWidget {
 class _WidgetPageState extends State<SliderWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.5,
+          ),
+          child: const _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -36,33 +43,55 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Slider",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          isGlassMode: isGlassMode,
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Slider",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      // _SizedWidget(isGlassMode: isGlassMode), // Added from instruction, but not defined. Keeping commented.
+                      _ColorWidget(isGlassMode: isGlassMode),
+                      // _CurveWidget(isGlassMode: isGlassMode), // Added from instruction, but not defined. Keeping commented.
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -101,9 +130,16 @@ Expanded(
           const SizedBox(width: 12),
           Expanded(
             child: NeumorphicSlider(
+              isGlassMode: widget.isGlassMode,
               value: age,
               min: 18,
               max: 90,
+              style: widget.isGlassMode
+                  ? SliderStyle(
+                      accent: Colors.white.withValues(alpha: 0.3),
+                      variant: Colors.white.withValues(alpha: 0.1),
+                    )
+                  : const SliderStyle(),
               onChanged: (value) {
                 setState(() {
                   age = value;
@@ -134,6 +170,10 @@ Expanded(
 }
 
 class _ColorWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorWidgetState();
 }
@@ -206,9 +246,13 @@ Expanded(
               const SizedBox(width: 12),
               Expanded(
                 child: NeumorphicSlider(
+                  isGlassMode: widget.isGlassMode,
                   style: SliderStyle(
-                    accent: accent,
-                    variant: variant,
+                    accent:
+                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    variant: widget.isGlassMode
+                        ? variant.withValues(alpha: 0.2)
+                        : variant,
                   ),
                   value: age,
                   min: 18,

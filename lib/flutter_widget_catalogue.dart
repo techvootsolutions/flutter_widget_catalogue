@@ -74,5 +74,8 @@ export 'Neumorphic/Module/widget/slider.dart';
 export 'Neumorphic/Module/widget/switch.dart';
 export 'Neumorphic/Module/widget/text.dart';
 export 'Neumorphic/Module/widget/toggle.dart';
+export 'Neumorphic/Module/glass_mode_manager.dart';
+export 'Neumorphic/Module/glass_wrap.dart';
+export 'Neumorphic/Module/liquid_background.dart';
 export 'Switch/switch.dart';
 export 'TextField/text_field.dart';

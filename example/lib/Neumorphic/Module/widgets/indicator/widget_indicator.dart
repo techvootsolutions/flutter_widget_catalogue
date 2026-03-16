@@ -1,11 +1,10 @@
 import 'dart:math' show Random;
-
-import 'package:example/Neumorphic/Module/code.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'package:example/Neumorphic/Module/theme_configurator.dart';
 import 'package:example/Neumorphic/Module/color_selector.dart';
 import 'package:example/Neumorphic/Module/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class IndicatorWidgetPage extends StatefulWidget {
   const IndicatorWidgetPage({super.key});
@@ -17,20 +16,27 @@ class IndicatorWidgetPage extends StatefulWidget {
 class _WidgetPageState extends State<IndicatorWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.5,
+          ),
+          child: _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -38,36 +44,56 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Indicator",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _DefaultOrientationWidget(),
-              _DurationWidget(),
-              _ColorWidget(),
-              _CurveWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          isGlassMode: isGlassMode,
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Indicator",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      _DefaultOrientationWidget(isGlassMode: isGlassMode),
+                      _DurationWidget(isGlassMode: isGlassMode),
+                      _ColorWidget(isGlassMode: isGlassMode),
+                      _CurveWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -96,9 +122,16 @@ NeumorphicIndicator(
           ),
           const SizedBox(width: 12),
           NeumorphicIndicator(
+            isGlassMode: widget.isGlassMode,
             height: 100,
             width: 20,
             percent: percent,
+            style: widget.isGlassMode
+                ? IndicatorStyle(
+                    accent: Colors.white.withValues(alpha: 0.3),
+                    variant: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const IndicatorStyle(),
           ),
           const SizedBox(width: 12),
           TextButton(
@@ -126,6 +159,10 @@ NeumorphicIndicator(
 }
 
 class _DefaultOrientationWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultOrientationWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultOrientationWidgetState();
 }
@@ -152,11 +189,18 @@ NeumorphicIndicator(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const NeumorphicIndicator(
+          NeumorphicIndicator(
+            isGlassMode: widget.isGlassMode,
             width: 150,
             height: 15,
             orientation: NeumorphicIndicatorOrientation.horizontal,
             percent: 0.7,
+            style: widget.isGlassMode
+                ? IndicatorStyle(
+                    accent: Colors.white.withValues(alpha: 0.3),
+                    variant: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const IndicatorStyle(),
           ),
           const SizedBox(width: 12),
         ],
@@ -177,6 +221,10 @@ NeumorphicIndicator(
 }
 
 class _ColorWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorWidgetState();
 }
@@ -238,11 +286,17 @@ NeumorphicIndicator(
               ),
               const SizedBox(width: 12),
               NeumorphicIndicator(
+                isGlassMode: widget.isGlassMode,
                 width: 150,
                 height: 15,
                 orientation: NeumorphicIndicatorOrientation.horizontal,
                 percent: 0.7,
-                style: IndicatorStyle(variant: variant, accent: accent),
+                style: IndicatorStyle(
+                  variant:
+                      widget.isGlassMode ? variant.withValues(alpha: 0.2) : variant,
+                  accent:
+                      widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                ),
               ),
               const SizedBox(width: 12),
             ],
@@ -265,6 +319,10 @@ NeumorphicIndicator(
 }
 
 class _DurationWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DurationWidget({this.isGlassMode = false});
+
   @override
   createState() => _DurationWidgetState();
 }
@@ -294,10 +352,17 @@ NeumorphicIndicator(
           ),
           const SizedBox(width: 12),
           NeumorphicIndicator(
+            isGlassMode: widget.isGlassMode,
             height: 100,
             width: 20,
             percent: percent,
             duration: const Duration(seconds: 1),
+            style: widget.isGlassMode
+                ? IndicatorStyle(
+                    accent: Colors.white.withValues(alpha: 0.3),
+                    variant: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const IndicatorStyle(),
           ),
           const SizedBox(width: 12),
           TextButton(
@@ -325,6 +390,10 @@ NeumorphicIndicator(
 }
 
 class _CurveWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _CurveWidget({this.isGlassMode = false});
+
   @override
   createState() => _CurveWidgetState();
 }
@@ -354,10 +423,18 @@ NeumorphicIndicator(
           ),
           const SizedBox(width: 12),
           NeumorphicIndicator(
-              height: 100,
-              width: 20,
-              percent: percent,
-              curve: Curves.bounceOut),
+            isGlassMode: widget.isGlassMode,
+            height: 100,
+            width: 20,
+            percent: percent,
+            curve: Curves.bounceOut,
+            style: widget.isGlassMode
+                ? IndicatorStyle(
+                    accent: Colors.white.withValues(alpha: 0.3),
+                    variant: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const IndicatorStyle(),
+          ),
           const SizedBox(width: 12),
           TextButton(
               child: const Text('Update'),

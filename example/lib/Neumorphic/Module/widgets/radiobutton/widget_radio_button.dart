@@ -1,8 +1,8 @@
-import 'package:example/Neumorphic/Module/code.dart';
-import 'package:example/Neumorphic/Module/theme_configurator.dart';
-import 'package:example/Neumorphic/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/theme_configurator.dart';
+import 'package:example/Neumorphic/Module/top_bar.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class RadioButtonWidgetPage extends StatefulWidget {
   const RadioButtonWidgetPage({super.key});
@@ -14,20 +14,31 @@ class RadioButtonWidgetPage extends StatefulWidget {
 class _WidgetPageState extends State<RadioButtonWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.5,
+          ),
+          child: _Page(isGlassMode: isGlassMode),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _Page({
+    required this.isGlassMode,
+  });
+
   @override
   createState() => _PageState();
 }
@@ -38,24 +49,34 @@ class _PageState extends State<_Page> {
     return NeumorphicBackground(
       child: Scaffold(
         appBar: const TopBar(
-          title: "Radios",
+          title: "RadioButton",
           actions: <Widget>[
             ThemeConfigurator(),
           ],
         ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              const CircleRadios(),
-              _EnabledDisabledWidget(),
-              const SizedBox(height: 30),
-            ],
-          ),
+        backgroundColor: widget.isGlassMode
+            ? Colors.transparent
+            : NeumorphicColors.neumorphicScreenBg,
+        body: Stack(
+          children: [
+            if (widget.isGlassMode)
+              const Positioned.fill(
+                child: LiquidBackground(),
+              ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  _DefaultWidget(isGlassMode: widget.isGlassMode),
+                  CircleRadios(isGlassMode: widget.isGlassMode),
+                  _EnabledDisabledWidget(isGlassMode: widget.isGlassMode),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -63,6 +84,10 @@ class _PageState extends State<_Page> {
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -75,7 +100,7 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
 int groupValue;
 
 NeumorphicRadio(
-    groupValue: groupValue
+    groupValue: groupValue,
     value: 1991,
     onChanged: (value) {
         setState(() {
@@ -98,6 +123,7 @@ NeumorphicRadio(
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             groupValue: groupValue,
             value: 1991,
             onChanged: (int? value) {
@@ -105,11 +131,20 @@ NeumorphicRadio(
                 groupValue = value;
               });
             },
+            style: widget.isGlassMode
+                ? NeumorphicRadioStyle(
+                    shape: NeumorphicShape.concave,
+                    intensity: 0.9,
+                    selectedColor: Colors.white.withValues(alpha: 0.1),
+                    unselectedColor: Colors.white.withValues(alpha: 0.05),
+                  )
+                : const NeumorphicRadioStyle(),
             padding: const EdgeInsets.all(8.0),
             child: const Text("1991"),
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             value: 2000,
             groupValue: groupValue,
             onChanged: (int? value) {
@@ -117,11 +152,20 @@ NeumorphicRadio(
                 groupValue = value;
               });
             },
+            style: widget.isGlassMode
+                ? NeumorphicRadioStyle(
+                    shape: NeumorphicShape.concave,
+                    intensity: 0.9,
+                    selectedColor: Colors.white.withValues(alpha: 0.1),
+                    unselectedColor: Colors.white.withValues(alpha: 0.05),
+                  )
+                : const NeumorphicRadioStyle(),
             padding: const EdgeInsets.all(8.0),
             child: const Text("2000"),
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             groupValue: groupValue,
             value: 2012,
             onChanged: (int? value) {
@@ -129,6 +173,14 @@ NeumorphicRadio(
                 groupValue = value;
               });
             },
+            style: widget.isGlassMode
+                ? NeumorphicRadioStyle(
+                    shape: NeumorphicShape.concave,
+                    intensity: 0.9,
+                    selectedColor: Colors.white.withValues(alpha: 0.1),
+                    unselectedColor: Colors.white.withValues(alpha: 0.05),
+                  )
+                : const NeumorphicRadioStyle(),
             padding: const EdgeInsets.all(8.0),
             child: const Text("2012"),
           ),
@@ -150,7 +202,9 @@ NeumorphicRadio(
 }
 
 class CircleRadios extends StatefulWidget {
-  const CircleRadios({super.key});
+  final bool isGlassMode;
+
+  const CircleRadios({super.key, this.isGlassMode = false});
 
   @override
   createState() => _CircleRadiosState();
@@ -164,7 +218,7 @@ class _CircleRadiosState extends State<CircleRadios> {
 String groupValue;
 
 NeumorphicRadio(
-    groupValue: groupValue
+    groupValue: groupValue,
     style: NeumorphicRadioStyle(boxShape: NeumorphicBoxShape.circle()),
     value: "A",
     onChanged: (value) {
@@ -188,8 +242,17 @@ NeumorphicRadio(
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
-            style: const NeumorphicRadioStyle(
-              boxShape: NeumorphicBoxShape.circle(),
+            isGlassMode: widget.isGlassMode,
+            style: NeumorphicRadioStyle(
+              boxShape: const NeumorphicBoxShape.circle(),
+              shape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+              intensity: widget.isGlassMode ? 0.9 : 0.5,
+              selectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              unselectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
             ),
             groupValue: groupValue,
             value: "A",
@@ -203,9 +266,18 @@ NeumorphicRadio(
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             value: "B",
-            style: const NeumorphicRadioStyle(
-              boxShape: NeumorphicBoxShape.circle(),
+            style: NeumorphicRadioStyle(
+              boxShape: const NeumorphicBoxShape.circle(),
+              shape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+              intensity: widget.isGlassMode ? 0.9 : 0.5,
+              selectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              unselectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
             ),
             groupValue: groupValue,
             onChanged: (value) {
@@ -218,8 +290,17 @@ NeumorphicRadio(
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
-            style: const NeumorphicRadioStyle(
-              boxShape: NeumorphicBoxShape.circle(),
+            isGlassMode: widget.isGlassMode,
+            style: NeumorphicRadioStyle(
+              boxShape: const NeumorphicBoxShape.circle(),
+              shape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+              intensity: widget.isGlassMode ? 0.9 : 0.5,
+              selectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              unselectedColor:
+                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
             ),
             groupValue: groupValue,
             value: "C",
@@ -249,6 +330,10 @@ NeumorphicRadio(
 }
 
 class _EnabledDisabledWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _EnabledDisabledWidget({this.isGlassMode = false});
+
   @override
   createState() => _EnabledDisabledWidgetState();
 }
@@ -267,9 +352,17 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             groupValue: groupValue,
             value: 1,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+            style: widget.isGlassMode
+                ? NeumorphicRadioStyle(
+                    shape: NeumorphicShape.concave,
+                    intensity: 0.9,
+                    selectedColor: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const NeumorphicRadioStyle(),
             child: const Text("First"),
             onChanged: (int? value) {
               setState(() {
@@ -284,10 +377,18 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicRadio(
+            isGlassMode: widget.isGlassMode,
             isEnabled: false,
             groupValue: groupValue,
             value: 2,
             padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+            style: widget.isGlassMode
+                ? NeumorphicRadioStyle(
+                    shape: NeumorphicShape.concave,
+                    intensity: 0.4,
+                    selectedColor: Colors.white.withValues(alpha: 0.05),
+                  )
+                : const NeumorphicRadioStyle(),
             child: const Text("Second"),
             onChanged: (int? value) {
               setState(() {

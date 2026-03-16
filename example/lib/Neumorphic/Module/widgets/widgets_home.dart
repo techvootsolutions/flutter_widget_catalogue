@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'background/widget_background.dart';
 import 'button/widget_button.dart';
+import 'checkbox/widget_checkbox.dart';
 import 'container/widget_container.dart';
 import 'icon/widget_icon.dart';
 import 'indeterminate_progress/widget_indeterminate_progress.dart';
@@ -189,6 +190,16 @@ class WidgetsHome extends StatelessWidget {
                     onClick: () {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => const ProgressWidgetPage(),
+                      ));
+                    },
+                  ),
+                  _buildButton(
+                    text: "Indeterminate Progress",
+                    icon: Icons.hourglass_empty,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IndeterminateProgressWidgetPage(),
                       ));
                     },
                   ),

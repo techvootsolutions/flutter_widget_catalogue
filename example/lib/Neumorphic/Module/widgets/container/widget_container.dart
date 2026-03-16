@@ -1,9 +1,9 @@
-import 'package:example/Neumorphic/Module/code.dart';
-import 'package:example/Neumorphic/Module/theme_configurator.dart';
-import 'package:example/Neumorphic/Module/color_selector.dart';
-import 'package:example/Neumorphic/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/top_bar.dart';
+import 'package:example/Neumorphic/Module/color_selector.dart';
+import 'package:example/Neumorphic/Module/theme_configurator.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class ContainerWidgetPage extends StatefulWidget {
   const ContainerWidgetPage({super.key});
@@ -15,20 +15,34 @@ class ContainerWidgetPage extends StatefulWidget {
 class _WidgetPageState extends State<ContainerWidgetPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 8,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: depth,
+            intensity: intensity,
+          ),
+          child: _Page(isGlassMode: isGlassMode),
+        );
+      },
     );
   }
+
+  static const double depth = 4;
+  static const double intensity = 0.5;
 }
 
 class _Page extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _Page({
+    required this.isGlassMode,
+  });
+
   @override
   createState() => _PageState();
 }
@@ -47,23 +61,33 @@ class _PageState extends State<_Page> {
             ),
           ],
         ),
-        backgroundColor: NeumorphicColors.neumorphicScreenBg,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _CircleWidget(),
-              _RoundRectWidget(),
-              _ColorizableWidget(),
-              _FlatConcaveConvexWidget(),
-              _EmbossWidget(),
-              _DrawAboveWidget(),
-              const SizedBox(height: 30),
-            ],
-          ),
+        backgroundColor: widget.isGlassMode
+            ? Colors.transparent
+            : NeumorphicColors.neumorphicScreenBg,
+        body: Stack(
+          children: [
+            if (widget.isGlassMode)
+              const Positioned.fill(
+                child: LiquidBackground(),
+              ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  _DefaultWidget(isGlassMode: widget.isGlassMode),
+                  _CircleWidget(isGlassMode: widget.isGlassMode),
+                  _RoundRectWidget(isGlassMode: widget.isGlassMode),
+                  _ColorizableWidget(isGlassMode: widget.isGlassMode),
+                  _FlatConcaveConvexWidget(isGlassMode: widget.isGlassMode),
+                  _EmbossWidget(isGlassMode: widget.isGlassMode),
+                  _DrawAboveWidget(isGlassMode: widget.isGlassMode),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -71,6 +95,10 @@ class _PageState extends State<_Page> {
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -78,10 +106,13 @@ class _DefaultWidget extends StatefulWidget {
 class _DefaultWidgetState extends State<_DefaultWidget> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-    child: SizedBox(
-        height: 100,
-        width: 100,
+GlassWrap(
+    isGlassMode: isGlassMode,
+    child: Neumorphic(
+        child: SizedBox(
+            height: 100,
+            width: 100,
+        ),
     ),
 ),
 """);
@@ -97,10 +128,27 @@ Neumorphic(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const Neumorphic(
-            child: SizedBox(
-              height: 100,
-              width: 100,
+          GlassWrap(
+            isGlassMode: widget.isGlassMode,
+            child: Neumorphic(
+              style: widget.isGlassMode
+                  ? NeumorphicStyle(
+                      shape: NeumorphicShape.concave,
+                      depth: 8,
+                      intensity: 0.9,
+                      surfaceIntensity: 0.5,
+                      color: Colors.white.withValues(alpha: 0.1),
+                      border: NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.white.withValues(alpha: 0.2),
+                        width: 0.5,
+                      ),
+                    )
+                  : const NeumorphicStyle(),
+              child: const SizedBox(
+                height: 100,
+                width: 100,
+              ),
             ),
           ),
           const SizedBox(width: 12),
@@ -122,6 +170,10 @@ Neumorphic(
 }
 
 class _CircleWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _CircleWidget({this.isGlassMode = false});
+
   @override
   createState() => _CircleWidgetState();
 }
@@ -129,10 +181,14 @@ class _CircleWidget extends StatefulWidget {
 class _CircleWidgetState extends State<_CircleWidget> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-     boxShape: NeumorphicBoxShape.circle(),
-     padding: EdgeInsets.all(18.0),
-     child: Icon(Icons.map),
+GlassWrap(
+    isGlassMode: isGlassMode,
+    isCircle: true,
+    child: Neumorphic(
+        boxShape: NeumorphicBoxShape.circle(),
+        padding: EdgeInsets.all(18.0),
+        child: Icon(Icons.map),
+    ),
 ),
 """);
   }
@@ -147,12 +203,27 @@ Neumorphic(
             style: TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
           ),
           const SizedBox(width: 12),
-          const Neumorphic(
+          Neumorphic(
+            isGlassMode: widget.isGlassMode,
             style: NeumorphicStyle(
-              boxShape: NeumorphicBoxShape.circle(),
+              boxShape: const NeumorphicBoxShape.circle(),
+              shape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+              depth: widget.isGlassMode ? 8 : 4.0,
+              intensity: widget.isGlassMode ? 0.9 : 0.5,
+              surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+              color: widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              border: widget.isGlassMode
+                  ? NeumorphicBorder(
+                      isEnabled: true,
+                      color: Colors.white.withValues(alpha: 0.2),
+                      width: 0.5,
+                    )
+                  : const NeumorphicBorder.none(),
             ),
-            padding: EdgeInsets.all(18.0),
-            child: Icon(Icons.map),
+            padding: const EdgeInsets.all(18.0),
+            child: const Icon(Icons.map),
           ),
           const SizedBox(width: 12),
         ],
@@ -173,6 +244,10 @@ Neumorphic(
 }
 
 class _RoundRectWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _RoundRectWidget({this.isGlassMode = false});
+
   @override
   createState() => _RoundRectWidgetState();
 }
@@ -180,12 +255,16 @@ class _RoundRectWidget extends StatefulWidget {
 class _RoundRectWidgetState extends State<_RoundRectWidget> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-    style: NeumorphicStyle(
-         boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+GlassWrap(
+    isGlassMode: isGlassMode,
+    borderRadius: BorderRadius.circular(8),
+    child: Neumorphic(
+        style: NeumorphicStyle(
+             boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+        ),
+        padding: EdgeInsets.all(18.0),
+        child: Icon(Icons.map),
     ),
-    padding: EdgeInsets.all(18.0),
-    child: Icon(Icons.map),
 ),
 """);
   }
@@ -201,8 +280,23 @@ Neumorphic(
           ),
           const SizedBox(width: 12),
           Neumorphic(
+            isGlassMode: widget.isGlassMode,
             style: NeumorphicStyle(
               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(8)),
+              shape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+              depth: widget.isGlassMode ? 8 : 4.0,
+              intensity: widget.isGlassMode ? 0.9 : 0.5,
+              surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+              color: widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              border: widget.isGlassMode
+                  ? NeumorphicBorder(
+                      isEnabled: true,
+                      color: Colors.white.withValues(alpha: 0.2),
+                      width: 0.5,
+                    )
+                  : const NeumorphicBorder.none(),
             ),
             padding: const EdgeInsets.all(18.0),
             child: const Icon(Icons.map),
@@ -226,6 +320,10 @@ Neumorphic(
 }
 
 class _ColorizableWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorizableWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorizableWidgetState();
 }
@@ -235,14 +333,18 @@ class _ColorizableWidgetState extends State<_ColorizableWidget> {
 
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-    style: NeumorphicStyle(
-        color: Colors.white,
-        boxShape: NeumorphicBoxShape.circle()
-    ),
-    child: SizedBox(
-      height: 100, 
-      width: 100,
+GlassWrap(
+    isGlassMode: isGlassMode,
+    isCircle: true,
+    child: Neumorphic(
+        style: NeumorphicStyle(
+            color: Colors.white,
+            boxShape: NeumorphicBoxShape.circle()
+        ),
+        child: SizedBox(
+          height: 100, 
+          width: 100,
+        ),
     ),
 ),
 """);
@@ -268,9 +370,25 @@ Neumorphic(
           ),
           const SizedBox(width: 12),
           Neumorphic(
+            isGlassMode: widget.isGlassMode,
             style: NeumorphicStyle(
-                color: currentColor,
-                boxShape: const NeumorphicBoxShape.circle()),
+                color: widget.isGlassMode
+                    ? currentColor.withValues(alpha: 0.2)
+                    : currentColor,
+                boxShape: const NeumorphicBoxShape.circle(),
+                shape: widget.isGlassMode
+                    ? NeumorphicShape.concave
+                    : NeumorphicShape.flat,
+                depth: widget.isGlassMode ? 8 : 4.0,
+                intensity: widget.isGlassMode ? 0.9 : 0.5,
+                surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+                border: widget.isGlassMode
+                    ? NeumorphicBorder(
+                        isEnabled: true,
+                        color: Colors.white.withValues(alpha: 0.2),
+                        width: 0.5,
+                      )
+                    : const NeumorphicBorder.none()),
             child: const SizedBox(
               height: 100,
               width: 100,
@@ -294,6 +412,10 @@ Neumorphic(
 }
 
 class _FlatConcaveConvexWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _FlatConcaveConvexWidget({this.isGlassMode = false});
+
   @override
   createState() => _FlatConcaveConvexWidgetState();
 }
@@ -303,13 +425,17 @@ class _FlatConcaveConvexWidgetState extends State<_FlatConcaveConvexWidget> {
 
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-    style: NeumorphicStyle(
-         shape: NeumorphicShape.flat 
-         //or convex, concave
+GlassWrap(
+    isGlassMode: isGlassMode,
+    isCircle: true,
+    child: Neumorphic(
+        style: NeumorphicStyle(
+             shape: NeumorphicShape.flat 
+             //or convex, concave
+        ),
+        
+        child: ...
     ),
-    
-    child: ...
 ),
 """);
   }
@@ -331,13 +457,26 @@ Neumorphic(
                 ),
               ),
               const SizedBox(width: 12),
-              const Neumorphic(
+              Neumorphic(
+                isGlassMode: widget.isGlassMode,
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
-                  boxShape: NeumorphicBoxShape.circle(),
+                  boxShape: const NeumorphicBoxShape.circle(),
+                  depth: widget.isGlassMode ? 8 : null,
+                  intensity: widget.isGlassMode ? 0.9 : null,
+                  surfaceIntensity: widget.isGlassMode ? 0.5 : 0.25,
+                  color:
+                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  border: widget.isGlassMode
+                      ? NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 0.5,
+                        )
+                      : NeumorphicBorder.none(),
                 ),
-                padding: EdgeInsets.all(18.0),
-                child: Icon(Icons.play_arrow),
+                padding: const EdgeInsets.all(18.0),
+                child: const Icon(Icons.play_arrow),
               ),
             ],
           ),
@@ -353,13 +492,26 @@ Neumorphic(
                 ),
               ),
               const SizedBox(width: 12),
-              const Neumorphic(
+              Neumorphic(
+                isGlassMode: widget.isGlassMode,
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.concave,
-                  boxShape: NeumorphicBoxShape.circle(),
+                  boxShape: const NeumorphicBoxShape.circle(),
+                  depth: widget.isGlassMode ? 8 : null,
+                  intensity: widget.isGlassMode ? 0.9 : null,
+                  surfaceIntensity: widget.isGlassMode ? 0.5 : 0.25,
+                  color:
+                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  border: widget.isGlassMode
+                      ? NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 0.5,
+                        )
+                      : NeumorphicBorder.none(),
                 ),
-                padding: EdgeInsets.all(18.0),
-                child: Icon(Icons.play_arrow),
+                padding: const EdgeInsets.all(18.0),
+                child: const Icon(Icons.play_arrow),
               ),
             ],
           ),
@@ -375,12 +527,26 @@ Neumorphic(
                 ),
               ),
               const SizedBox(width: 12),
-              const NeumorphicButton(
+              NeumorphicButton(
+                isGlassMode: widget.isGlassMode,
                 style: NeumorphicStyle(
-                    shape: NeumorphicShape.convex,
-                    boxShape: NeumorphicBoxShape.circle()),
-                padding: EdgeInsets.all(18.0),
-                child: Icon(Icons.play_arrow),
+                  shape: NeumorphicShape.convex,
+                  boxShape: const NeumorphicBoxShape.circle(),
+                  depth: widget.isGlassMode ? 8 : null,
+                  intensity: widget.isGlassMode ? 1.0 : 0.5,
+                  surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+                  color:
+                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  border: widget.isGlassMode
+                      ? NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 0.5,
+                        )
+                      : const NeumorphicBorder.none(),
+                ),
+                padding: const EdgeInsets.all(18.0),
+                child: const Icon(Icons.play_arrow),
               ),
             ],
           ),
@@ -402,6 +568,10 @@ Neumorphic(
 }
 
 class _EmbossWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _EmbossWidget({this.isGlassMode = false});
+
   @override
   createState() => _EmbossWidgetState();
 }
@@ -409,10 +579,13 @@ class _EmbossWidget extends StatefulWidget {
 class _EmbossWidgetState extends State<_EmbossWidget> {
   Widget _buildCode(BuildContext context) {
     return const Code("""
-Neumorphic(
-    child: Icon(Icons.play_arrow),
-    style: NeumorphicStyle(
-      depth: -10.0,
+GlassWrap(
+    isGlassMode: isGlassMode,
+    child: Neumorphic(
+        child: Icon(Icons.play_arrow),
+        style: NeumorphicStyle(
+          depth: -10.0,
+        ),
     ),
 ),
 """);
@@ -432,21 +605,38 @@ Neumorphic(
                     TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
               ),
               const SizedBox(width: 12),
-              const Neumorphic(
-                padding: EdgeInsets.all(18),
+              Neumorphic(
+                isGlassMode: widget.isGlassMode,
+                padding: const EdgeInsets.all(18),
                 style: NeumorphicStyle(
                   depth: -10.0,
+                  intensity: widget.isGlassMode ? 0.9 : 0.5,
+                  surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+                  color: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : null,
+                  border: widget.isGlassMode
+                      ? NeumorphicBorder(
+                          isEnabled: true,
+                          color: Colors.white.withValues(alpha: 0.2),
+                          width: 0.5,
+                        )
+                      : const NeumorphicBorder.none(),
                 ),
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
               ),
               const SizedBox(width: 12),
-              const Neumorphic(
-                padding: EdgeInsets.all(18),
+              Neumorphic(
+                isGlassMode: widget.isGlassMode,
+                padding: const EdgeInsets.all(18),
                 style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
+                  boxShape: const NeumorphicBoxShape.circle(),
                   depth: -10.0,
+                  color: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : null,
                 ),
-                child: Icon(Icons.play_arrow),
+                child: const Icon(Icons.play_arrow),
               ),
             ],
           ),
@@ -468,6 +658,10 @@ Neumorphic(
 }
 
 class _DrawAboveWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DrawAboveWidget({this.isGlassMode = false});
+
   @override
   createState() => _DrawAboveWidgetState();
 }
@@ -583,6 +777,7 @@ Neumorphic(
     bool isConvex = false,
   }) {
     return Neumorphic(
+      isGlassMode: widget.isGlassMode,
       drawSurfaceAboveChild: drawSurfaceAboveChild,
       margin: const EdgeInsets.all(8),
       style: NeumorphicStyle(
@@ -590,6 +785,15 @@ Neumorphic(
         intensity: isConvex ? 1 : null,
         shape: shape,
         boxShape: isCircle ? const NeumorphicBoxShape.circle() : null,
+        color: widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+        depth: widget.isGlassMode ? 8 : null,
+        border: widget.isGlassMode
+            ? NeumorphicBorder(
+                isEnabled: true,
+                color: Colors.white.withValues(alpha: 0.2),
+                width: 0.5,
+              )
+            : const NeumorphicBorder.none(),
       ),
       child: Image.asset(
         "assets/images/weeknd.jpg",

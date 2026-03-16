@@ -60,6 +60,7 @@ class NeumorphicIndicator extends StatefulWidget {
   final IndicatorStyle style;
   final Duration duration;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicIndicator({
     super.key,
@@ -70,6 +71,7 @@ class NeumorphicIndicator extends StatefulWidget {
     this.width = double.maxFinite,
     this.style = const IndicatorStyle(),
     this.duration = const Duration(milliseconds: 300),
+    this.isGlassMode = false,
     this.curve = Curves.easeOutCubic,
   });
 
@@ -143,6 +145,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
       height: widget.height,
       width: widget.width,
       child: Neumorphic(
+        isGlassMode: widget.isGlassMode,
         padding: EdgeInsets.zero,
         style: NeumorphicStyle(
           boxShape: const NeumorphicBoxShape.stadium(),
@@ -170,6 +173,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                 child: Padding(
                   padding: widget.padding,
                   child: Neumorphic(
+                    isGlassMode: widget.isGlassMode,
                     style: NeumorphicStyle(
                       boxShape: const NeumorphicBoxShape.stadium(),
                       lightSource:
@@ -182,8 +186,12 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                             widget.style.gradientStart ?? Alignment.topCenter,
                         end: widget.style.gradientEnd ?? Alignment.bottomCenter,
                         colors: [
-                          widget.style.accent ?? theme.accentColor,
-                          widget.style.variant ?? theme.variantColor
+                          widget.isGlassMode
+                              ? (widget.style.accent ?? theme.accentColor).withValues(alpha: 0.4)
+                              : (widget.style.accent ?? theme.accentColor),
+                          widget.isGlassMode
+                              ? (widget.style.variant ?? theme.variantColor).withValues(alpha: 0.3)
+                              : (widget.style.variant ?? theme.variantColor),
                         ],
                       ),
                     )),
