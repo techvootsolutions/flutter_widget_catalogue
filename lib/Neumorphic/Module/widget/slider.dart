@@ -9,6 +9,7 @@ class SliderStyle {
   final BorderRadius borderRadius;
   final Color? accent;
   final Color? variant;
+  final List<Color>? colors;
   final LightSource? lightSource;
 
   final NeumorphicBorder border;
@@ -21,6 +22,7 @@ class SliderStyle {
     this.accent,
     this.lightSource,
     this.variant,
+    this.colors,
     this.border = const NeumorphicBorder.none(),
     this.thumbBorder = const NeumorphicBorder.none(),
   });
@@ -37,7 +39,8 @@ class SliderStyle {
           thumbBorder == other.thumbBorder &&
           border == other.border &&
           accent == other.accent &&
-          variant == other.variant;
+          variant == other.variant &&
+          colors == other.colors;
 
   @override
   int get hashCode =>
@@ -48,7 +51,8 @@ class SliderStyle {
       lightSource.hashCode ^
       thumbBorder.hashCode ^
       accent.hashCode ^
-      variant.hashCode;
+      variant.hashCode ^
+      colors.hashCode;
 }
 
 @immutable
@@ -149,6 +153,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
         borderRadius: widget.style.borderRadius,
         accent: widget.style.accent ?? theme.accentColor,
         variant: widget.style.variant ?? theme.variantColor,
+        colors: widget.style.colors,
       ),
     );
   }

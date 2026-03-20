@@ -14,6 +14,7 @@ class ProgressStyle {
 
   final AlignmentGeometry? progressGradientStart;
   final AlignmentGeometry? progressGradientEnd;
+  final List<Color>? colors;
   final bool disableDepth;
 
   final NeumorphicBorder border;
@@ -27,6 +28,7 @@ class ProgressStyle {
     this.lightSource,
     this.progressGradientStart,
     this.progressGradientEnd,
+    this.colors,
     this.variant,
     this.border = const NeumorphicBorder.none(),
   });
@@ -44,6 +46,7 @@ class ProgressStyle {
           gradientBorderRadius == other.gradientBorderRadius &&
           accent == other.accent &&
           variant == other.variant &&
+          colors == other.colors &&
           progressGradientStart == other.progressGradientStart &&
           progressGradientEnd == other.progressGradientEnd;
 
@@ -57,6 +60,7 @@ class ProgressStyle {
       border.hashCode ^
       accent.hashCode ^
       variant.hashCode ^
+      colors.hashCode ^
       progressGradientStart.hashCode ^
       progressGradientEnd.hashCode;
 }
@@ -162,7 +166,7 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
                         Alignment.centerLeft,
                     end: widget.style.progressGradientEnd ??
                         Alignment.centerRight,
-                    colors: [
+                    colors: widget.style.colors ?? [
                       widget.isGlassMode
                           ? (widget.style.variant ?? theme.variantColor).withValues(alpha: 0.3)
                           : (widget.style.variant ?? theme.variantColor),
