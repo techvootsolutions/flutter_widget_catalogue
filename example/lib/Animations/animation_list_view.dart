@@ -10,10 +10,32 @@ class AnimationListView extends StatefulWidget {
 
 enum ViewMode { list, grid, masonry, quilted }
 
-class _AnimationListViewState extends State<AnimationListView> {
+class _AnimationListViewState extends State<AnimationListView>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
   ViewMode _viewMode = ViewMode.list;
-  bool _isGlassMode = false;
+  final bool _isGlassMode = false;
   final Set<int> _expandedIndices = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: ViewMode.values.length, vsync: this);
+    _tabController.addListener(() {
+      if (!_tabController.indexIsChanging) {
+        setState(() {
+          _viewMode = ViewMode.values[_tabController.index];
+          _expandedIndices.clear();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   final List<Color> _colors = [
     Colors.purple.shade400,
@@ -84,7 +106,7 @@ class _AnimationListViewState extends State<AnimationListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.grey.shade50,
       appBar: AppBar(
         title: Text(
           _viewMode == ViewMode.list
@@ -97,90 +119,58 @@ class _AnimationListViewState extends State<AnimationListView> {
           style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: Colors.blue.shade600,
+        elevation: 4,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(_isGlassMode ? Icons.blur_on : Icons.blur_off,
-                color: Colors.white),
-            onPressed: () => setState(() => _isGlassMode = !_isGlassMode),
-            tooltip: 'Toggle Glass Mode',
-          ),
-          PopupMenuButton<ViewMode>(
-            icon: const Icon(Icons.more_vert_rounded, color: Colors.white),
-            onSelected: (mode) => setState(() {
-              _viewMode = mode;
-              _expandedIndices.clear();
-            }),
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                  value: ViewMode.list, child: Text('List View')),
-              const PopupMenuItem(
-                  value: ViewMode.grid, child: Text('Grid View')),
-              const PopupMenuItem(
-                  value: ViewMode.masonry, child: Text('Masonry View')),
-              const PopupMenuItem(
-                  value: ViewMode.quilted, child: Text('Quilted View')),
-            ],
-          ),
-          const SizedBox(width: 8),
-        ],
+        bottom: TabBar(
+          controller: _tabController,
+          indicatorColor: Colors.white,
+          indicatorWeight: 3,
+          labelStyle: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white),
+          unselectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.normal, color: Colors.white),
+          tabs: const [
+            Tab(text: 'LIST'),
+            Tab(text: 'GRID'),
+            Tab(text: 'MASONRY'),
+            Tab(text: 'QUILTED'),
+          ],
+        ),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.indigo.shade900,
-              Colors.purple.shade900,
-              Colors.blue.shade900,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 600),
-          child: AnimationLimiter(
-            key: ValueKey('${_viewMode}_$_isGlassMode'),
-            child: _buildBody(),
-          ),
-        ),
+      body: TabBarView(
+        controller: _tabController,
+        children: [
+          _buildListView(),
+          _buildGridView(),
+          _buildMasonryView(),
+          _buildQuiltedView(),
+        ],
       ),
     );
   }
 
-  Widget _buildBody() {
-    switch (_viewMode) {
-      case ViewMode.list:
-        return _buildListView();
-      case ViewMode.grid:
-        return _buildGridView();
-      case ViewMode.masonry:
-        return _buildMasonryView();
-      case ViewMode.quilted:
-        return _buildQuiltedView();
-    }
-  }
-
   Widget _buildListView() {
-    return ListView.builder(
-      padding: const EdgeInsets.only(top: 120, left: 16, right: 16, bottom: 20),
-      itemCount: 40,
-      itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
-        position: index,
-        duration: const Duration(milliseconds: 800),
-        delay: const Duration(milliseconds: 100),
-        child: SlideAnimation(
-          verticalOffset: 120.0,
-          curve: Curves.easeOutBack,
-          child: ScaleAnimation(
-            scale: 0.7,
+    return AnimationLimiter(
+      child: ListView.builder(
+        padding:
+            const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 20),
+        itemCount: 40,
+        itemBuilder: (context, index) => AnimationConfiguration.staggeredList(
+          position: index,
+          duration: const Duration(milliseconds: 800),
+          delay: const Duration(milliseconds: 100),
+          child: SlideAnimation(
+            verticalOffset: 120.0,
             curve: Curves.easeOutBack,
-            child: FadeInAnimation(child: _buildExpandableItem(index)),
+            child: ScaleAnimation(
+              scale: 0.7,
+              curve: Curves.easeOutBack,
+              child: FadeInAnimation(child: _buildExpandableItem(index)),
+            ),
           ),
         ),
       ),
@@ -188,27 +178,30 @@ class _AnimationListViewState extends State<AnimationListView> {
   }
 
   Widget _buildGridView() {
-    return GridView.builder(
-      padding: const EdgeInsets.only(top: 120, left: 16, right: 16, bottom: 20),
-      itemCount: 40,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 0.85,
-      ),
-      itemBuilder: (context, index) => AnimationConfiguration.staggeredGrid(
-        position: index,
-        duration: const Duration(milliseconds: 800),
-        columnCount: 2,
-        delay: const Duration(milliseconds: 100),
-        child: FlipAnimation(
-          flipAxis: FlipAxis.y,
-          curve: Curves.easeOutBack,
-          child: ScaleAnimation(
-            scale: 0.8,
+    return AnimationLimiter(
+      child: GridView.builder(
+        padding:
+            const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 20),
+        itemCount: 40,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.85,
+        ),
+        itemBuilder: (context, index) => AnimationConfiguration.staggeredGrid(
+          position: index,
+          duration: const Duration(milliseconds: 800),
+          columnCount: 2,
+          delay: const Duration(milliseconds: 100),
+          child: FlipAnimation(
+            flipAxis: FlipAxis.y,
             curve: Curves.easeOutBack,
-            child: FadeInAnimation(child: _buildGridItem(index)),
+            child: ScaleAnimation(
+              scale: 0.8,
+              curve: Curves.easeOutBack,
+              child: FadeInAnimation(child: _buildGridItem(index)),
+            ),
           ),
         ),
       ),
@@ -216,20 +209,23 @@ class _AnimationListViewState extends State<AnimationListView> {
   }
 
   Widget _buildMasonryView() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(top: 120, left: 16, right: 16, bottom: 40),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(child: _buildMasonryColumn(0)),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(top: _staticMasonryHeight / 2),
-              child: _buildMasonryColumn(1),
+    return AnimationLimiter(
+      child: SingleChildScrollView(
+        padding:
+            const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 40),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(child: _buildMasonryColumn(0)),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(top: _staticMasonryHeight / 2),
+                child: _buildMasonryColumn(1),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -264,27 +260,30 @@ class _AnimationListViewState extends State<AnimationListView> {
   }
 
   Widget _buildQuiltedView() {
-    return ListView.builder(
-      padding: const EdgeInsets.only(top: 120, left: 16, right: 16, bottom: 40),
-      itemCount: 10,
-      itemBuilder: (context, blockIndex) {
-        final isEvenBlock = blockIndex % 2 == 0;
-        final startIdx = blockIndex * 4;
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            final unitWidth = (constraints.maxWidth - 24) / 4;
-            final blockHeight = unitWidth * 2 + 16;
-            return SizedBox(
-              height: blockHeight + 16,
-              child: Stack(
-                children: isEvenBlock
-                    ? _buildQuiltedBlockA(startIdx, unitWidth)
-                    : _buildQuiltedBlockB(startIdx, unitWidth),
-              ),
-            );
-          },
-        );
-      },
+    return AnimationLimiter(
+      child: ListView.builder(
+        padding:
+            const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 40),
+        itemCount: 10,
+        itemBuilder: (context, blockIndex) {
+          final isEvenBlock = blockIndex % 2 == 0;
+          final startIdx = blockIndex * 4;
+          return LayoutBuilder(
+            builder: (context, constraints) {
+              final unitWidth = (constraints.maxWidth - 24) / 4;
+              final blockHeight = unitWidth * 2 + 16;
+              return SizedBox(
+                height: blockHeight + 16,
+                child: Stack(
+                  children: isEvenBlock
+                      ? _buildQuiltedBlockA(startIdx, unitWidth)
+                      : _buildQuiltedBlockB(startIdx, unitWidth),
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -341,12 +340,22 @@ class _AnimationListViewState extends State<AnimationListView> {
         borderRadius: BorderRadius.circular(20),
         child: Container(
           decoration: BoxDecoration(
-            color: _isGlassMode
-                ? Colors.transparent
-                : Colors.white.withValues(alpha: 0.1),
+            color: _isGlassMode ? Colors.transparent : Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
-                color: Colors.white.withValues(alpha: 0.1), width: 1),
+                color: _isGlassMode
+                    ? Colors.white.withValues(alpha: 0.1)
+                    : Colors.black12,
+                width: 1),
+            boxShadow: _isGlassMode
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.05),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
@@ -359,24 +368,24 @@ class _AnimationListViewState extends State<AnimationListView> {
                   leading: Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.2),
+                        color: color.withValues(alpha: 0.1),
                         shape: BoxShape.circle),
                     child: Icon(Icons.rocket_launch_rounded, color: color),
                   ),
                   title: Text('Innovation ${index + 1}',
-                      style: const TextStyle(
-                          color: Colors.white,
+                      style: TextStyle(
+                          color: _isGlassMode ? Colors.white : Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 18)),
                   subtitle: Text('Exclusive Feature Set',
                       style: TextStyle(
-                          color: Colors.white70.withValues(alpha: 0.7),
+                          color: _isGlassMode ? Colors.white70 : Colors.black54,
                           fontSize: 13)),
                   trailing: AnimatedRotation(
                     duration: const Duration(milliseconds: 300),
                     turns: isExpanded ? 0.5 : 0,
-                    child: const Icon(Icons.expand_more_rounded,
-                        color: Colors.white70),
+                    child: Icon(Icons.expand_more_rounded,
+                        color: _isGlassMode ? Colors.white70 : Colors.black45),
                   ),
                 ),
                 AnimatedSize(
@@ -391,19 +400,26 @@ class _AnimationListViewState extends State<AnimationListView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Divider(
-                                  color: Colors.white.withValues(alpha: 0.1)),
+                                  color: _isGlassMode
+                                      ? Colors.white.withValues(alpha: 0.1)
+                                      : Colors.black12),
                               const SizedBox(height: 12),
-                              const Text('DYNAMICS & FLEXIBILITY',
+                              Text('DYNAMICS & FLEXIBILITY',
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: _isGlassMode
+                                          ? Colors.white
+                                          : Colors.black,
                                       fontWeight: FontWeight.w900,
                                       fontSize: 12,
                                       letterSpacing: 1.5)),
                               const SizedBox(height: 10),
-                              const Text(
+                              Text(
                                   'Seamless synergy between Glassmorphism and staggered entrance effects.',
                                   style: TextStyle(
-                                      color: Colors.white70, height: 1.5)),
+                                      color: _isGlassMode
+                                          ? Colors.white70
+                                          : Colors.black87,
+                                      height: 1.5)),
                               const SizedBox(height: 15),
                               ElevatedButton(
                                 onPressed: () {},
@@ -448,9 +464,22 @@ class _AnimationListViewState extends State<AnimationListView> {
           borderRadius: BorderRadius.circular(24),
           child: Container(
             decoration: BoxDecoration(
+              color: _isGlassMode ? Colors.transparent : Colors.white,
               borderRadius: BorderRadius.circular(24),
               border: Border.all(
-                  color: Colors.white.withValues(alpha: 0.1), width: 1),
+                  color: _isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : Colors.black12,
+                  width: 1),
+              boxShadow: _isGlassMode
+                  ? null
+                  : [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
             ),
             clipBehavior: Clip.antiAlias,
             child: Stack(
@@ -516,9 +545,22 @@ class _AnimationListViewState extends State<AnimationListView> {
             borderRadius: BorderRadius.circular(20),
             child: Container(
               decoration: BoxDecoration(
+                color: _isGlassMode ? Colors.transparent : Colors.white,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.1), width: 1),
+                    color: _isGlassMode
+                        ? Colors.white.withValues(alpha: 0.1)
+                        : Colors.black12,
+                    width: 1),
+                boxShadow: _isGlassMode
+                    ? null
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
               ),
               clipBehavior: Clip.antiAlias,
               child: Stack(

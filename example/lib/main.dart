@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
     {'title': 'Switch Widgets', 'route': const MySwitch()},
     {'title': 'TextField Widgets', 'route': const TextFields()},
     {'title': 'Animated ListView', 'route': const AnimationListView()},
-    {'title': 'Hierarchy Dropdown', 'route': const HierarchyDropdownView()},
+    {'title': 'Advanced Dropdown', 'route': const HierarchyDropdownView()},
   ];
 
   @override

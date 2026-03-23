@@ -5,6 +5,7 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 class HierarchyItem {
   const HierarchyItem({
     required this.title,
+    this.subtitle,
     this.subItems,
     this.icon,
     this.iconPath,
@@ -18,6 +19,9 @@ class HierarchyItem {
 
   /// The display title of the item.
   final String title;
+
+  /// The display subtitle of the item.
+  final String? subtitle;
 
   /// Nested sub-items for this category.
   final List<HierarchyItem>? subItems;
@@ -71,6 +75,9 @@ class HierarchyItem {
     if (query.isEmpty) return true;
     final lowerQuery = query.toLowerCase();
     if (title.toLowerCase().contains(lowerQuery)) return true;
+    if (subtitle != null && subtitle!.toLowerCase().contains(lowerQuery)) {
+      return true;
+    }
     if (!isLeaf) {
       for (final sub in subItems!) {
         if (sub.matchesQuery(lowerQuery)) return true;
@@ -114,7 +121,7 @@ class HierarchySearchableDropdown extends StatefulWidget {
     required this.items,
     this.hint = 'Select items...',
     this.isMultiline = false,
-    this.isMultiSelect = true,
+    this.isMultiSelect = false,
     required this.onChanged,
     this.headerBuilder,
     this.searchBuilder,
@@ -130,6 +137,36 @@ class HierarchySearchableDropdown extends StatefulWidget {
     this.defaultIconWidth = 22,
     this.defaultIconBorderRadius = 6,
     this.validator,
+    this.buttonHeight,
+    this.buttonWidth,
+    this.dropdownHeight,
+    this.dropdownWidth,
+    this.offset,
+    this.headerDecoration,
+    this.searchDecoration,
+    this.searchBoxDecoration,
+    this.searchStyle,
+    this.targetAnchor = Alignment.bottomLeft,
+    this.followerAnchor = Alignment.topLeft,
+    this.showChips = false,
+    this.chipDecoration,
+    this.chipTextStyle,
+    this.chipPadding,
+    this.chipHeight,
+    this.searchFocusNode,
+    this.autoFocusSearch = false,
+    this.headerPrefix,
+    this.headerSuffix,
+    this.clearSearchOnClose = true,
+    this.chipScrollDirection = Axis.horizontal,
+    this.showSearch = true,
+    this.isLoadingMore = false,
+    this.onLoadMore,
+    this.loadingIndicator,
+    this.enableAnimation = true,
+    this.isGlassMode = false,
+    this.blur = 10,
+    this.connectivity = 0.1,
   });
 
   /// The list of top-level hierarchy items.
@@ -189,6 +226,96 @@ class HierarchySearchableDropdown extends StatefulWidget {
   /// Optional validator function to validate the selection.
   final String? Function(String?)? validator;
 
+  /// Optional custom height for the dropdown trigger/button.
+  final double? buttonHeight;
+
+  /// Optional custom width for the dropdown trigger/button.
+  final double? buttonWidth;
+
+  /// Optional custom height for the dropdown panel.
+  final double? dropdownHeight;
+
+  /// Optional custom width for the dropdown panel.
+  final double? dropdownWidth;
+
+  /// Optional offset to position the dropdown panel relative to the trigger.
+  final Offset? offset;
+
+  /// Optional custom decoration for the default header.
+  final BoxDecoration? headerDecoration;
+
+  /// Optional custom decoration for the default search field's InputDecoration.
+  final InputDecoration? searchDecoration;
+
+  /// Optional custom decoration for the search field container.
+  final BoxDecoration? searchBoxDecoration;
+
+  /// Optional custom text style for the search field.
+  final TextStyle? searchStyle;
+
+  /// Optional target anchor for the dropdown panel position.
+  final Alignment targetAnchor;
+
+  /// Optional follower anchor for the dropdown panel position.
+  final Alignment followerAnchor;
+
+  /// Whether to show selected items as chips in the header.
+  final bool showChips;
+
+  /// Optional decoration for the chips in the header.
+  final BoxDecoration? chipDecoration;
+
+  /// Optional text style for the chips in the header.
+  final TextStyle? chipTextStyle;
+
+  /// Optional padding for the chips in the header.
+  final EdgeInsets? chipPadding;
+
+  /// Optional custom height for the chips in the header.
+  final double? chipHeight;
+
+  /// Optional custom FocusNode for the search field.
+  final FocusNode? searchFocusNode;
+
+  /// Whether the search field should auto-focus when opened.
+  final bool autoFocusSearch;
+
+  /// Optional custom widget to show as prefix in the default header.
+  final Widget? headerPrefix;
+
+  /// Optional custom widget to show as suffix in the default header.
+  final Widget? headerSuffix;
+
+  /// Whether to clear the search query when the dropdown is closed.
+  final bool clearSearchOnClose;
+
+  /// The scroll direction of the chips in the header.
+  final Axis chipScrollDirection;
+
+  /// Whether to show the search bar in the dropdown panel.
+  final bool showSearch;
+
+  /// Whether we are currently loading more items at the bottom.
+  final bool isLoadingMore;
+
+  /// Callback when the user scrolls near the bottom of the list.
+  final VoidCallback? onLoadMore;
+
+  /// Optional widget to show as a loader at the bottom of the list.
+  final Widget? loadingIndicator;
+
+  /// Whether to enable entrance animations for items.
+  final bool enableAnimation;
+
+  /// Whether to enable glassmorphism (blur background) for the dropdown panel.
+  final bool isGlassMode;
+
+  /// Blur amount for the glassmorphism effect.
+  final double blur;
+
+  /// Connectivity (white opacity) for the glassmorphism effect.
+  final double connectivity;
+
   @override
   State<HierarchySearchableDropdown> createState() =>
       _HierarchySearchableDropdownState();
@@ -197,12 +324,44 @@ class HierarchySearchableDropdown extends StatefulWidget {
 class _HierarchySearchableDropdownState
     extends State<HierarchySearchableDropdown> {
   final Set<String> _selectedIds = {};
+  final List<String> _orderedSelectedLabels = [];
   final Set<String> _expandedIds = {};
-
   bool _isOpen = false;
+  bool _isOpeningUpwards = false;
+  double _buttonWidth = 0;
+  double _maxAvailableHeight = 0;
   String _searchQuery = '';
   String? _errorText;
   final TextEditingController _searchController = TextEditingController();
+  late final FocusNode _internalFocusNode;
+  final LayerLink _layerLink = LayerLink();
+  OverlayEntry? _overlayEntry;
+
+  FocusNode get _effectiveFocusNode =>
+      widget.searchFocusNode ?? _internalFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    _internalFocusNode = FocusNode();
+  }
+
+  @override
+  void didUpdateWidget(HierarchySearchableDropdown oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (_isOpen) {
+      if (oldWidget.items != widget.items ||
+          oldWidget.isLoadingMore != widget.isLoadingMore ||
+          oldWidget.isMultiSelect != widget.isMultiSelect ||
+          oldWidget.showSearch != widget.showSearch) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (_isOpen) {
+            _overlayEntry?.markNeedsBuild();
+          }
+        });
+      }
+    }
+  }
 
   String get _selectedLabel {
     if (_selectedIds.isEmpty) return '';
@@ -214,13 +373,141 @@ class _HierarchySearchableDropdownState
   }
 
   void _toggleDropdown() {
+    if (_isOpen) {
+      _closeDropdown();
+    } else {
+      _openDropdown();
+    }
+  }
+
+  void _openDropdown() {
+    final overlay = Overlay.of(context);
+
+    // Calculate available space to decide if we should open upwards
+    final renderBox = context.findRenderObject() as RenderBox;
+    final size = renderBox.size;
+    final offset = renderBox.localToGlobal(Offset.zero);
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final topPadding = mediaQuery.viewPadding.top;
+    final bottomPadding = mediaQuery.viewPadding.bottom;
+
+    final availableSpaceBelow =
+        screenHeight - offset.dy - size.height - bottomPadding - 16;
+    final availableSpaceAbove = offset.dy - topPadding - 16;
+
+    // Use a small buffer (20.0) for better UI
+    final dropdownHeight = widget.dropdownHeight ?? widget.maxHeight;
+    _isOpeningUpwards = availableSpaceBelow < (dropdownHeight + 20) &&
+        availableSpaceAbove > availableSpaceBelow;
+
+    _buttonWidth = size.width;
+    _maxAvailableHeight =
+        _isOpeningUpwards ? availableSpaceAbove : availableSpaceBelow;
+
+    _overlayEntry = _createOverlayEntry();
+    overlay.insert(_overlayEntry!);
     setState(() {
-      _isOpen = !_isOpen;
-      if (!_isOpen) {
+      _isOpen = true;
+    });
+    if (widget.autoFocusSearch) {
+      Future.delayed(const Duration(milliseconds: 100), () {
+        _effectiveFocusNode.requestFocus();
+      });
+    }
+  }
+
+  void _closeDropdown() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+    setState(() {
+      _isOpen = false;
+      if (widget.clearSearchOnClose) {
         _searchQuery = '';
         _searchController.clear();
       }
     });
+  }
+
+  OverlayEntry _createOverlayEntry() {
+    final targetAnchor =
+        _isOpeningUpwards ? Alignment.topLeft : widget.targetAnchor;
+    final followerAnchor =
+        _isOpeningUpwards ? Alignment.bottomLeft : widget.followerAnchor;
+    final finalOffset = _isOpeningUpwards
+        ? (widget.offset?.scale(1, -1) ?? const Offset(0, -4))
+        : (widget.offset ?? const Offset(0, 4));
+
+    return OverlayEntry(
+      builder: (context) => Stack(
+        children: [
+          CompositedTransformFollower(
+            link: _layerLink,
+            showWhenUnlinked: false,
+            targetAnchor: targetAnchor,
+            followerAnchor: followerAnchor,
+            offset: finalOffset,
+            child: TapRegion(
+              groupId: _layerLink,
+              onTapOutside: (_) => _closeDropdown(),
+              child: Material(
+                color: Colors.transparent,
+                child: SizedBox(
+                  width: widget.dropdownWidth ?? _buttonWidth,
+                  height: widget.dropdownHeight,
+                  child: _DropdownPanel(
+                    items: widget.items,
+                    isMultiSelect: widget.isMultiSelect,
+                    showSearch: widget.showSearch,
+                    selectedIds: _selectedIds,
+                    expandedIds: _expandedIds,
+                    searchQuery: _searchQuery,
+                    searchController: _searchController,
+                    maxHeight: widget.dropdownHeight ??
+                        (widget.maxHeight < _maxAvailableHeight
+                            ? widget.maxHeight
+                            : _maxAvailableHeight),
+                    decoration: widget.dropdownDecoration,
+                    searchBuilder: widget.searchBuilder,
+                    itemBuilder: widget.itemBuilder,
+                    itemTextStyle: widget.itemTextStyle,
+                    itemTextAlign: widget.itemTextAlign,
+                    itemPadding: widget.itemPadding,
+                    listPadding: widget.listPadding,
+                    itemSpacing: widget.itemSpacing,
+                    defaultIconHeight: widget.defaultIconHeight,
+                    defaultIconWidth: widget.defaultIconWidth,
+                    defaultIconBorderRadius: widget.defaultIconBorderRadius,
+                    searchDecoration: widget.searchDecoration,
+                    searchBoxDecoration: widget.searchBoxDecoration,
+                    searchStyle: widget.searchStyle,
+                    focusNode: _effectiveFocusNode,
+                    autoFocus: widget.autoFocusSearch,
+                    onSearchChanged: (q) {
+                      setState(() => _searchQuery = q.toLowerCase());
+                      _overlayEntry?.markNeedsBuild();
+                    },
+                    onLeafTapped: _onLeafTapped,
+                    onGroupToggle: _onGroupToggle,
+                    onExpandToggle: (id) {
+                      _onExpandToggle(id);
+                      _overlayEntry?.markNeedsBuild();
+                    },
+                    isLoadingMore: widget.isLoadingMore,
+                    onLoadMore: widget.onLoadMore,
+                    loadingIndicator: widget.loadingIndicator,
+                    enableAnimation: widget.enableAnimation,
+                    isGlassMode: widget.isGlassMode,
+                    blur: widget.blur,
+                    connectivity: widget.connectivity,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   void _onLeafTapped(HierarchyItem leaf) {
@@ -228,16 +515,22 @@ class _HierarchySearchableDropdownState
       if (widget.isMultiSelect) {
         if (_selectedIds.contains(leaf.title)) {
           _selectedIds.remove(leaf.title);
+          _orderedSelectedLabels.remove(leaf.title);
         } else {
           _selectedIds.add(leaf.title);
+          _orderedSelectedLabels.add(leaf.title);
         }
       } else {
         _selectedIds
           ..clear()
           ..add(leaf.title);
-        _isOpen = false;
+        _orderedSelectedLabels
+          ..clear()
+          ..add(leaf.title);
+        _closeDropdown();
       }
     });
+    _overlayEntry?.markNeedsBuild();
     widget.onChanged(_selectedLabel);
     _validate();
   }
@@ -255,11 +548,20 @@ class _HierarchySearchableDropdownState
     setState(() {
       final leaves = group.allLeafTitles;
       if (select) {
-        _selectedIds.addAll(leaves);
+        for (final leaf in leaves) {
+          if (!_selectedIds.contains(leaf)) {
+            _selectedIds.add(leaf);
+            _orderedSelectedLabels.add(leaf);
+          }
+        }
       } else {
-        _selectedIds.removeAll(leaves);
+        for (final leaf in leaves) {
+          _selectedIds.remove(leaf);
+          _orderedSelectedLabels.remove(leaf);
+        }
       }
     });
+    _overlayEntry?.markNeedsBuild();
     widget.onChanged(_selectedLabel);
     _validate();
   }
@@ -274,56 +576,72 @@ class _HierarchySearchableDropdownState
     });
   }
 
+  void _removeSelection(String label) {
+    setState(() {
+      _selectedIds.remove(label);
+      _orderedSelectedLabels.remove(label);
+    });
+    _overlayEntry?.markNeedsBuild();
+    widget.onChanged(_selectedLabel);
+    _validate();
+  }
+
+  void _reorderSelections(int oldIndex, int newIndex) {
+    setState(() {
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
+      }
+      final item = _orderedSelectedLabels.removeAt(oldIndex);
+      _orderedSelectedLabels.insert(newIndex, item);
+    });
+    widget.onChanged(_selectedLabel);
+  }
+
   @override
   void dispose() {
+    _closeDropdown();
     _searchController.dispose();
+    _internalFocusNode.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final label = _selectedLabel;
-    return Column(
-      children: [
-        if (widget.headerBuilder != null)
-          widget.headerBuilder!(context, label, _isOpen, _toggleDropdown)
-        else
-          _DefaultHeader(
-            label: label,
-            hint: widget.hint,
-            isMultiline: widget.isMultiline,
-            isOpen: _isOpen,
-            errorText: _errorText,
-            onTap: _toggleDropdown,
-          ),
-        const SizedBox(height: 8),
-        if (_isOpen)
-          _DropdownPanel(
-            items: widget.items,
-            isMultiSelect: widget.isMultiSelect,
-            selectedIds: _selectedIds,
-            expandedIds: _expandedIds,
-            searchQuery: _searchQuery,
-            searchController: _searchController,
-            maxHeight: widget.maxHeight,
-            decoration: widget.dropdownDecoration,
-            searchBuilder: widget.searchBuilder,
-            itemBuilder: widget.itemBuilder,
-            itemTextStyle: widget.itemTextStyle,
-            itemTextAlign: widget.itemTextAlign,
-            itemPadding: widget.itemPadding,
-            listPadding: widget.listPadding,
-            itemSpacing: widget.itemSpacing,
-            defaultIconHeight: widget.defaultIconHeight,
-            defaultIconWidth: widget.defaultIconWidth,
-            defaultIconBorderRadius: widget.defaultIconBorderRadius,
-            onSearchChanged: (q) =>
-                setState(() => _searchQuery = q.toLowerCase()),
-            onLeafTapped: _onLeafTapped,
-            onGroupToggle: _onGroupToggle,
-            onExpandToggle: _onExpandToggle,
-          ),
-      ],
+    return TapRegion(
+      groupId: _layerLink,
+      child: CompositedTransformTarget(
+        link: _layerLink,
+        child: SizedBox(
+          width: widget.buttonWidth,
+          height: widget.isMultiline ? null : widget.buttonHeight,
+          child: widget.headerBuilder != null
+              ? widget.headerBuilder!(context, label, _isOpen, _toggleDropdown)
+              : _DefaultHeader(
+                  label: label,
+                  hint: widget.hint,
+                  isMultiline: widget.isMultiline,
+                  isOpen: _isOpen,
+                  errorText: _errorText,
+                  onTap: _toggleDropdown,
+                  decoration: widget.headerDecoration,
+                  showChips: widget.showChips,
+                  selectedLabels: _orderedSelectedLabels,
+                  onRemove: _removeSelection,
+                  onReorder: _reorderSelections,
+                  chipDecoration: widget.chipDecoration,
+                  chipTextStyle: widget.chipTextStyle,
+                  chipPadding: widget.chipPadding,
+                  chipHeight: widget.chipHeight,
+                  chipScrollDirection: widget.chipScrollDirection,
+                  prefix: widget.headerPrefix,
+                  suffix: widget.headerSuffix,
+                  isGlassMode: widget.isGlassMode,
+                  blur: widget.blur,
+                  connectivity: widget.connectivity,
+                ),
+        ),
+      ),
     );
   }
 }
@@ -336,6 +654,21 @@ class _DefaultHeader extends StatelessWidget {
     required this.isOpen,
     required this.onTap,
     this.errorText,
+    this.decoration,
+    this.showChips = false,
+    this.selectedLabels = const [],
+    this.onRemove,
+    this.onReorder,
+    this.chipDecoration,
+    this.chipTextStyle,
+    this.chipPadding,
+    this.chipHeight,
+    this.chipScrollDirection = Axis.horizontal,
+    this.prefix,
+    this.suffix,
+    this.isGlassMode = false,
+    this.blur = 10,
+    this.connectivity = 0.1,
   });
 
   final String label;
@@ -344,64 +677,297 @@ class _DefaultHeader extends StatelessWidget {
   final bool isOpen;
   final VoidCallback onTap;
   final String? errorText;
+  final BoxDecoration? decoration;
+  final bool showChips;
+  final List<String> selectedLabels;
+  final ValueChanged<String>? onRemove;
+  final ReorderCallback? onReorder;
+  final BoxDecoration? chipDecoration;
+  final TextStyle? chipTextStyle;
+  final EdgeInsets? chipPadding;
+  final double? chipHeight;
+  final Axis chipScrollDirection;
+  final Widget? prefix;
+  final Widget? suffix;
+  final bool isGlassMode;
+  final double blur;
+  final double connectivity;
 
   @override
   Widget build(BuildContext context) {
     final hasLabel = label.isNotEmpty;
     final hasError = errorText != null;
+    final useChips = showChips && selectedLabels.isNotEmpty;
+    final isHorizontal = chipScrollDirection == Axis.horizontal;
+
+    final defaultDecoration = BoxDecoration(
+      color: isGlassMode ? Colors.transparent : Colors.white,
+      border: Border.all(
+        color: hasError
+            ? Colors.red.shade400
+            : (isOpen ? Colors.blue.shade400 : Colors.black12),
+        width: 1.5,
+      ),
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: isGlassMode
+          ? []
+          : [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GestureDetector(
-          onTap: onTap,
-          child: GlassWrap(
-            isGlassMode: true,
-            blur: 15,
-            borderRadius: BorderRadius.circular(16),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: hasError
-                      ? Colors.red.shade400
-                      : (isOpen ? Colors.blue.shade400 : Colors.white10),
-                  width: 1.5,
-                ),
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.checklist_rounded,
-                    color: hasError
-                        ? Colors.red.shade300
-                        : (hasLabel ? Colors.blue.shade300 : Colors.white54),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Text(
-                      hasLabel ? label : hint,
-                      maxLines: isMultiline ? null : 1,
-                      overflow: isMultiline
-                          ? TextOverflow.visible
-                          : TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: hasLabel ? Colors.white : Colors.white54,
-                        fontSize: 16,
-                        fontWeight:
-                            hasLabel ? FontWeight.bold : FontWeight.normal,
+        GlassWrap(
+          isGlassMode: isGlassMode,
+          blur: blur,
+          connectivity: connectivity,
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            decoration: decoration ?? defaultDecoration,
+            child: Row(
+              children: [
+                GestureDetector(
+                  onTap: onTap,
+                  behavior: HitTestBehavior.opaque,
+                  child: prefix ??
+                      Icon(
+                        Icons.checklist_rounded,
+                        color: hasError
+                            ? Colors.red.shade400
+                            : (hasLabel
+                                ? Colors.blue.shade400
+                                : Colors.black38),
                       ),
-                    ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: useChips
+                      ? isMultiline
+                          ? Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              child: Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children:
+                                    selectedLabels.asMap().entries.map((entry) {
+                                  final index = entry.key;
+                                  final text = entry.value;
+                                  final chipWidget = Container(
+                                    padding: chipPadding ??
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 6),
+                                    decoration: chipDecoration ??
+                                        BoxDecoration(
+                                          color: Colors.blue
+                                              .withValues(alpha: 0.1),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                              color: Colors.blue
+                                                  .withValues(alpha: 0.2)),
+                                        ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          text,
+                                          style: chipTextStyle ??
+                                              const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                        const SizedBox(width: 4),
+                                        InkWell(
+                                          onTap: () => onRemove?.call(text),
+                                          child: const Icon(
+                                            Icons.close_rounded,
+                                            size: 14,
+                                            color: Colors.red,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+
+                                  return DragTarget<String>(
+                                    key: ValueKey(text),
+                                    onWillAcceptWithDetails: (details) {
+                                      if (details.data != text) {
+                                        final fromIndex = selectedLabels
+                                            .indexOf(details.data);
+                                        if (fromIndex != -1) {
+                                          // ReorderableListView-style logic requires index + 1 for forward moves
+                                          onReorder?.call(
+                                              fromIndex,
+                                              fromIndex < index
+                                                  ? index + 1
+                                                  : index);
+                                        }
+                                      }
+                                      return true;
+                                    },
+                                    onAcceptWithDetails: (details) {
+                                      // Final order is already handled by live reordering
+                                    },
+                                    builder:
+                                        (context, candidateData, rejectedData) {
+                                      return LongPressDraggable<String>(
+                                        data: text,
+                                        feedback: Material(
+                                          color: Colors.transparent,
+                                          child: Transform.scale(
+                                              scale: 1.05, child: chipWidget),
+                                        ),
+                                        childWhenDragging: Opacity(
+                                            opacity: 0.3, child: chipWidget),
+                                        child: chipWidget,
+                                      );
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            )
+                          : SizedBox(
+                              height: isHorizontal ? (chipHeight ?? 48) : 150,
+                              child: ReorderableListView.builder(
+                                scrollDirection: chipScrollDirection,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: selectedLabels.length,
+                                onReorder: onReorder!,
+                                buildDefaultDragHandles: false,
+                                proxyDecorator: (child, index, animation) {
+                                  return AnimatedBuilder(
+                                    animation: animation,
+                                    builder: (context, child) {
+                                      final animValue = Curves.easeInOut
+                                          .transform(animation.value);
+                                      final scale = 1.0 + (0.05 * animValue);
+                                      return Transform.scale(
+                                        scale: scale,
+                                        child: Material(
+                                          color: Colors.white,
+                                          type: MaterialType.transparency,
+                                          animateColor: true,
+                                          surfaceTintColor: Colors.transparent,
+                                          elevation: 8 * animValue,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: child,
+                                        ),
+                                      );
+                                    },
+                                    child: child,
+                                  );
+                                },
+                                itemBuilder: (context, index) {
+                                  final text = selectedLabels[index];
+                                  return ReorderableDelayedDragStartListener(
+                                    key: ValueKey(text),
+                                    index: index,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 8),
+                                      child: Center(
+                                        child: Container(
+                                          padding: chipPadding ??
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 10, vertical: 6),
+                                          decoration: chipDecoration ??
+                                              BoxDecoration(
+                                                color: Colors.blue
+                                                    .withValues(alpha: 0.1),
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                border: Border.all(
+                                                    color: Colors.blue
+                                                        .withValues(
+                                                            alpha: 0.2)),
+                                              ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Text(
+                                                text,
+                                                style: chipTextStyle ??
+                                                    const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 13,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                              ),
+                                              const SizedBox(width: 4),
+                                              InkWell(
+                                                onTap: () =>
+                                                    onRemove?.call(text),
+                                                child: const Icon(
+                                                  Icons.close_rounded,
+                                                  size: 14,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                      : GestureDetector(
+                          onTap: onTap,
+                          behavior: HitTestBehavior.opaque,
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            height: isMultiline ? null : 48,
+                            padding: isMultiline
+                                ? const EdgeInsets.symmetric(vertical: 4)
+                                : null,
+                            child: Text(
+                              hasLabel ? label : hint,
+                              maxLines: isMultiline ? null : 1,
+                              overflow: isMultiline
+                                  ? TextOverflow.visible
+                                  : TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color:
+                                    hasLabel ? Colors.black87 : Colors.black38,
+                                fontSize: 16,
+                                fontWeight: hasLabel
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                              ),
+                            ),
+                          ),
+                        ),
+                ),
+                GestureDetector(
+                  onTap: onTap,
+                  behavior: HitTestBehavior.opaque,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(width: 8),
+                      suffix ??
+                          AnimatedRotation(
+                            turns: isOpen ? 0.5 : 0,
+                            duration: const Duration(milliseconds: 300),
+                            child: const Icon(Icons.keyboard_arrow_down_rounded,
+                                color: Colors.black45),
+                          ),
+                    ],
                   ),
-                  AnimatedRotation(
-                    turns: isOpen ? 0.5 : 0,
-                    duration: const Duration(milliseconds: 300),
-                    child: const Icon(Icons.keyboard_arrow_down_rounded,
-                        color: Colors.white70),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -424,7 +990,7 @@ class _DefaultHeader extends StatelessWidget {
   }
 }
 
-class _DropdownPanel extends StatelessWidget {
+class _DropdownPanel extends StatefulWidget {
   const _DropdownPanel({
     required this.items,
     required this.isMultiSelect,
@@ -433,6 +999,7 @@ class _DropdownPanel extends StatelessWidget {
     required this.searchQuery,
     required this.searchController,
     required this.maxHeight,
+    required this.showSearch,
     this.decoration,
     this.searchBuilder,
     this.itemBuilder,
@@ -444,10 +1011,22 @@ class _DropdownPanel extends StatelessWidget {
     required this.defaultIconHeight,
     required this.defaultIconWidth,
     required this.defaultIconBorderRadius,
+    this.searchDecoration,
+    this.searchBoxDecoration,
+    this.searchStyle,
+    this.focusNode,
+    this.autoFocus = false,
     required this.onSearchChanged,
     required this.onLeafTapped,
     required this.onGroupToggle,
     required this.onExpandToggle,
+    required this.isLoadingMore,
+    this.onLoadMore,
+    this.loadingIndicator,
+    required this.enableAnimation,
+    required this.isGlassMode,
+    required this.blur,
+    required this.connectivity,
   });
 
   final List<HierarchyItem> items;
@@ -457,6 +1036,7 @@ class _DropdownPanel extends StatelessWidget {
   final String searchQuery;
   final TextEditingController searchController;
   final double maxHeight;
+  final bool showSearch;
   final BoxDecoration? decoration;
   final HierarchySearchBuilder? searchBuilder;
   final HierarchyItemBuilder? itemBuilder;
@@ -468,66 +1048,136 @@ class _DropdownPanel extends StatelessWidget {
   final double defaultIconHeight;
   final double defaultIconWidth;
   final double defaultIconBorderRadius;
+  final InputDecoration? searchDecoration;
+  final BoxDecoration? searchBoxDecoration;
+  final TextStyle? searchStyle;
+  final FocusNode? focusNode;
+  final bool autoFocus;
   final ValueChanged<String> onSearchChanged;
   final ValueChanged<HierarchyItem> onLeafTapped;
   final void Function(HierarchyItem, bool) onGroupToggle;
   final ValueChanged<String> onExpandToggle;
+  final bool isLoadingMore;
+  final VoidCallback? onLoadMore;
+  final Widget? loadingIndicator;
+  final bool enableAnimation;
+  final bool isGlassMode;
+  final double blur;
+  final double connectivity;
+
+  @override
+  State<_DropdownPanel> createState() => _DropdownPanelState();
+}
+
+class _DropdownPanelState extends State<_DropdownPanel> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (widget.onLoadMore != null && !widget.isLoadingMore) {
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 100) {
+        widget.onLoadMore!();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(maxHeight: maxHeight),
+      constraints: BoxConstraints(maxHeight: widget.maxHeight),
       child: GlassWrap(
-        isGlassMode: true,
-        blur: 25,
-        borderRadius: BorderRadius.circular(20),
+        isGlassMode: widget.isGlassMode,
+        blur: widget.blur,
+        connectivity: widget.connectivity,
+        borderRadius: (widget.decoration?.borderRadius as BorderRadius?) ??
+            BorderRadius.circular(20),
         child: Container(
-          decoration: decoration ??
+          decoration: widget.decoration ??
               BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.05),
-                border: Border.all(color: Colors.white10),
+                color: widget.isGlassMode ? Colors.transparent : Colors.white,
+                border: Border.all(color: Colors.black12),
                 borderRadius: BorderRadius.circular(20),
+                boxShadow: widget.isGlassMode
+                    ? []
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.1),
+                          blurRadius: 20,
+                          spreadRadius: 5,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
               ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (searchBuilder != null)
-                searchBuilder!(
-                    context, searchController, searchQuery, onSearchChanged)
-              else
-                _DefaultSearchBar(
-                  controller: searchController,
-                  query: searchQuery,
-                  onChanged: onSearchChanged,
-                ),
-              const Divider(color: Colors.white12, height: 1),
+              if (widget.showSearch)
+                if (widget.searchBuilder != null)
+                  widget.searchBuilder!(context, widget.searchController,
+                      widget.searchQuery, widget.onSearchChanged)
+                else
+                  _DefaultSearchBar(
+                    controller: widget.searchController,
+                    query: widget.searchQuery,
+                    onChanged: widget.onSearchChanged,
+                    decoration: widget.searchDecoration,
+                    boxDecoration: widget.searchBoxDecoration,
+                    style: widget.searchStyle,
+                    focusNode: widget.focusNode,
+                    autoFocus: widget.autoFocus,
+                  ),
               Flexible(
                 child: ListView.builder(
+                  controller: _scrollController,
                   shrinkWrap: true,
-                  padding:
-                      listPadding ?? const EdgeInsets.symmetric(vertical: 8),
-                  itemCount: items.length,
-                  itemBuilder: (_, i) => _InternalTreeItem(
-                    key: ValueKey(items[i].title),
-                    item: items[i],
-                    level: 0,
-                    searchQuery: searchQuery,
-                    parentMatches: false,
-                    isMultiSelect: isMultiSelect,
-                    selectedIds: selectedIds,
-                    expandedIds: expandedIds,
-                    itemBuilder: itemBuilder,
-                    itemTextStyle: itemTextStyle,
-                    itemTextAlign: itemTextAlign,
-                    itemPadding: itemPadding,
-                    itemSpacing: itemSpacing,
-                    defaultIconHeight: defaultIconHeight,
-                    defaultIconWidth: defaultIconWidth,
-                    defaultIconBorderRadius: defaultIconBorderRadius,
-                    onLeafTapped: onLeafTapped,
-                    onGroupToggle: onGroupToggle,
-                    onExpandToggle: onExpandToggle,
-                  ),
+                  padding: widget.listPadding ??
+                      const EdgeInsets.symmetric(vertical: 8),
+                  itemCount:
+                      widget.items.length + (widget.isLoadingMore ? 1 : 0),
+                  itemBuilder: (_, i) {
+                    if (i == widget.items.length) {
+                      return _LoadingItem(
+                        indicator: widget.loadingIndicator,
+                        enableAnimation: widget.enableAnimation,
+                      );
+                    }
+                    return _InternalTreeItem(
+                      key: ValueKey(widget.items[i].title),
+                      item: widget.items[i],
+                      level: 0,
+                      searchQuery: widget.searchQuery,
+                      parentMatches: false,
+                      isMultiSelect: widget.isMultiSelect,
+                      selectedIds: widget.selectedIds,
+                      expandedIds: widget.expandedIds,
+                      itemBuilder: widget.itemBuilder,
+                      itemTextStyle: widget.itemTextStyle,
+                      itemTextAlign: widget.itemTextAlign,
+                      itemPadding: widget.itemPadding,
+                      itemSpacing: widget.itemSpacing,
+                      defaultIconHeight: widget.defaultIconHeight,
+                      defaultIconWidth: widget.defaultIconWidth,
+                      defaultIconBorderRadius: widget.defaultIconBorderRadius,
+                      onLeafTapped: widget.onLeafTapped,
+                      onGroupToggle: widget.onGroupToggle,
+                      onExpandToggle: widget.onExpandToggle,
+                      enableAnimation: widget.enableAnimation,
+                    );
+                  },
                 ),
               ),
             ],
@@ -543,48 +1193,65 @@ class _DefaultSearchBar extends StatelessWidget {
     required this.controller,
     required this.query,
     required this.onChanged,
+    this.decoration,
+    this.boxDecoration,
+    this.style,
+    this.focusNode,
+    this.autoFocus = false,
   });
 
   final TextEditingController controller;
   final String query;
   final ValueChanged<String> onChanged;
+  final InputDecoration? decoration;
+  final BoxDecoration? boxDecoration;
+  final TextStyle? style;
+  final FocusNode? focusNode;
+  final bool autoFocus;
 
   @override
   Widget build(BuildContext context) {
+    final defaultDecoration = InputDecoration(
+      hintText: 'Search here...',
+      hintStyle: const TextStyle(color: Colors.black38),
+      prefixIcon: const Icon(Icons.search_rounded, color: Colors.black38),
+      suffixIcon: query.isNotEmpty
+          ? IconButton(
+              icon: const Icon(Icons.close_rounded,
+                  color: Colors.black38, size: 20),
+              onPressed: () {
+                controller.clear();
+                onChanged('');
+              },
+            )
+          : null,
+      filled: true,
+      fillColor: Colors.black.withValues(alpha: 0.03),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide.none,
+      ),
+      contentPadding: EdgeInsets.zero,
+    );
+
     return Padding(
       padding: const EdgeInsets.all(12),
-      child: TextField(
-        controller: controller,
-        onChanged: onChanged,
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: 'Search...',
-          hintStyle: const TextStyle(color: Colors.white38),
-          prefixIcon: const Icon(Icons.search_rounded, color: Colors.white38),
-          suffixIcon: query.isNotEmpty
-              ? IconButton(
-                  icon: const Icon(Icons.close_rounded,
-                      color: Colors.white38, size: 20),
-                  onPressed: () {
-                    controller.clear();
-                    onChanged('');
-                  },
-                )
-              : null,
-          filled: true,
-          fillColor: Colors.white.withValues(alpha: 0.05),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          contentPadding: EdgeInsets.zero,
+      child: Container(
+        decoration: boxDecoration,
+        child: TextField(
+          controller: controller,
+          onChanged: onChanged,
+          focusNode: focusNode,
+          autofocus: autoFocus,
+          style: style ?? const TextStyle(color: Colors.black87),
+          decoration: decoration ?? defaultDecoration,
         ),
       ),
     );
   }
 }
 
-class _InternalTreeItem extends StatelessWidget {
+class _InternalTreeItem extends StatefulWidget {
   const _InternalTreeItem({
     super.key,
     required this.item,
@@ -605,6 +1272,7 @@ class _InternalTreeItem extends StatelessWidget {
     required this.onLeafTapped,
     required this.onGroupToggle,
     required this.onExpandToggle,
+    required this.enableAnimation,
   });
 
   final HierarchyItem item;
@@ -625,17 +1293,58 @@ class _InternalTreeItem extends StatelessWidget {
   final ValueChanged<HierarchyItem> onLeafTapped;
   final void Function(HierarchyItem, bool) onGroupToggle;
   final ValueChanged<String> onExpandToggle;
+  final bool enableAnimation;
 
-  bool get _isExpanded => expandedIds.contains(item.title);
+  @override
+  State<_InternalTreeItem> createState() => _InternalTreeItemState();
+}
+
+class _InternalTreeItemState extends State<_InternalTreeItem>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnimation;
+  late final Animation<Offset> _slideAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 400),
+    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.1),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+
+    if (widget.enableAnimation) {
+      _controller.forward();
+    } else {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  bool get _isExpanded => widget.expandedIds.contains(widget.item.title);
   bool get _selfMatches =>
-      searchQuery.isEmpty || item.title.toLowerCase().contains(searchQuery);
-  bool get _childMatches => !item.isLeaf && item.matchesQuery(searchQuery);
-  bool get _shouldShow => _selfMatches || parentMatches || _childMatches;
+      widget.searchQuery.isEmpty ||
+      widget.item.title.toLowerCase().contains(widget.searchQuery);
+  bool get _childMatches =>
+      !widget.item.isLeaf && widget.item.matchesQuery(widget.searchQuery);
+  bool get _shouldShow => _selfMatches || widget.parentMatches || _childMatches;
 
   bool? get _triState {
-    if (item.isLeaf) return selectedIds.contains(item.title);
-    final leaves = item.allLeafTitles;
-    final count = leaves.where(selectedIds.contains).length;
+    if (widget.item.isLeaf) {
+      return widget.selectedIds.contains(widget.item.title);
+    }
+    final leaves = widget.item.allLeafTitles;
+    final count = leaves.where(widget.selectedIds.contains).length;
     if (count == 0) return false;
     if (count == leaves.length) return true;
     return null;
@@ -646,78 +1355,93 @@ class _InternalTreeItem extends StatelessWidget {
     if (!_shouldShow) return const SizedBox.shrink();
 
     final forceExpand =
-        searchQuery.isNotEmpty && !_selfMatches && _childMatches;
+        widget.searchQuery.isNotEmpty && !_selfMatches && _childMatches;
     final isActuallyExpanded = _isExpanded || forceExpand;
 
-    return Column(
+    final content = Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (itemBuilder != null)
-          itemBuilder!(
+        if (widget.itemBuilder != null)
+          widget.itemBuilder!(
             context,
-            item,
-            level,
+            widget.item,
+            widget.level,
             isActuallyExpanded,
-            isMultiSelect ? _triState : selectedIds.contains(item.title),
-            () => onExpandToggle(item.title),
+            widget.isMultiSelect
+                ? _triState
+                : widget.selectedIds.contains(widget.item.title),
+            () => widget.onExpandToggle(widget.item.title),
             () {
-              if (item.isLeaf) {
-                onLeafTapped(item);
-              } else if (isMultiSelect) {
-                onGroupToggle(item, _triState != true);
+              if (widget.item.isLeaf) {
+                widget.onLeafTapped(widget.item);
+              } else if (widget.isMultiSelect) {
+                widget.onGroupToggle(widget.item, _triState != true);
               }
             },
           )
         else
           _DefaultTreeRow(
-            item: item,
-            level: level,
-            isMultiSelect: isMultiSelect,
+            item: widget.item,
+            level: widget.level,
+            isMultiSelect: widget.isMultiSelect,
             isExpanded: isActuallyExpanded,
-            triState: isMultiSelect ? _triState : null,
-            isSelected: !isMultiSelect && selectedIds.contains(item.title),
+            triState: widget.isMultiSelect ? _triState : null,
+            isSelected: !widget.isMultiSelect &&
+                widget.selectedIds.contains(widget.item.title),
             onTap: () {
-              if (!item.isLeaf) {
-                onExpandToggle(item.title);
+              if (!widget.item.isLeaf) {
+                widget.onExpandToggle(widget.item.title);
               } else {
-                onLeafTapped(item);
+                widget.onLeafTapped(widget.item);
               }
             },
-            onCheckboxChanged:
-                isMultiSelect ? (v) => onGroupToggle(item, v ?? false) : null,
-            itemTextStyle: itemTextStyle,
-            itemTextAlign: itemTextAlign,
-            itemPadding: itemPadding,
-            itemSpacing: itemSpacing,
-            defaultIconHeight: defaultIconHeight,
-            defaultIconWidth: defaultIconWidth,
-            defaultIconBorderRadius: defaultIconBorderRadius,
+            onCheckboxChanged: widget.isMultiSelect
+                ? (v) => widget.onGroupToggle(widget.item, v ?? false)
+                : null,
+            itemTextStyle: widget.itemTextStyle,
+            itemTextAlign: widget.itemTextAlign,
+            itemPadding: widget.itemPadding,
+            itemSpacing: widget.itemSpacing,
+            defaultIconHeight: widget.defaultIconHeight,
+            defaultIconWidth: widget.defaultIconWidth,
+            defaultIconBorderRadius: widget.defaultIconBorderRadius,
           ),
-        if (!item.isLeaf && isActuallyExpanded)
-          ...item.subItems!.map(
+        if (!widget.item.isLeaf && isActuallyExpanded)
+          ...widget.item.subItems!.map(
             (sub) => _InternalTreeItem(
               key: ValueKey(sub.title),
               item: sub,
-              level: level + 1,
-              searchQuery: searchQuery,
-              parentMatches: _selfMatches || parentMatches,
-              isMultiSelect: isMultiSelect,
-              selectedIds: selectedIds,
-              expandedIds: expandedIds,
-              itemBuilder: itemBuilder,
-              itemTextStyle: itemTextStyle,
-              itemTextAlign: itemTextAlign,
-              itemPadding: itemPadding,
-              itemSpacing: itemSpacing,
-              defaultIconHeight: defaultIconHeight,
-              defaultIconWidth: defaultIconWidth,
-              defaultIconBorderRadius: defaultIconBorderRadius,
-              onLeafTapped: onLeafTapped,
-              onGroupToggle: onGroupToggle,
-              onExpandToggle: onExpandToggle,
+              level: widget.level + 1,
+              searchQuery: widget.searchQuery,
+              parentMatches: _selfMatches || widget.parentMatches,
+              isMultiSelect: widget.isMultiSelect,
+              selectedIds: widget.selectedIds,
+              expandedIds: widget.expandedIds,
+              itemBuilder: widget.itemBuilder,
+              itemTextStyle: widget.itemTextStyle,
+              itemTextAlign: widget.itemTextAlign,
+              itemPadding: widget.itemPadding,
+              itemSpacing: widget.itemSpacing,
+              defaultIconHeight: widget.defaultIconHeight,
+              defaultIconWidth: widget.defaultIconWidth,
+              defaultIconBorderRadius: widget.defaultIconBorderRadius,
+              onLeafTapped: widget.onLeafTapped,
+              onGroupToggle: widget.onGroupToggle,
+              onExpandToggle: widget.onExpandToggle,
+              enableAnimation: widget.enableAnimation,
             ),
           ),
       ],
+    );
+
+    if (!widget.enableAnimation) return content;
+
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: SlideTransition(
+        position: _slideAnimation,
+        child: content,
+      ),
     );
   }
 }
@@ -764,80 +1488,89 @@ class _DefaultTreeRow extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: itemPadding ??
-            EdgeInsets.only(
-              left: 8.0 + level * 24.0,
-              right: 16,
-              top: 4 + (itemSpacing ?? 0) / 2,
-              bottom: 4 + (itemSpacing ?? 0) / 2,
-            ),
-        child: Row(
-          children: [
-            if (item.prefix != null) ...[
-              item.prefix!,
-              const SizedBox(width: 8),
-            ],
-            if (hasChildren)
-              AnimatedRotation(
-                turns: isExpanded ? 0.25 : 0,
-                duration: const Duration(milliseconds: 200),
-                child: const Icon(Icons.arrow_right_rounded,
-                    color: Colors.white70, size: 24),
-              )
-            else
-              const SizedBox(width: 24),
-            if (isMultiSelect)
-              Transform.scale(
-                scale: 0.85,
-                child: Checkbox(
-                  value: triState,
-                  tristate: true,
-                  onChanged: onCheckboxChanged,
-                  activeColor: Colors.blue.shade400,
-                  checkColor: Colors.white,
-                  side: const BorderSide(color: Colors.white38, width: 1.5),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
-                ),
-              )
-            else if (isSelected)
-              Padding(
-                padding: const EdgeInsets.only(right: 8, left: 4),
-                child: Icon(Icons.check_circle_rounded,
-                    color: Colors.blue.shade300, size: 18),
-              )
-            else
-              const SizedBox(width: 8),
-            // Icon/Image
-            _TreeItemIcon(
-              item: item,
-              defaultHeight: defaultIconHeight,
-              defaultWidth: defaultIconWidth,
-              defaultBorderRadius: defaultIconBorderRadius,
-            ),
-            if (item.icon != null ||
-                item.iconPath != null ||
-                (item.subItems != null && item.subItems!.isNotEmpty))
-              const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                item.title,
-                textAlign: itemTextAlign,
-                style: itemTextStyle ??
-                    TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight:
-                          hasChildren ? FontWeight.bold : FontWeight.normal,
-                    ),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? Colors.blue.withValues(alpha: 0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: itemPadding ??
+              EdgeInsets.only(
+                left: 8.0 + level * 24.0,
+                right: 16,
+                top: 4 + (itemSpacing ?? 0) / 2,
+                bottom: 4 + (itemSpacing ?? 0) / 2,
               ),
-            ),
-            if (item.suffix != null) ...[
-              const SizedBox(width: 8),
-              item.suffix!,
+          child: Row(
+            children: [
+              if (item.prefix != null) ...[
+                item.prefix!,
+                const SizedBox(width: 8),
+              ],
+              if (hasChildren)
+                AnimatedRotation(
+                  turns: isExpanded ? 0.25 : 0,
+                  duration: const Duration(milliseconds: 200),
+                  child: const Icon(Icons.arrow_right_rounded,
+                      color: Colors.black45, size: 24),
+                )
+              else
+                const SizedBox(width: 24),
+              if (isMultiSelect)
+                Transform.scale(
+                  scale: 0.85,
+                  child: Checkbox(
+                    value: triState,
+                    tristate: true,
+                    onChanged: onCheckboxChanged,
+                    activeColor: Colors.blue,
+                    checkColor: Colors.white,
+                    side: const BorderSide(color: Colors.black26, width: 1.5),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4)),
+                  ),
+                )
+              // else if (isSelected)
+              //   Padding(
+              //     padding: const EdgeInsets.only(right: 8, left: 4),
+              //     child: Icon(Icons.check_circle_rounded,
+              //         color: Colors.blue, size: 18),
+              //   )
+              else
+                const SizedBox(width: 8),
+              // Icon/Image
+              _TreeItemIcon(
+                item: item,
+                defaultHeight: defaultIconHeight,
+                defaultWidth: defaultIconWidth,
+                defaultBorderRadius: defaultIconBorderRadius,
+              ),
+              if (item.icon != null ||
+                  item.iconPath != null ||
+                  (item.subItems != null && item.subItems!.isNotEmpty))
+                const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  item.title,
+                  textAlign: itemTextAlign,
+                  style: itemTextStyle ??
+                      TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight:
+                            hasChildren ? FontWeight.bold : FontWeight.normal,
+                      ),
+                ),
+              ),
+              if (item.suffix != null) ...[
+                const SizedBox(width: 8),
+                item.suffix!,
+              ],
             ],
-          ],
+          ),
         ),
       ),
     );
@@ -874,7 +1607,7 @@ class _TreeItemIcon extends StatelessWidget {
                   fit: BoxFit.cover,
                   errorBuilder: (_, __, ___) => Icon(
                     Icons.broken_image_rounded,
-                    color: Colors.white24,
+                    color: Colors.black12,
                     size: (item.iconWidth ?? defaultWidth) * 0.7,
                   ),
                 )
@@ -887,8 +1620,8 @@ class _TreeItemIcon extends StatelessWidget {
       return Icon(
         item.icon,
         color: item.subItems != null && item.subItems!.isNotEmpty
-            ? Colors.amber.shade300
-            : Colors.blue.shade300,
+            ? Colors.amber.shade400
+            : Colors.blue.shade400,
         size: 18,
       );
     }
@@ -897,11 +1630,77 @@ class _TreeItemIcon extends StatelessWidget {
     if (item.subItems != null && item.subItems!.isNotEmpty) {
       return Icon(
         Icons.folder_rounded,
-        color: Colors.amber.shade300,
+        color: Colors.amber.shade400,
         size: 18,
       );
     }
 
     return const SizedBox.shrink();
+  }
+}
+
+class _LoadingItem extends StatefulWidget {
+  const _LoadingItem({
+    this.indicator,
+    required this.enableAnimation,
+  });
+
+  final Widget? indicator;
+  final bool enableAnimation;
+
+  @override
+  State<_LoadingItem> createState() => _LoadingItemState();
+}
+
+class _LoadingItemState extends State<_LoadingItem>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _fadeAnimation = CurvedAnimation(parent: _controller, curve: Curves.easeIn);
+
+    if (widget.enableAnimation) {
+      _controller.forward();
+    } else {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final child = widget.indicator ??
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 24),
+          child: Center(
+            child: SizedBox(
+              width: 24,
+              height: 24,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.5,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+              ),
+            ),
+          ),
+        );
+
+    if (!widget.enableAnimation) return child;
+
+    return FadeTransition(
+      opacity: _fadeAnimation,
+      child: child,
+    );
   }
 }
