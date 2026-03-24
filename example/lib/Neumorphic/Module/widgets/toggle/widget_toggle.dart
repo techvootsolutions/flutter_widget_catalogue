@@ -12,6 +12,13 @@ class ToggleWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<ToggleWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -19,12 +26,7 @@ class _WidgetPageState extends State<ToggleWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: _Page(isGlassMode: isGlassMode),
         );
       },
@@ -97,21 +99,22 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
     return Code("""
 Expanded(
   child: NeumorphicToggle(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     height: 50,
     selectedIndex: _selectedIndex,
     displayForegroundOnlyIfSelected: true,
     children: [
       ToggleElement(
-        background: Center(child: Text("This week", style: TextStyle(fontWeight: FontWeight.w500),)),
-        foreground: Center(child: Text("This week", style: TextStyle(fontWeight: FontWeight.w700),)),
+        background: Center(child: Text("This week", style: TextStyle(fontWeight: FontWeight.w500, color: NeumorphicTheme.defaultTextColor(context)),)),
+        foreground: Center(child: Text("This week", style: TextStyle(fontWeight: FontWeight.w700, color: NeumorphicTheme.defaultTextColor(context)),)),
       ),
       ToggleElement(
-        background: Center(child: Text("This month", style: TextStyle(fontWeight: FontWeight.w500),)),
-        foreground: Center(child: Text("This month", style: TextStyle(fontWeight: FontWeight.w700),)),
+        background: Center(child: Text("This month", style: TextStyle(fontWeight: FontWeight.w500, color: NeumorphicTheme.defaultTextColor(context)),)),
+        foreground: Center(child: Text("This month", style: TextStyle(fontWeight: FontWeight.w700, color: NeumorphicTheme.defaultTextColor(context)),)),
       ),
       ToggleElement(
-        background: Center(child: Text("This year", style: TextStyle(fontWeight: FontWeight.w500),)),
-        foreground: Center(child: Text("This year", style: TextStyle(fontWeight: FontWeight.w700),)),
+        background: Center(child: Text("This year", style: TextStyle(fontWeight: FontWeight.w500, color: NeumorphicTheme.defaultTextColor(context)),)),
+        foreground: Center(child: Text("This year", style: TextStyle(fontWeight: FontWeight.w700, color: NeumorphicTheme.defaultTextColor(context)),)),
       )
     ],
     thumb: Neumorphic(
@@ -147,39 +150,51 @@ Expanded(
               displayForegroundOnlyIfSelected: true,
               children: [
                 ToggleElement(
-                  background: const Center(
+                  background: Center(
                       child: Text(
                     "This week",
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
-                  foreground: const Center(
+                  foreground: Center(
                       child: Text(
                     "This week",
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
                 ),
                 ToggleElement(
-                  background: const Center(
+                  background: Center(
                       child: Text(
                     "This month",
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
-                  foreground: const Center(
+                  foreground: Center(
                       child: Text(
                     "This month",
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
                 ),
                 ToggleElement(
-                  background: const Center(
+                  background: Center(
                       child: Text(
                     "This year",
-                    style: TextStyle(fontWeight: FontWeight.w500),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
-                  foreground: const Center(
+                  foreground: Center(
                       child: Text(
                     "This year",
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: NeumorphicTheme.defaultTextColor(context)),
                   )),
                 )
               ],
@@ -227,12 +242,13 @@ class _SmallWidgetState extends State<_SmallWidget> {
   Widget _buildCode(BuildContext context) {
     return Code("""
 NeumorphicToggle(
+  isGlassMode: ${widget.isGlassMode ? true : false},
   height: 45,
   width: 100,
   selectedIndex: _selectedIndex,
   children: [
     ToggleElement(
-      background: Center(child: Icon(Icons.arrow_back, color: Colors.grey[800],)),
+      background: Center(child: Icon(Icons.arrow_back, color: NeumorphicTheme.defaultTextColor(context),)),
     ),
     ToggleElement(),
   ],
@@ -240,7 +256,7 @@ NeumorphicToggle(
     boxShape: NeumorphicBoxShape.roundRect(
       borderRadius: BorderRadius.all(Radius.circular(12)),
     ),
-    child: Icon(Icons.blur_on, color: Colors.grey,),
+    child: Icon(Icons.blur_on, color: NeumorphicTheme.defaultTextColor(context),),
   ),
   onAnimationChangedFinished: (value){
     if(value == 0) {
@@ -279,7 +295,7 @@ NeumorphicToggle(
                 background: Center(
                     child: Icon(
                   Icons.arrow_back,
-                  color: Colors.grey[800],
+                  color: NeumorphicTheme.defaultTextColor(context),
                 )),
               ),
               ToggleElement(),
@@ -291,9 +307,9 @@ NeumorphicToggle(
                   const BorderRadius.all(Radius.circular(12)),
                 ),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.blur_on,
-                color: Colors.grey,
+                color: NeumorphicTheme.defaultTextColor(context),
               ),
             ),
             onAnimationChangedFinished: (value) {
@@ -322,7 +338,7 @@ NeumorphicToggle(
   }
 }
 
-// The instruction implies that the global GlassWrap is now imported and used.
+// Premium Toggles
 
 class _PremiumWidget extends StatefulWidget {
   final bool isGlassMode;
@@ -400,7 +416,6 @@ class _PremiumWidgetState extends State<_PremiumWidget> {
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(15)),
                       shape: NeumorphicShape.concave,
-                      depth: widget.isGlassMode ? 10 : 4,
                       intensity: 1.0,
                       color: widget.isGlassMode
                           ? Colors.white.withValues(alpha: 0.15)
@@ -424,9 +439,9 @@ class _PremiumWidgetState extends State<_PremiumWidget> {
             ],
           ),
           const SizedBox(height: 12),
-          const Code("""
+          Code("""
 NeumorphicToggle(
-  isGlassMode: true,
+  isGlassMode: ${widget.isGlassMode ? true : false},
   height: 60,
   style: NeumorphicToggleStyle(
     borderRadius: BorderRadius.circular(20),

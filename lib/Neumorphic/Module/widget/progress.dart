@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'container.dart';
 
 class ProgressStyle {
-  final double depth;
+  final double? depth;
   final BorderRadius borderRadius;
   final BorderRadius? gradientBorderRadius;
   final Color? accent;
@@ -20,7 +20,7 @@ class ProgressStyle {
   final NeumorphicBorder border;
 
   const ProgressStyle({
-    this.depth = -4,
+    this.depth,
     this.disableDepth = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.gradientBorderRadius,
@@ -150,7 +150,7 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
             boxShape: NeumorphicBoxShape.roundRect(widget.style.borderRadius),
             disableDepth: widget.style.disableDepth,
             border: widget.style.border,
-            depth: widget.style.depth,
+            depth: widget.style.depth ?? (theme.depth.abs() * -1),
             shape: NeumorphicShape.flat,
           ),
           child: AnimatedBuilder(
@@ -285,7 +285,7 @@ class _NeumorphicProgressIndeterminateState
             lightSource: widget.style.lightSource ?? theme.lightSource,
             border: widget.style.border,
             disableDepth: widget.style.disableDepth,
-            depth: widget.style.depth,
+            depth: widget.style.depth ?? (theme.depth.abs() * -1),
             shape: NeumorphicShape.flat,
           ),
           child: LayoutBuilder(builder: (context, constraints) {

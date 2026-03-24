@@ -13,6 +13,13 @@ class ButtonWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<ButtonWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,20 +27,12 @@ class _WidgetPageState extends State<ButtonWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: depth,
-            intensity: intensity,
-          ),
+          theme: _theme,
           child: _Page(isGlassMode: isGlassMode),
         );
       },
     );
   }
-
-  static const double depth = 4;
-  static const double intensity = 0.5;
 }
 
 class _Page extends StatefulWidget {
@@ -100,8 +99,9 @@ class _DefaultWidget extends StatefulWidget {
 
 class _DefaultWidgetState extends State<_DefaultWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      onPressed: () {
         
      },
@@ -128,8 +128,6 @@ NeumorphicButton(
             style: widget.isGlassMode
                 ? NeumorphicStyle(
                     shape: NeumorphicShape.concave,
-                    depth: 8,
-                    intensity: 0.9,
                     surfaceIntensity: 0.5,
                     color: Colors.white.withValues(alpha: 0.1),
                     border: NeumorphicBorder(
@@ -139,7 +137,11 @@ NeumorphicButton(
                     ),
                   )
                 : const NeumorphicStyle(),
-            child: const Text("Click me"),
+            child: Text(
+              "Click me",
+              style:
+                  TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+            ),
           ),
           const SizedBox(width: 12),
         ],
@@ -170,8 +172,9 @@ class _CircleWidget extends StatefulWidget {
 
 class _CircleWidgetState extends State<_CircleWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      boxShape: NeumorphicBoxShape.circle(),
      onPressed: () {
        
@@ -199,10 +202,10 @@ NeumorphicButton(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              depth: widget.isGlassMode ? 8 : 4.0,
-              intensity: widget.isGlassMode ? 0.9 : 0.5,
               surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
-              color: widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              color: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : null,
               border: widget.isGlassMode
                   ? NeumorphicBorder(
                       isEnabled: true,
@@ -215,7 +218,10 @@ NeumorphicButton(
               setState(() {});
             },
             padding: const EdgeInsets.all(18.0),
-            child: const Icon(Icons.play_arrow),
+            child: Icon(
+              Icons.play_arrow,
+              color: NeumorphicTheme.defaultTextColor(context),
+            ),
           ),
           const SizedBox(width: 12),
         ],
@@ -246,8 +252,9 @@ class _MinDistanceWidget extends StatefulWidget {
 
 class _MinDistanceWidgetState extends State<_MinDistanceWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      boxShape: NeumorphicBoxShape.circle(),
      minDistance: -5.0,
      onPressed: () {
@@ -277,10 +284,10 @@ NeumorphicButton(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              depth: widget.isGlassMode ? 8 : 4.0,
-              intensity: widget.isGlassMode ? 0.9 : 0.5,
               surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
-              color: widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+              color: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : null,
               border: widget.isGlassMode
                   ? NeumorphicBorder(
                       isEnabled: true,
@@ -293,7 +300,10 @@ NeumorphicButton(
               setState(() {});
             },
             padding: const EdgeInsets.all(18.0),
-            child: const Icon(Icons.play_arrow),
+            child: Icon(
+              Icons.play_arrow,
+              color: NeumorphicTheme.defaultTextColor(context),
+            ),
           ),
           const SizedBox(width: 12),
         ],
@@ -326,8 +336,9 @@ class _ColorizableWidgetState extends State<_ColorizableWidget> {
   Color currentColor = Colors.green;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     onPressed: (){
 
     },
@@ -368,9 +379,7 @@ NeumorphicButton(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              depth: widget.isGlassMode ? 8 : 4.0,
-              intensity: widget.isGlassMode ? 0.9 : 0.5,
-              surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
+              surfaceIntensity: 0.5,
               border: widget.isGlassMode
                   ? NeumorphicBorder(
                       isEnabled: true,
@@ -379,7 +388,11 @@ NeumorphicButton(
                     )
                   : const NeumorphicBorder.none(),
             ),
-            child: const Text("Click me"),
+            child: Text(
+              "Click me",
+              style:
+                  TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+            ),
           ),
         ],
       ),
@@ -424,13 +437,15 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
             style: widget.isGlassMode
                 ? NeumorphicStyle(
                     shape: NeumorphicShape.concave,
-                    depth: 8,
-                    intensity: 0.9,
                     surfaceIntensity: 0.5,
                     color: Colors.white.withValues(alpha: 0.1),
                   )
                 : const NeumorphicStyle(),
-            child: const Text("First"),
+            child: Text(
+              "First",
+              style:
+                  TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+            ),
             onPressed: () {
               setState(() {});
             },
@@ -447,13 +462,15 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
             style: widget.isGlassMode
                 ? NeumorphicStyle(
                     shape: NeumorphicShape.concave,
-                    depth: 8,
-                    intensity: 0.4,
                     surfaceIntensity: 0.2,
                     color: Colors.white.withValues(alpha: 0.05),
                   )
                 : const NeumorphicStyle(),
-            child: const Text("Second"),
+            child: Text(
+              "Second",
+              style:
+                  TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+            ),
           ),
         ],
       ),
@@ -461,8 +478,9 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      isEnabled: false,
      child: Text("Second"),
      onPressed: () {
@@ -495,8 +513,9 @@ class _DurationWidget extends StatefulWidget {
 
 class _DurationWidgetState extends State<_DurationWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     onPressed: (){
 
     },
@@ -527,13 +546,15 @@ NeumorphicButton(
                 style: widget.isGlassMode
                     ? NeumorphicStyle(
                         shape: NeumorphicShape.concave,
-                        depth: 8,
-                        intensity: 0.9,
                         surfaceIntensity: 0.5,
                         color: Colors.white.withValues(alpha: 0.1),
                       )
                     : const NeumorphicStyle(),
-                child: const Text("Press me all night long"),
+                child: Text(
+                  "Press me all night long",
+                  style: TextStyle(
+                      color: NeumorphicTheme.defaultTextColor(context)),
+                ),
               ),
               const SizedBox(width: 12),
             ],
@@ -568,8 +589,9 @@ class _FlatConcaveConvexWidgetState extends State<_FlatConcaveConvexWidget> {
   bool isChecked = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicButton(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     style: NeumorphicStyle(
          shape: NeumorphicShape.flat 
          //or convex, concave
@@ -604,11 +626,10 @@ NeumorphicButton(
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: const NeumorphicBoxShape.circle(),
-                  depth: widget.isGlassMode ? 8 : 4.0,
-                  intensity: widget.isGlassMode ? 0.9 : 0.5,
                   surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
-                  color:
-                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  color: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
                   border: widget.isGlassMode
                       ? NeumorphicBorder(
                           isEnabled: true,
@@ -621,7 +642,10 @@ NeumorphicButton(
                   setState(() {});
                 },
                 padding: const EdgeInsets.all(18.0),
-                child: const Icon(Icons.play_arrow),
+                child: Icon(
+                  Icons.play_arrow,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
             ],
           ),
@@ -642,11 +666,10 @@ NeumorphicButton(
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.concave,
                   boxShape: const NeumorphicBoxShape.circle(),
-                  depth: widget.isGlassMode ? 8 : 4.0,
-                  intensity: widget.isGlassMode ? 0.9 : 0.5,
-                  surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
-                  color:
-                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  surfaceIntensity: (NeumorphicTheme.intensity(context) ?? 0.5) * 0.6,
+                  color: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
                   border: widget.isGlassMode
                       ? NeumorphicBorder(
                           isEnabled: true,
@@ -659,7 +682,10 @@ NeumorphicButton(
                   setState(() {});
                 },
                 padding: const EdgeInsets.all(18.0),
-                child: const Icon(Icons.play_arrow),
+                child: Icon(
+                  Icons.play_arrow,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
             ],
           ),
@@ -680,11 +706,10 @@ NeumorphicButton(
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.convex,
                   boxShape: const NeumorphicBoxShape.circle(),
-                  depth: widget.isGlassMode ? 8 : 4.0,
-                  intensity: widget.isGlassMode ? 1.0 : 0.5,
                   surfaceIntensity: widget.isGlassMode ? 0.5 : 0.5,
-                  color:
-                      widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
+                  color: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
                   border: widget.isGlassMode
                       ? NeumorphicBorder(
                           isEnabled: true,
@@ -697,7 +722,10 @@ NeumorphicButton(
                   setState(() {});
                 },
                 padding: const EdgeInsets.all(18.0),
-                child: const Icon(Icons.play_arrow),
+                child: Icon(
+                  Icons.play_arrow,
+                  color: NeumorphicTheme.defaultTextColor(context),
+                ),
               ),
             ],
           ),
@@ -717,4 +745,3 @@ NeumorphicButton(
     );
   }
 }
-

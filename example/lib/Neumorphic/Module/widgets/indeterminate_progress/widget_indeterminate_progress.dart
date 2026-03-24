@@ -13,6 +13,13 @@ class IndeterminateProgressWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<IndeterminateProgressWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,12 +27,7 @@ class _WidgetPageState extends State<IndeterminateProgressWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: const _Page(),
         );
       },
@@ -99,9 +101,11 @@ class DefaultWidget1 extends StatefulWidget {
 
 class _DefaultWidgetState1 extends State<DefaultWidget1> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
-  child: NeumorphicProgressIndeterminate(),
+  child: NeumorphicProgressIndeterminate(
+      isGlassMode: ${widget.isGlassMode ? true : false},
+  ),
 ),
 """);
   }
@@ -155,9 +159,10 @@ class ColorWidget1 extends StatefulWidget {
 
 class _ColorWidgetState1 extends State<ColorWidget1> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
   child: NeumorphicProgressIndeterminate(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       style: ProgressStyle(
            accent: Colors.green,
            variant: Colors.purple,
@@ -177,7 +182,11 @@ Expanded(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text("Accent : "),
+              Text(
+                "Accent : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -187,7 +196,11 @@ Expanded(
                 color: accent,
               ),
               const SizedBox(width: 12),
-              const Text("Variant : "),
+              Text(
+                "Variant : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -211,8 +224,9 @@ Expanded(
                 child: NeumorphicProgressIndeterminate(
                   isGlassMode: widget.isGlassMode,
                   style: ProgressStyle(
-                    accent:
-                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    accent: widget.isGlassMode
+                        ? accent.withValues(alpha: 0.3)
+                        : accent,
                     variant: widget.isGlassMode
                         ? variant.withValues(alpha: 0.2)
                         : variant,
@@ -249,9 +263,10 @@ class _SizedWidget extends StatefulWidget {
 
 class _SizedWidgetState extends State<_SizedWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
   child: NeumorphicProgressIndeterminate(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       height: 30,
   ),
 ),
@@ -314,9 +329,10 @@ class _DurationWidget extends StatefulWidget {
 
 class _DurationWidgetState extends State<_DurationWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
   child: NeumorphicProgressIndeterminate(
+       isGlassMode: ${widget.isGlassMode ? true : false},
        duration: Duration(seconds: 10),
   ),
 ),
@@ -379,9 +395,10 @@ class _ReversedWidget extends StatefulWidget {
 
 class _ReversedWidgetState extends State<_ReversedWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
   child: NeumorphicProgressIndeterminate(
+       isGlassMode: ${widget.isGlassMode ? true : false},
        reverse: true,
   ),
 ),
@@ -438,9 +455,10 @@ class _CurveWidget extends StatefulWidget {
 
 class _CurveWidgetState extends State<_CurveWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 Expanded(
   child: NeumorphicProgressIndeterminate(
+       isGlassMode: ${widget.isGlassMode ? true : false},
        curve: Curves.bounceOut,
   ),
 ),

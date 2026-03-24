@@ -13,6 +13,13 @@ class RangeSliderWidgetPage extends StatefulWidget {
 }
 
 class _RangeWidgetPageState extends State<RangeSliderWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,12 +27,7 @@ class _RangeWidgetPageState extends State<RangeSliderWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: _Page(isGlassMode: isGlassMode),
         );
       },
@@ -99,12 +101,13 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   double highVal = 70;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
   double lowVal = 30;
   double highVal = 70;
 
   Expanded(
     child: NeumorphicRangeSlider(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       valueLow: lowVal,
       valueHigh: highVal,
       min: 18,
@@ -195,12 +198,13 @@ class _ColorWidgetState extends State<_ColorWidget> {
   double highVal = 80;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double lowVal = 30;
 double highVal = 80;
 
   Expanded(
     child: NeumorphicRangeSlider(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       style: RangeSliderStyle(
         accent: accent,
         variant: variant,
@@ -235,7 +239,11 @@ double highVal = 80;
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text("Accent : "),
+              Text(
+                "Accent : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -245,7 +253,11 @@ double highVal = 80;
                 color: accent,
               ),
               const SizedBox(width: 12),
-              const Text("Variant : "),
+              Text(
+                "Variant : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -269,8 +281,9 @@ double highVal = 80;
                 child: NeumorphicRangeSlider(
                   isGlassMode: widget.isGlassMode,
                   style: RangeSliderStyle(
-                    accent:
-                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    accent: widget.isGlassMode
+                        ? accent.withValues(alpha: 0.3)
+                        : accent,
                     variant: widget.isGlassMode
                         ? variant.withValues(alpha: 0.2)
                         : variant,

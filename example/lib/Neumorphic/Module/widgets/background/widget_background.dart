@@ -12,6 +12,13 @@ class BackgroundWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<BackgroundWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -19,12 +26,7 @@ class _WidgetPageState extends State<BackgroundWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: _Page(),
         );
       },
@@ -94,10 +96,11 @@ class _DefaultWidget extends StatefulWidget {
 
 class _DefaultWidgetState extends State<_DefaultWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 //takes the themee baseColor as background
 Expanded(
   child: NeumorphicBackground(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     child: ...
   ),
 ),

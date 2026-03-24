@@ -14,6 +14,13 @@ class IndicatorWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<IndicatorWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -21,12 +28,7 @@ class _WidgetPageState extends State<IndicatorWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: _Page(),
         );
       },
@@ -102,8 +104,9 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   double percent = 0.6;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicIndicator(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     height: 100,
     width: 20,
     percent: 0.6,
@@ -169,8 +172,9 @@ class _DefaultOrientationWidget extends StatefulWidget {
 
 class _DefaultOrientationWidgetState extends State<_DefaultOrientationWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicIndicator(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      width: 150,
      height: 15,
      orientation: NeumorphicIndicatorOrientation.horizontal,
@@ -231,8 +235,9 @@ class _ColorWidget extends StatefulWidget {
 
 class _ColorWidgetState extends State<_ColorWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicIndicator(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       width: 150,
       height: 15,
       orientation: NeumorphicIndicatorOrientation.horizontal,
@@ -255,7 +260,11 @@ NeumorphicIndicator(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text("Accent : "),
+              Text(
+                "Accent : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -265,7 +274,11 @@ NeumorphicIndicator(
                 color: accent,
               ),
               const SizedBox(width: 12),
-              const Text("Variant : "),
+              Text(
+                "Variant : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -292,10 +305,12 @@ NeumorphicIndicator(
                 orientation: NeumorphicIndicatorOrientation.horizontal,
                 percent: 0.7,
                 style: IndicatorStyle(
-                  variant:
-                      widget.isGlassMode ? variant.withValues(alpha: 0.2) : variant,
-                  accent:
-                      widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                  variant: widget.isGlassMode
+                      ? variant.withValues(alpha: 0.2)
+                      : variant,
+                  accent: widget.isGlassMode
+                      ? accent.withValues(alpha: 0.3)
+                      : accent,
                 ),
               ),
               const SizedBox(width: 12),
@@ -331,8 +346,9 @@ class _DurationWidgetState extends State<_DurationWidget> {
   double percent = 0.3;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicIndicator(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     height: 100,
     width: 20,
     percent: 0.3,
@@ -402,8 +418,9 @@ class _CurveWidgetState extends State<_CurveWidget> {
   double percent = 0.3;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 NeumorphicIndicator(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     height: 100,
     width: 20,
     percent: 0.3,

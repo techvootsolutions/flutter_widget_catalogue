@@ -16,7 +16,7 @@ class NeumorphicCheckboxStyle {
   final double? unselectedDepth;
   final bool? disableDepth;
   final double? selectedIntensity;
-  final double unselectedIntensity;
+  final double? unselectedIntensity;
   final Color? selectedColor;
   final Color? disabledColor;
   final LightSource? lightSource;
@@ -32,8 +32,8 @@ class NeumorphicCheckboxStyle {
     this.lightSource,
     this.disabledColor,
     this.boxShape,
-    this.selectedIntensity = 1,
-    this.unselectedIntensity = 0.7,
+    this.selectedIntensity,
+    this.unselectedIntensity,
   });
 
   @override
@@ -109,7 +109,7 @@ class NeumorphicCheckbox extends StatelessWidget {
         (style.selectedIntensity ?? theme.intensity)
             .abs()
             .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
-    final double unselectedIntensity = style.unselectedIntensity
+    final double unselectedIntensity = (style.unselectedIntensity ?? theme.intensity)
         .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
 
     double depth = isSelected ? selectedDepth : unselectedDepth;

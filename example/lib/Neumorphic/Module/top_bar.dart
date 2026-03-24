@@ -18,7 +18,7 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 0.0, top: 15),
+      padding: const EdgeInsets.only(bottom: 0.0, top: 15, left: 10, right: 10),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -40,21 +40,6 @@ class TopBar extends StatelessWidget implements PreferredSizeWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ValueListenableBuilder<bool>(
-                  valueListenable: GlassModeManager.instance.isGlassMode,
-                  builder: (context, isGlassMode, _) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: NeumorphicSwitch(
-                        height: 30,
-                        value: isGlassMode,
-                        onChanged: (value) {
-                          GlassModeManager.instance.setGlassMode(value);
-                        },
-                      ),
-                    );
-                  },
-                ),
                 ...?actions,
               ],
             ),

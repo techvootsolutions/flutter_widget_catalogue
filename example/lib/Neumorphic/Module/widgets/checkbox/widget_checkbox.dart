@@ -13,6 +13,13 @@ class CheckboxWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<CheckboxWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,12 +27,7 @@ class _WidgetPageState extends State<CheckboxWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: const _Page(),
         );
       },
@@ -100,11 +102,12 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   bool check3 = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     onChanged: (value) {
         setState(() {
@@ -271,11 +274,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicCheckboxStyle(
         selectedColor: Colors.green,
@@ -363,11 +367,12 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      isEnabled: false,
      value: isChecked,
      onChanged: (value) {

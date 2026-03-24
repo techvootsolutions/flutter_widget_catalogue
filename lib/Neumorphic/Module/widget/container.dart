@@ -1,9 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
 import '../shape/rrect_path_provider.dart';
-import '../glass_wrap.dart';
 
 import '../decoration/neumorphic_decorations.dart';
 import '../neumorphic_box_shape.dart';
@@ -60,13 +60,14 @@ class Neumorphic extends StatelessWidget {
         .copyWithThemeIfNull(theme)
         .applyDisableDepth();
 
-    if (isGlassMode) {
+    if (isGlassMode || style.isGlass) {
       style = style.copyWith(
+        isGlass: true,
         color: style.color == theme.baseColor
-            ? material.Colors.white.withValues(alpha: 0.1)
-            : style.color?.withValues(alpha: 0.2),
-        depth: style.depth != null ? (style.depth! > 0 ? 4.0 : -4.0) : null,
-        intensity: 0.9,
+            ? material.Colors.white.withValues(alpha: style.glassConnectivity)
+            : style.color?.withValues(alpha: style.glassConnectivity),
+        depth: style.depth,
+        intensity: style.intensity,
         border: style.border.isEnabled
             ? style.border
             : NeumorphicBorder(
@@ -117,15 +118,14 @@ class _NeumorphicContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shape = style.boxShape ?? const NeumorphicBoxShape.rect();
+    final borderRadius = shape.isCircle
+        ? BorderRadius.circular(1000)
+        : (shape.isRoundRect &&
+                shape.customShapePathProvider is RRectPathProvider
+            ? (shape.customShapePathProvider as RRectPathProvider).borderRadius
+            : BorderRadius.circular(12.0));
 
-    return GlassWrap(
-      isGlassMode: isGlassMode,
-      isCircle: shape.isCircle,
-      borderRadius: shape.isRoundRect &&
-              shape.customShapePathProvider is RRectPathProvider
-          ? (shape.customShapePathProvider as RRectPathProvider).borderRadius
-          : BorderRadius.circular(12.0),
-      child: DefaultTextStyle(
+    Widget content = DefaultTextStyle(
       style: textStyle ?? material.Theme.of(context).textTheme.bodyMedium!,
       child: AnimatedContainer(
         margin: margin,
@@ -153,7 +153,19 @@ class _NeumorphicContainer extends StatelessWidget {
           ),
         ),
       ),
-    ),
     );
+
+    if (style.isGlass || isGlassMode) {
+      return ClipRRect(
+        borderRadius: borderRadius,
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+              sigmaX: style.glassBlur, sigmaY: style.glassBlur),
+          child: content,
+        ),
+      );
+    }
+
+    return content;
   }
 }

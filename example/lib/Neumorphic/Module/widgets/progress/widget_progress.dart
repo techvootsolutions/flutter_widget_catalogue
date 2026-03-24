@@ -14,6 +14,13 @@ class ProgressWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<ProgressWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -21,12 +28,7 @@ class _WidgetPageState extends State<ProgressWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: const _Page(),
         );
       },
@@ -102,11 +104,12 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   double percent = 0.2;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double percent = 0.2;  
 
 Expanded(
   child: NeumorphicProgress(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       percent: percent,
   ),
 ),
@@ -173,11 +176,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
   double percent = 0.5;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double percent = 0.5;  
 
 Expanded(
   child: NeumorphicProgress(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       style: ProgressStyle(
            accent: Colors.green,
            variant: Colors.purple,
@@ -198,7 +202,11 @@ Expanded(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text("Accent : "),
+              Text(
+                "Accent : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -208,7 +216,11 @@ Expanded(
                 color: accent,
               ),
               const SizedBox(width: 12),
-              const Text("Variant : "),
+              Text(
+                "Variant : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -232,8 +244,9 @@ Expanded(
                 child: NeumorphicProgress(
                   isGlassMode: widget.isGlassMode,
                   style: ProgressStyle(
-                    accent:
-                        widget.isGlassMode ? accent.withValues(alpha: 0.3) : accent,
+                    accent: widget.isGlassMode
+                        ? accent.withValues(alpha: 0.3)
+                        : accent,
                     variant: widget.isGlassMode
                         ? variant.withValues(alpha: 0.2)
                         : variant,
@@ -274,11 +287,12 @@ class _SizedWidgetState extends State<_SizedWidget> {
   double percent = 0.5;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double percent = 0.5;  
 
 Expanded(
   child: NeumorphicProgress(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       height: 30,
       percent: percent,
   ),
@@ -346,11 +360,12 @@ class _DurationWidgetState extends State<_DurationWidget> {
   double percent = 0.2;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double percent = 0.2;  
 
 Expanded(
   child: NeumorphicProgress(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       percent: percent,
       duration: Duration(seconds: 1),
   ),
@@ -419,11 +434,12 @@ class _CurveWidgetState extends State<_CurveWidget> {
   double percent = 0.2;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double percent = 0.2;  
 
 Expanded(
   child: NeumorphicProgress(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       percent: percent,
       curve: Curves.bounceOut,
   ),

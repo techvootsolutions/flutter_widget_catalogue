@@ -23,7 +23,7 @@ class NeumorphicBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      //padding: const EdgeInsets.symmetric(horizontal: 10),
       color: isGlassMode ? Colors.transparent : Colors.white,
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(0),

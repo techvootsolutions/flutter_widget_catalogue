@@ -8,138 +8,187 @@ class ThemeConfigurator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicButton(
-      padding: const EdgeInsets.all(18),
-      style: const NeumorphicStyle(
-        shape: NeumorphicShape.flat,
-        boxShape: NeumorphicBoxShape.circle(),
-      ),
-      child: Icon(
-        Icons.settings,
-        color: NeumorphicTheme.isUsingDark(context)
-            ? Colors.white70
-            : Colors.black87,
-      ),
-      onPressed: () {
-        _changeColor(context);
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (innerContext, isGlassMode, _) {
+        return NeumorphicButton(
+          padding: const EdgeInsets.all(15),
+          isGlassMode: isGlassMode,
+          style: isGlassMode
+              ? NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape: const NeumorphicBoxShape.circle(),
+                  color: Colors.white.withValues(alpha: 0.1),
+                )
+              : const NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape: NeumorphicBoxShape.circle(),
+                ),
+          child: Icon(
+            Icons.settings,
+            color: isGlassMode
+                ? Colors.white70
+                : (NeumorphicTheme.isUsingDark(innerContext)
+                    ? Colors.white70
+                    : Colors.black87),
+          ),
+          onPressed: () => _changeColor(innerContext),
+        );
       },
     );
   }
 
-  void _changeColor(BuildContext context) {
+  void _changeColor(BuildContext themeContext) {
+    final theme = NeumorphicTheme.currentTheme(themeContext);
+
     showDialog(
-        useRootNavigator: false,
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Update Theme'),
-            content: SingleChildScrollView(
-              child: _ThemeConfiguratorDialog(contextContainingTheme: context),
-            ),
-            actions: <Widget>[
-              NeumorphicButton(
-                child: const Text('Close'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+      context: themeContext,
+      barrierColor: Colors.black.withValues(alpha: 0.45),
+      builder: (context) {
+        return ValueListenableBuilder<bool>(
+          valueListenable: GlassModeManager.instance.isGlassMode,
+          builder: (context, isGlassMode, _) {
+            final content = SingleChildScrollView(
+              child: _ThemeConfiguratorDialog(
+                contextContainingTheme: themeContext,
+                initialIntensity: theme.intensity,
+                initialDepth: theme.depth,
+                isGlassMode: isGlassMode,
               ),
-            ],
-          );
-        });
+            );
+
+            if (isGlassMode) {
+              return LiquidGlassDialog(
+                title: 'Update Theme',
+                height: 420,
+                child: content,
+              );
+            }
+            return AlertDialog(
+              title: const Text('Update Theme'),
+              content: SizedBox(width: 250, child: content),
+              actions: [
+                NeumorphicButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Close'),
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
   }
 }
 
 class _ThemeConfiguratorDialog extends StatefulWidget {
   final BuildContext? contextContainingTheme;
+  final double? initialIntensity;
+  final double? initialDepth;
+  final bool isGlassMode;
 
-  const _ThemeConfiguratorDialog({this.contextContainingTheme});
+  const _ThemeConfiguratorDialog({
+    this.contextContainingTheme,
+    this.initialIntensity,
+    this.initialDepth,
+    this.isGlassMode = false,
+  });
 
   @override
   _ThemeConfiguratorState createState() => _ThemeConfiguratorState();
 }
 
 class _ThemeConfiguratorState extends State<_ThemeConfiguratorDialog> {
+  double? _intensity;
+  double? _depth;
+
+  @override
+  void initState() {
+    super.initState();
+    _intensity = widget.initialIntensity;
+    _depth = widget.initialDepth;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Only re-initialize if it was null for some reason
+    _intensity ??=
+        NeumorphicTheme.intensity(widget.contextContainingTheme ?? context);
+    _depth ??= NeumorphicTheme.depth(widget.contextContainingTheme ?? context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
-        ThemeColorSelector(
-          customContext: widget.contextContainingTheme,
-        ),
-        intensitySelector(),
-        depthSelector(),
+      children: [
+        if (!widget.isGlassMode) ...[
+          ThemeColorSelector(customContext: widget.contextContainingTheme),
+          const SizedBox(height: 14),
+        ],
+        _intensitySelector(),
+        const SizedBox(height: 14),
+        _depthSelector(),
+        const SizedBox(height: 22),
+        _glassTheme(),
       ],
     );
   }
 
-  Widget intensitySelector() {
-    final intensity = NeumorphicTheme.intensity(widget.contextContainingTheme!);
-    return Row(
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.only(left: 12),
-          child: Text("Intensity"),
-        ),
-        Expanded(
-          child: Slider(
-            min: Neumorphic.MIN_INTENSITY, //in case of != 0
-            max: Neumorphic.MAX_INTENSITY,
-            value: intensity!,
-            onChanged: (value) {
-              setState(() {
-                NeumorphicTheme.update(
-                  widget.contextContainingTheme!,
-                  (current) => current!.copyWith(
-                    intensity: value,
-                  ),
-                );
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: SizedBox(
-            width: 40,
-            child: Text(((intensity * 100).floor() / 100).toString()),
-          ),
-        ),
-      ],
+  Widget _intensitySelector() {
+    bool isGlassMode = GlassModeManager.instance.isGlassMode.value;
+
+    return LiquidSliderRow(
+      label: 'Intensity',
+      value: _intensity ?? 0.5,
+      displayValue: (((_intensity ?? 0.5) * 100).floor() / 100).toString(),
+      min: Neumorphic.MIN_INTENSITY,
+      max: Neumorphic.MAX_INTENSITY,
+      isGlassMode: isGlassMode,
+      onChanged: (value) {
+        setState(() {
+          _intensity = value;
+        });
+        // We update the theme also to provide real-time feedback to the background
+        NeumorphicTheme.update(
+          widget.contextContainingTheme ?? context,
+          (current) => current!.copyWith(intensity: value),
+        );
+      },
     );
   }
 
-  Widget depthSelector() {
-    final depth = NeumorphicTheme.depth(widget.contextContainingTheme!);
+  Widget _depthSelector() {
+    bool isGlassMode = GlassModeManager.instance.isGlassMode.value;
 
-    return Row(
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.only(left: 12),
-          child: Text("Depth"),
-        ),
-        Expanded(
-          child: Slider(
-            min: Neumorphic.MIN_DEPTH,
-            max: Neumorphic.MAX_DEPTH,
-            value: depth!,
-            onChanged: (value) {
-              setState(() {
-                NeumorphicTheme.update(
-                  widget.contextContainingTheme!,
-                  (current) => current!.copyWith(depth: value),
-                );
-              });
-            },
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(right: 12),
-          child: SizedBox(
-            width: 40,
-            child: Text(depth.floor().toString()),
-          ),
-        ),
-      ],
+    return LiquidSliderRow(
+      label: 'Depth',
+      value: _depth ?? 4,
+      displayValue: (_depth ?? 4).floor().toString(),
+      min: Neumorphic.MIN_DEPTH,
+      max: Neumorphic.MAX_DEPTH,
+      isGlassMode: isGlassMode,
+      onChanged: (value) {
+        setState(() {
+          _depth = value;
+        });
+        NeumorphicTheme.update(
+          widget.contextContainingTheme ?? context,
+          (current) => current!.copyWith(depth: value),
+        );
+      },
+    );
+  }
+
+  Widget _glassTheme() {
+    bool isGlassMode = GlassModeManager.instance.isGlassMode.value;
+    return GlassControlRow(
+      label: 'Glass View (iOS style)',
+      isGlassMode: isGlassMode,
+      value: isGlassMode,
+      onChanged: (value) {
+        GlassModeManager.instance.setGlassMode(value);
+      },
     );
   }
 }

@@ -126,7 +126,7 @@ class NeumorphicSwitch extends StatelessWidget {
                 curve: curve,
                 isGlassMode: isGlassMode,
                 disableDepth: style.disableDepth,
-                depth: _thumbDepth,
+                depth: _getThumbDepth(theme.depth),
                 duration: duration,
                 alignment: _alignment,
                 shape: _getThumbShape,
@@ -149,11 +149,11 @@ class NeumorphicSwitch extends StatelessWidget {
     }
   }
 
-  double get _thumbDepth {
+  double _getThumbDepth(double themeDepth) {
     if (!isEnabled) {
       return 0;
     } else {
-      return style.thumbDepth ?? neumorphicDefaultTheme.depth;
+      return style.thumbDepth ?? themeDepth;
     }
   }
 

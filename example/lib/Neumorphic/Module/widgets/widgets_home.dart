@@ -94,6 +94,15 @@ class WidgetsHome extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
+                  // _buildButton(
+                  //   text: "Text",
+                  //   icon: Icons.text_fields,
+                  //   onClick: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => const NeumorphicTextPlayground(),
+                  //     ));
+                  //   },
+                  // ),
                   _buildButton(
                     text: "Container",
                     icon: Icons.crop_square,

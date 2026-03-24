@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'container.dart';
 
 class IndicatorStyle {
-  final double depth;
+  final double? depth;
   final bool? disableDepth;
   final Color? accent;
   final Color? variant;
@@ -15,7 +15,7 @@ class IndicatorStyle {
   final AlignmentGeometry? gradientEnd;
 
   const IndicatorStyle({
-    this.depth = -4,
+    this.depth,
     this.accent,
     this.lightSource,
     this.variant,
@@ -151,7 +151,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
           boxShape: const NeumorphicBoxShape.stadium(),
           lightSource: widget.style.lightSource ?? theme.lightSource,
           disableDepth: widget.style.disableDepth,
-          depth: widget.style.depth,
+          depth: widget.style.depth ?? (theme.depth.abs() * -1),
           shape: NeumorphicShape.flat,
         ),
         child: AnimatedBuilder(

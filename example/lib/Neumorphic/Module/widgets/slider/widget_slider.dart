@@ -13,6 +13,13 @@ class SliderWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<SliderWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,12 +27,7 @@ class _WidgetPageState extends State<SliderWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: const _Page(),
         );
       },
@@ -101,11 +103,12 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   double age = 20;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double age = 20;  
 
 Expanded(
   child: NeumorphicSlider(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       value: age,
       min: 18,
       max: 90,
@@ -183,11 +186,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
   double age = 50;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double age = 50;  
 
 Expanded(
   child: NeumorphicSlider(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       style: SliderStyle(
            accent: Colors.green,
            variant: Colors.purple,
@@ -215,7 +219,11 @@ Expanded(
         children: <Widget>[
           Row(
             children: <Widget>[
-              const Text("Accent : "),
+              Text(
+                "Accent : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -225,7 +233,11 @@ Expanded(
                 color: accent,
               ),
               const SizedBox(width: 12),
-              const Text("Variant : "),
+              Text(
+                "Variant : ",
+                style:
+                    TextStyle(color: NeumorphicTheme.defaultTextColor(context)),
+              ),
               ColorSelector(
                 onColorChanged: (color) {
                   setState(() {
@@ -304,14 +316,16 @@ class _ThumbIconWidgetState extends State<_ThumbIconWidget> {
   double seekValue = 50;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double seekValue = 50;
 
 NeumorphicSlider(
+  isGlassMode: ${widget.isGlassMode ? true : false},
   value: seekValue,
   min: 0,
   max: 100,
   thumb: Neumorphic(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     style: NeumorphicStyle(
       shape: NeumorphicShape.concave,
       boxShape: NeumorphicBoxShape.circle(),
@@ -408,10 +422,11 @@ class _FeedbackWidgetState extends State<_FeedbackWidget> {
   double value = 5;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double value = 5;
 
 NeumorphicSlider(
+  isGlassMode: ${widget.isGlassMode ? true : false},
   value: value,
   min: 1,
   max: 10,
@@ -560,7 +575,7 @@ class _MoodFeedbackWidgetState extends State<_MoodFeedbackWidget> {
   ];
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 double value = 2;
 
 Column(
@@ -575,6 +590,7 @@ Column(
       )).toList(),
     ),
     NeumorphicSlider(
+      isGlassMode: ${widget.isGlassMode ? true : false},
       value: value,
       min: 0,
       max: 4,
@@ -625,7 +641,6 @@ Column(
                               ? NeumorphicShape.concave
                               : NeumorphicShape.flat,
                           boxShape: const NeumorphicBoxShape.circle(),
-                          depth: isActive ? 5 : 2,
                           color: isActive
                               ? mood['color']
                               : (widget.isGlassMode

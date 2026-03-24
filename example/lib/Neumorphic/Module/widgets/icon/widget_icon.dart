@@ -11,6 +11,13 @@ class IconWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<IconWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 5,
+    intensity: 0.80,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -18,12 +25,7 @@ class _WidgetPageState extends State<IconWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: _Page(isGlassMode: isGlassMode),
         );
       },
@@ -75,33 +77,36 @@ class _PageState extends State<_Page> {
                   mainAxisSpacing: 10,
                 ),
                 itemBuilder: (context, index) {
-                  return GlassWrap(
-                    isGlassMode: isGlassMode,
-                    child: Center(
-                      child: NeumorphicIcon(
-                        icons[index],
-                        size: itemSize * 0.5, // icon takes 50% of cell
-                        style: isGlassMode
-                            ? NeumorphicStyle(
-                                shape: NeumorphicShape.concave,
-                                depth: 8,
-                                intensity: 0.9,
-                                surfaceIntensity: 0.5,
-                                color: Colors.white.withValues(alpha: 0.1),
-                                border: NeumorphicBorder(
-                                  isEnabled: true,
-                                  color: Colors.white.withValues(alpha: 0.2),
-                                  width: 0.5,
-                                ),
-                              )
-                            : NeumorphicStyle(
-                                depth: 5,
-                                intensity: 0.85,
-                                surfaceIntensity: 0.5,
-                                shape: NeumorphicShape.flat,
-                                color: NeumorphicTheme.baseColor(context),
+                  return Center(
+                    child: NeumorphicIcon(
+                      icons[index],
+                      isGlassMode: isGlassMode,
+                      size: itemSize * 0.5, // icon takes 50% of cell
+                      style: isGlassMode
+                          ? NeumorphicStyle(
+                              shape: NeumorphicShape.concave,
+                              surfaceIntensity: 0.5,
+                              color: Colors.white.withValues(alpha: 0.1),
+                              border: NeumorphicBorder(
+                                isEnabled: true,
+                                color: Colors.white.withValues(alpha: 0.2),
+                                width: 0.5,
                               ),
-                      ),
+                            )
+                          : NeumorphicStyle(
+                              surfaceIntensity:
+                                  (NeumorphicTheme.intensity(context) ?? 0.5) *
+                                      0.6,
+                              shape: NeumorphicShape.concave,
+                              color: NeumorphicTheme.baseColor(context),
+                              border: NeumorphicBorder(
+                                isEnabled: true,
+                                color: NeumorphicTheme.isUsingDark(context)
+                                    ? Colors.white.withValues(alpha: 0.05)
+                                    : Colors.black.withValues(alpha: 0.05),
+                                width: 0.3,
+                              ),
+                            ),
                     ),
                   );
                 },

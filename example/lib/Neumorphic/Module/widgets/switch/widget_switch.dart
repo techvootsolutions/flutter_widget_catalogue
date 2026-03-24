@@ -13,6 +13,13 @@ class SwitchWidgetPage extends StatefulWidget {
 }
 
 class _WidgetPageState extends State<SwitchWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
@@ -20,12 +27,7 @@ class _WidgetPageState extends State<SwitchWidgetPage> {
       builder: (context, isGlassMode, _) {
         return NeumorphicTheme(
           themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
-          theme: const NeumorphicThemeData(
-            lightSource: LightSource.topLeft,
-            accentColor: NeumorphicColors.accent,
-            depth: 4,
-            intensity: 0.5,
-          ),
+          theme: _theme,
           child: const _Page(),
         );
       },
@@ -101,10 +103,11 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   bool isEnabled = true;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     onChanged: (value) {
         setState(() {
@@ -179,10 +182,11 @@ class _FlatConcaveConvexWidgetState extends State<_FlatConcaveConvexWidget> {
   bool isChecked = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
          thumbShape: NeumorphicShape.flat 
@@ -320,10 +324,11 @@ class _ColorizableWidgetState extends State<_ColorizableWidget> {
   Color currentColor = Colors.green;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
         activeTrackColor: Colors.green
@@ -405,10 +410,11 @@ class _ColorizableThumbSwitchState extends State<ColorizableThumbSwitch> {
   Color trackColor = Colors.lightGreen;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
           activeTrackColor: Colors.lightGreen,
@@ -507,10 +513,11 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   bool isChecked2 = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     isEnabled: false,
     onChanged: (value) {

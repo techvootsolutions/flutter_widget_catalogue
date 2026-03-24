@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
@@ -333,7 +334,7 @@ class _AnimationListViewState extends State<AnimationListView>
     final color = _colors[index % _colors.length];
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: GlassWrap(
+      child: _GlassWrap(
         isGlassMode: _isGlassMode,
         blur: 15,
         connectivity: 0.15,
@@ -457,7 +458,7 @@ class _AnimationListViewState extends State<AnimationListView>
       tag: 'item_$index',
       child: GestureDetector(
         onTap: () => _openDetail(index, imageUrl),
-        child: GlassWrap(
+        child: _GlassWrap(
           isGlassMode: _isGlassMode,
           blur: 15,
           connectivity: 0.15,
@@ -538,7 +539,7 @@ class _AnimationListViewState extends State<AnimationListView>
         onTap: () => _openDetail(index, imageUrl),
         child: SizedBox(
           height: customHeight,
-          child: GlassWrap(
+          child: _GlassWrap(
             isGlassMode: _isGlassMode,
             blur: 12,
             connectivity: 0.12,
@@ -758,6 +759,45 @@ class ImageDetailScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GlassWrap extends StatelessWidget {
+  final Widget child;
+  final bool isGlassMode;
+  final double blur;
+  final double connectivity;
+  final BorderRadius? borderRadius;
+
+  const _GlassWrap({
+    required this.child,
+    this.isGlassMode = false,
+    this.blur = 10,
+    this.connectivity = 0.1,
+    this.borderRadius,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isGlassMode) return child;
+
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(12),
+      child: BackdropFilter(
+        filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: connectivity),
+            borderRadius: borderRadius ?? BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.2),
+              width: 1.5,
+            ),
+          ),
+          child: child,
+        ),
       ),
     );
   }

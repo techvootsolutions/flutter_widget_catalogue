@@ -1,5 +1,5 @@
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 /// A hierarchical item for the [HierarchySearchableDropdown].
 class HierarchyItem {
@@ -723,7 +723,7 @@ class _DefaultHeader extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        GlassWrap(
+        _GlassWrap(
           isGlassMode: isGlassMode,
           blur: blur,
           connectivity: connectivity,
@@ -1099,7 +1099,7 @@ class _DropdownPanelState extends State<_DropdownPanel> {
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: BoxConstraints(maxHeight: widget.maxHeight),
-      child: GlassWrap(
+      child: _GlassWrap(
         isGlassMode: widget.isGlassMode,
         blur: widget.blur,
         connectivity: widget.connectivity,
@@ -1701,6 +1701,45 @@ class _LoadingItemState extends State<_LoadingItem>
     return FadeTransition(
       opacity: _fadeAnimation,
       child: child,
+    );
+  }
+}
+
+class _GlassWrap extends StatelessWidget {
+  final Widget child;
+  final bool isGlassMode;
+  final double blur;
+  final double connectivity;
+  final BorderRadius? borderRadius;
+
+  const _GlassWrap({
+    required this.child,
+    this.isGlassMode = false,
+    this.blur = 10,
+    this.connectivity = 0.1,
+    this.borderRadius,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (!isGlassMode) return child;
+
+    return ClipRRect(
+      borderRadius: borderRadius ?? BorderRadius.circular(12),
+      child: BackdropFilter(
+        filter: ui.ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: connectivity),
+            borderRadius: borderRadius ?? BorderRadius.circular(12),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.2),
+              width: 1.5,
+            ),
+          ),
+          child: child,
+        ),
+      ),
     );
   }
 }
