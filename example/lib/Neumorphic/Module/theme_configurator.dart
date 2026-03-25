@@ -13,12 +13,12 @@ class ThemeConfigurator extends StatelessWidget {
       builder: (innerContext, isGlassMode, _) {
         return NeumorphicButton(
           padding: const EdgeInsets.all(15),
-          isGlassMode: isGlassMode,
+          //isGlassMode: isGlassMode,
           style: isGlassMode
               ? NeumorphicStyle(
                   shape: NeumorphicShape.flat,
                   boxShape: const NeumorphicBoxShape.circle(),
-                  color: Colors.white.withValues(alpha: 0.1),
+                 // color: Colors.white.withValues(alpha: 0.1),
                 )
               : const NeumorphicStyle(
                   shape: NeumorphicShape.flat,
@@ -26,11 +26,9 @@ class ThemeConfigurator extends StatelessWidget {
                 ),
           child: Icon(
             Icons.settings,
-            color: isGlassMode
+            color: NeumorphicTheme.isUsingDark(context)
                 ? Colors.white70
-                : (NeumorphicTheme.isUsingDark(innerContext)
-                    ? Colors.white70
-                    : Colors.black87),
+                : Colors.black87,
           ),
           onPressed: () => _changeColor(innerContext),
         );

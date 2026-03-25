@@ -15,7 +15,7 @@ class _WidgetPageState extends State<IconWidgetPage> {
     lightSource: LightSource.topLeft,
     accentColor: NeumorphicColors.accent,
     depth: 5,
-    intensity: 0.80,
+    intensity: 1,
   );
 
   @override
