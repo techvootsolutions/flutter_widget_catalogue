@@ -1,32 +1,43 @@
-import 'package:example/Neumorphic/Module/theme_configurator.dart';
-import 'package:example/Neumorphic/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/theme_configurator.dart';
+import 'package:example/Neumorphic/Module/top_bar.dart';
 
 class IconWidgetPage extends StatefulWidget {
-  const IconWidgetPage({Key? key}) : super(key: key);
+  const IconWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
 }
 
 class _WidgetPageState extends State<IconWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 5,
+    intensity: 1,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 1.0,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: _theme,
+          child: _Page(isGlassMode: isGlassMode),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _Page({required this.isGlassMode});
+
   @override
   createState() => _PageState();
 }
@@ -34,6 +45,7 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
+    bool isGlassMode = widget.isGlassMode;
     return NeumorphicBackground(
       // padding: const EdgeInsets.all(8),
       child: Scaffold(
@@ -43,20 +55,64 @@ class _PageState extends State<_Page> {
             ThemeConfigurator(),
           ],
         ),
-        backgroundColor: Colors.white,
-        body: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4),
-          itemCount: icons.length,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: NeumorphicIcon(
-                icons[index],
-                size: 80,
+        backgroundColor: isGlassMode
+            ? Colors.transparent
+            : NeumorphicColors.neumorphicScreenBg,
+        body: Stack(
+          children: [
+            if (isGlassMode)
+              const Positioned.fill(
+                child: LiquidBackground(),
               ),
-            );
-          },
+            LayoutBuilder(builder: (context, constraints) {
+              final int columnCount =
+                  (constraints.maxWidth / 100).floor().clamp(2, 8);
+              final double itemSize = constraints.maxWidth / columnCount;
+              return GridView.builder(
+                padding: const EdgeInsets.all(8),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: columnCount,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 10,
+                ),
+                itemBuilder: (context, index) {
+                  return Center(
+                    child: NeumorphicIcon(
+                      icons[index],
+                      isGlassMode: isGlassMode,
+                      size: itemSize * 0.5, // icon takes 50% of cell
+                      style: isGlassMode
+                          ? NeumorphicStyle(
+                              shape: NeumorphicShape.concave,
+                              surfaceIntensity: 0.5,
+                              color: Colors.white.withValues(alpha: 0.1),
+                              border: NeumorphicBorder(
+                                isEnabled: true,
+                                color: Colors.white.withValues(alpha: 0.2),
+                                width: 0.5,
+                              ),
+                            )
+                          : NeumorphicStyle(
+                              surfaceIntensity:
+                                  (NeumorphicTheme.intensity(context) ?? 0.5) *
+                                      0.6,
+                              shape: NeumorphicShape.concave,
+                              color: NeumorphicTheme.baseColor(context),
+                              border: NeumorphicBorder(
+                                isEnabled: true,
+                                color: NeumorphicTheme.isUsingDark(context)
+                                    ? Colors.white.withValues(alpha: 0.05)
+                                    : Colors.black.withValues(alpha: 0.05),
+                                width: 0.3,
+                              ),
+                            ),
+                    ),
+                  );
+                },
+              );
+            }),
+          ],
         ),
       ),
     );

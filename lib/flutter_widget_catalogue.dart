@@ -1,4 +1,4 @@
-library flutter_widget_catalogue;
+library;
 
 export 'package:flutter/material.dart'
     show
@@ -74,5 +74,11 @@ export 'Neumorphic/Module/widget/slider.dart';
 export 'Neumorphic/Module/widget/switch.dart';
 export 'Neumorphic/Module/widget/text.dart';
 export 'Neumorphic/Module/widget/toggle.dart';
+export 'Neumorphic/Module/glass_mode_manager.dart';
+export 'Neumorphic/Module/liquid_background.dart';
 export 'Switch/switch.dart';
 export 'TextField/text_field.dart';
+export 'Animations/animations.dart';
+export 'Animations/animation_configuration.dart';
+export 'Animations/animation_limiter.dart';
+export 'Dropdown/hierarchy_searchable_dropdown.dart';

@@ -10,21 +10,20 @@ class SignInWithGithub extends StatelessWidget {
   final String? title;
 
   const SignInWithGithub(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Github',
-        buttonColor ?? Colors.black,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.github);
+        title: title ?? 'Sign in with Github',
+        buttonColor: buttonColor ?? Colors.black,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.github);
   }
 }

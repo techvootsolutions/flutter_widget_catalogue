@@ -80,7 +80,7 @@ class NeumorphicAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double padding;
 
   const NeumorphicAppBar({
-    Key? key,
+    super.key,
     this.title,
     this.buttonPadding,
     this.buttonStyle,
@@ -94,8 +94,7 @@ class NeumorphicAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.titleSpacing = NavigationToolbar.kMiddleSpacing,
     this.actionSpacing = defaultSpacing,
     this.padding = 16,
-  })  : preferredSize = const Size.fromHeight(toolbarHeight),
-        super(key: key);
+  }) : preferredSize = const Size.fromHeight(toolbarHeight);
 
   @override
   NeumorphicAppBarState createState() => NeumorphicAppBarState();
@@ -118,19 +117,16 @@ class NeumorphicAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class NeumorphicAppBarTheme extends InheritedWidget {
-  @override
-  final Widget child;
+  const NeumorphicAppBarTheme({
+    super.key,
+    required super.child,
+  });
 
-  const NeumorphicAppBarTheme({super.key, required this.child})
-      : super(child: child);
-
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) {
-    return false;
-  }
+  bool updateShouldNotify(InheritedWidget oldWidget) => false;
 
   static NeumorphicAppBarTheme? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType();
+    return context.dependOnInheritedWidgetOfExactType<NeumorphicAppBarTheme>();
   }
 }
 

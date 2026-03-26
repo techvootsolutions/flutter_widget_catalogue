@@ -10,21 +10,20 @@ class SignInWithApple extends StatelessWidget {
   final String? title;
 
   const SignInWithApple(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Apple',
-        buttonColor ?? const Color(0xFF333333),
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.apple);
+        title: title ?? 'Sign in with Apple',
+        buttonColor: buttonColor ?? const Color(0xFF333333),
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.apple);
   }
 }

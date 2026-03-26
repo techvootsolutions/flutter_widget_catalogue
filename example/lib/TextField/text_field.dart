@@ -1,13 +1,17 @@
+import 'package:example/validation/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class TextFields extends StatefulWidget {
   const TextFields({super.key});
+
   @override
-  _TextFieldPageState createState() => _TextFieldPageState();
+  State<TextFields> createState() => _TextFieldPageState();
 }
 
 class _TextFieldPageState extends State<TextFields> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,124 +24,146 @@ class _TextFieldPageState extends State<TextFields> {
               fontSize: 22.0, color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            FlutterTextField(
-              borderRadius: 20,
-              customTextFieldIcon: const Icon(
-                Icons.email,
-                color: Colors.blue,
-              ),
-              hintText: "Enter your email",
-              textFieldTextStyle: const TextStyle(color: Colors.white),
-              trailingWidget: IconButton(
-                onPressed: () {},
-                icon: const Icon(
-                  Icons.arrow_circle_right_outlined,
+      body: Form(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: formKey,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ListView(
+            children: [
+              FlutterTextField(
+                borderRadius: 20,
+                customTextFieldIcon: const Icon(
+                  Icons.email,
                   color: Colors.blue,
                 ),
+                hintText: "Enter your email",
+                textFieldTextStyle: const TextStyle(color: Colors.black),
+                trailingWidget: IconButton(
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      formKey.currentState?.save();
+                      setState(() {});
+                    } else {
+                      setState(() {});
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.arrow_circle_right_outlined,
+                    color: Colors.blue,
+                  ),
+                ),
+                isIconShow: true,
+                readOnly: false,
+                fillColor: Colors.white,
+                borderColor: Colors.blue,
+                cursorColor: Colors.blue,
+                labelName: "Email",
+                labelNameTextStyle: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w600),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  } else if (!isValidEmail(value)) {
+                    return 'Enter a valid email address';
+                  }
+                  return null;
+                },
               ),
-              isIconShow: true,
-              readOnly: false,
-              fillColor: Colors.white,
-              borderColor: Colors.blue,
-              cursorColor: Colors.blue,
-              labelName: "Email",
-              labelNameTextStyle: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              isIconShow: false,
-              iconBackgroundColor: Colors.white10,
-              borderRadius: 50,
-              hintText: "test@gmail.com (read only)",
-              readOnly: true,
-              borderColor: Colors.blue,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              isIconShow: false,
-              iconBackgroundColor: Colors.white10,
-              borderRadius: 30,
-              isNumber: true,
-              hintText: "Enter your number",
-              readOnly: false,
-              borderColor: Colors.yellow,
-              labelName: "Phone number",
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              iconBackgroundColor: Colors.black,
-              borderRadius: 20,
-              customTextFieldIcon: Icon(
-                Icons.lock,
-                color: Colors.black,
+              const SizedBox(
+                height: 10,
               ),
-              hintText: "Enter your password",
-              isPasswordField: true,
-              isIconShow: true,
-              readOnly: false,
-              fillColor: Colors.white,
-              borderColor: Colors.black,
-              cursorColor: Colors.black,
-              leadingIconColor: Colors.black,
-              labelName: "Password",
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              borderRadius: 20,
-              hintText: "Error border",
-              readOnly: false,
-              fillColor: Colors.white,
-              borderColor: Colors.red,
-              cursorColor: Colors.red,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              borderRadius: 20,
-              hintText: "Disable border",
-              readOnly: false,
-              fillColor: Colors.white,
-              borderColor: Colors.transparent,
-              cursorColor: Colors.blue,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              borderRadius: 50,
-              hintText: "Fill Color",
-              hintStyling: TextStyle(color: Colors.black),
-              readOnly: false,
-              fillColor: Colors.pink,
-              borderColor: Colors.transparent,
-              cursorColor: Colors.black,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const FlutterTextField(
-              borderRadius: 50,
-              hintText: "Fill Color with border",
-              hintStyling: TextStyle(color: Colors.white),
-              readOnly: false,
-              fillColor: Colors.pink,
-              borderColor: Colors.black,
-              cursorColor: Colors.white,
-            ),
-          ],
+              const FlutterTextField(
+                isIconShow: false,
+                iconBackgroundColor: Colors.white10,
+                borderRadius: 50,
+                hintText: "test@gmail.com (read only)",
+                readOnly: true,
+                borderColor: Colors.blue,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                isIconShow: false,
+                iconBackgroundColor: Colors.white10,
+                borderRadius: 30,
+                isNumber: true,
+                hintText: "Enter your number",
+                readOnly: false,
+                borderColor: Colors.yellow,
+                labelName: "Phone number",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                iconBackgroundColor: Colors.black,
+                borderRadius: 20,
+                customTextFieldIcon: Icon(
+                  Icons.lock,
+                  color: Colors.black,
+                ),
+                hintText: "Enter your password",
+                isPasswordField: true,
+                isIconShow: true,
+                readOnly: false,
+                fillColor: Colors.white,
+                borderColor: Colors.black,
+                cursorColor: Colors.black,
+                leadingIconColor: Colors.black,
+                labelName: "Password",
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                borderRadius: 20,
+                hintText: "Error border",
+                readOnly: false,
+                fillColor: Colors.white,
+                borderColor: Colors.red,
+                cursorColor: Colors.red,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                borderRadius: 20,
+                hintText: "Disable border",
+                readOnly: false,
+                fillColor: Colors.white,
+                borderColor: Colors.transparent,
+                cursorColor: Colors.blue,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                borderRadius: 50,
+                hintText: "Fill Color",
+                hintStyling: TextStyle(color: Colors.black),
+                readOnly: false,
+                fillColor: Colors.pink,
+                borderColor: Colors.transparent,
+                cursorColor: Colors.black,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const FlutterTextField(
+                borderRadius: 50,
+                hintText: "Fill Color with border",
+                hintStyling: TextStyle(color: Colors.white),
+                readOnly: false,
+                fillColor: Colors.pink,
+                borderColor: Colors.black,
+                cursorColor: Colors.white,
+              ),
+            ],
+          ),
         ),
       ),
     );

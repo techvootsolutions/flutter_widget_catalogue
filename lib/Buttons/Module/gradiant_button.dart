@@ -10,15 +10,14 @@ class GradientButton extends StatelessWidget {
   final List<Color> colors;
 
   const GradientButton(
-      {Key? key,
+      {super.key,
       this.radius,
       this.splashColor,
       this.textColor,
       this.buttonColor,
       required this.title,
       required this.onPressed,
-      required this.colors})
-      : super(key: key);
+      required this.colors});
 
   @override
   Widget build(BuildContext context) {

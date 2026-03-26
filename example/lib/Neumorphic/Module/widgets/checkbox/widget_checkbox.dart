@@ -1,34 +1,43 @@
-import 'package:example/Neumorphic/Module/code.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'package:example/Neumorphic/Module/theme_configurator.dart';
 import 'package:example/Neumorphic/Module/color_selector.dart';
 import 'package:example/Neumorphic/Module/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class CheckboxWidgetPage extends StatefulWidget {
-  const CheckboxWidgetPage({Key? key}) : super(key: key);
+  const CheckboxWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
 }
 
 class _WidgetPageState extends State<CheckboxWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: _theme,
+          child: const _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -36,35 +45,53 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      padding: const EdgeInsets.all(8),
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Checkbox",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorWidget(),
-              _EnabledDisabledWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Checkbox",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      _ColorWidget(isGlassMode: isGlassMode),
+                      _EnabledDisabledWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -75,11 +102,12 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   bool check3 = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     onChanged: (value) {
         setState(() {
@@ -101,7 +129,13 @@ NeumorphicCheckbox(
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             value: check1,
+            style: widget.isGlassMode
+                ? const NeumorphicCheckboxStyle(
+                    selectedColor: Colors.white,
+                  )
+                : const NeumorphicCheckboxStyle(),
             onChanged: (value) {
               setState(() {
                 check1 = value;
@@ -110,7 +144,13 @@ NeumorphicCheckbox(
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             value: check2,
+            style: widget.isGlassMode
+                ? const NeumorphicCheckboxStyle(
+                    selectedColor: Colors.white,
+                  )
+                : const NeumorphicCheckboxStyle(),
             onChanged: (value) {
               setState(() {
                 check2 = value;
@@ -119,7 +159,13 @@ NeumorphicCheckbox(
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             value: check3,
+            style: widget.isGlassMode
+                ? const NeumorphicCheckboxStyle(
+                    selectedColor: Colors.white,
+                  )
+                : const NeumorphicCheckboxStyle(),
             onChanged: (value) {
               setState(() {
                 check3 = value;
@@ -144,6 +190,10 @@ NeumorphicCheckbox(
 }
 
 class _ColorWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorWidgetState();
 }
@@ -175,7 +225,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
+            isGlassMode: widget.isGlassMode,
+            style: NeumorphicCheckboxStyle(
+              selectedColor: widget.isGlassMode
+                  ? customColor.withValues(alpha: 0.5)
+                  : customColor,
+            ),
             value: checkColor1,
             onChanged: (value) {
               setState(() {
@@ -185,7 +240,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
+            isGlassMode: widget.isGlassMode,
+            style: NeumorphicCheckboxStyle(
+              selectedColor: widget.isGlassMode
+                  ? customColor.withValues(alpha: 0.5)
+                  : customColor,
+            ),
             value: checkColor2,
             onChanged: (value) {
               setState(() {
@@ -195,8 +255,13 @@ class _ColorWidgetState extends State<_ColorWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             value: checkColor3,
-            style: NeumorphicCheckboxStyle(selectedColor: customColor),
+            style: NeumorphicCheckboxStyle(
+              selectedColor: widget.isGlassMode
+                  ? customColor.withValues(alpha: 0.5)
+                  : customColor,
+            ),
             onChanged: (value) {
               setState(() {
                 checkColor3 = value;
@@ -209,11 +274,12 @@ class _ColorWidgetState extends State<_ColorWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicCheckboxStyle(
         selectedColor: Colors.green,
@@ -240,6 +306,10 @@ NeumorphicCheckbox(
 }
 
 class _EnabledDisabledWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _EnabledDisabledWidget({this.isGlassMode = false});
+
   @override
   createState() => _EnabledDisabledWidgetState();
 }
@@ -259,7 +329,11 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             value: check1,
+            style: widget.isGlassMode
+                ? const NeumorphicCheckboxStyle(selectedColor: Colors.white)
+                : const NeumorphicCheckboxStyle(),
             onChanged: (value) {
               setState(() {
                 check1 = value;
@@ -273,8 +347,14 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
           ),
           const SizedBox(width: 12),
           NeumorphicCheckbox(
+            isGlassMode: widget.isGlassMode,
             isEnabled: false,
             value: check2,
+            style: widget.isGlassMode
+                ? NeumorphicCheckboxStyle(
+                    selectedColor: Colors.white.withValues(alpha: 0.5),
+                  )
+                : const NeumorphicCheckboxStyle(),
             onChanged: (value) {
               setState(() {
                 check2 = value;
@@ -287,11 +367,12 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   }
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
     
 bool isChecked = false;  
 
 NeumorphicCheckbox(
+     isGlassMode: ${widget.isGlassMode ? true : false},
      isEnabled: false,
      value: isChecked,
      onChanged: (value) {

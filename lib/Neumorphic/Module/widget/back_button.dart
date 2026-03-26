@@ -8,12 +8,12 @@ class NeumorphicBackButton extends StatelessWidget {
   final bool forward;
 
   const NeumorphicBackButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.style,
     this.padding,
     this.forward = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

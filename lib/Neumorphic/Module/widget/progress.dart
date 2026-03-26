@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'container.dart';
 
 class ProgressStyle {
-  final double depth;
+  final double? depth;
   final BorderRadius borderRadius;
   final BorderRadius? gradientBorderRadius;
   final Color? accent;
@@ -14,12 +14,13 @@ class ProgressStyle {
 
   final AlignmentGeometry? progressGradientStart;
   final AlignmentGeometry? progressGradientEnd;
+  final List<Color>? colors;
   final bool disableDepth;
 
   final NeumorphicBorder border;
 
   const ProgressStyle({
-    this.depth = 0,
+    this.depth,
     this.disableDepth = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10.0)),
     this.gradientBorderRadius,
@@ -27,6 +28,7 @@ class ProgressStyle {
     this.lightSource,
     this.progressGradientStart,
     this.progressGradientEnd,
+    this.colors,
     this.variant,
     this.border = const NeumorphicBorder.none(),
   });
@@ -44,6 +46,7 @@ class ProgressStyle {
           gradientBorderRadius == other.gradientBorderRadius &&
           accent == other.accent &&
           variant == other.variant &&
+          colors == other.colors &&
           progressGradientStart == other.progressGradientStart &&
           progressGradientEnd == other.progressGradientEnd;
 
@@ -57,6 +60,7 @@ class ProgressStyle {
       border.hashCode ^
       accent.hashCode ^
       variant.hashCode ^
+      colors.hashCode ^
       progressGradientStart.hashCode ^
       progressGradientEnd.hashCode;
 }
@@ -67,16 +71,17 @@ class NeumorphicProgress extends StatefulWidget {
   final Duration duration;
   final ProgressStyle style;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicProgress(
-      {Key? key,
+      {super.key,
       double? percent,
       this.height = 10,
       this.duration = const Duration(milliseconds: 300),
       this.style = const ProgressStyle(),
+      this.isGlassMode = false,
       this.curve = Curves.easeOutCubic})
-      : _percent = percent,
-        super(key: key);
+      : _percent = percent;
 
   @override
   _NeumorphicProgressState createState() => _NeumorphicProgressState();
@@ -139,12 +144,13 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
       child: FractionallySizedBox(
         widthFactor: 1,
         child: Neumorphic(
+          isGlassMode: widget.isGlassMode,
           padding: EdgeInsets.zero,
           style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(widget.style.borderRadius),
             disableDepth: widget.style.disableDepth,
             border: widget.style.border,
-            depth: widget.style.depth,
+            depth: widget.style.depth ?? (theme.depth.abs() * -1),
             shape: NeumorphicShape.flat,
           ),
           child: AnimatedBuilder(
@@ -160,10 +166,17 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
                         Alignment.centerLeft,
                     end: widget.style.progressGradientEnd ??
                         Alignment.centerRight,
-                    colors: [
-                      widget.style.variant ?? theme.variantColor,
-                      widget.style.accent ?? theme.accentColor,
-                    ],
+                    colors: widget.style.colors ??
+                        [
+                          widget.isGlassMode
+                              ? (widget.style.variant ?? theme.variantColor)
+                                  .withValues(alpha: 0.3)
+                              : (widget.style.variant ?? theme.variantColor),
+                          widget.isGlassMode
+                              ? (widget.style.accent ?? theme.accentColor)
+                                  .withValues(alpha: 0.4)
+                              : (widget.style.accent ?? theme.accentColor),
+                        ],
                   ),
                 );
               }),
@@ -195,15 +208,17 @@ class NeumorphicProgressIndeterminate extends StatefulWidget {
   final Duration duration;
   final bool reverse;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicProgressIndeterminate({
-    Key? key,
+    super.key,
     this.height = 10,
     this.style = const ProgressStyle(),
     this.duration = const Duration(seconds: 3),
     this.reverse = false,
+    this.isGlassMode = false,
     this.curve = Curves.easeInOut,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _NeumorphicProgressIndeterminateState();
@@ -266,13 +281,14 @@ class _NeumorphicProgressIndeterminateState
       child: SizedBox(
         height: widget.height,
         child: Neumorphic(
+          isGlassMode: widget.isGlassMode,
           padding: EdgeInsets.zero,
           style: NeumorphicStyle(
             boxShape: NeumorphicBoxShape.roundRect(widget.style.borderRadius),
             lightSource: widget.style.lightSource ?? theme.lightSource,
             border: widget.style.border,
             disableDepth: widget.style.disableDepth,
-            depth: widget.style.depth,
+            depth: widget.style.depth ?? (theme.depth.abs() * -1),
             shape: NeumorphicShape.flat,
           ),
           child: LayoutBuilder(builder: (context, constraints) {
@@ -294,8 +310,14 @@ class _NeumorphicProgressIndeterminateState
                         end: widget.style.progressGradientEnd ??
                             Alignment.centerRight,
                         colors: [
-                          widget.style.accent ?? theme.accentColor,
-                          widget.style.variant ?? theme.variantColor
+                          widget.isGlassMode
+                              ? (widget.style.accent ?? theme.accentColor)
+                                  .withValues(alpha: 0.4)
+                              : (widget.style.accent ?? theme.accentColor),
+                          widget.isGlassMode
+                              ? (widget.style.variant ?? theme.variantColor)
+                                  .withValues(alpha: 0.3)
+                              : (widget.style.variant ?? theme.variantColor)
                         ],
                       ),
                     ),

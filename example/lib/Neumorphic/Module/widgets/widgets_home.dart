@@ -1,7 +1,13 @@
+import 'package:example/Neumorphic/Module/accessibility/neumorphic_accessibility.dart';
+import 'package:example/Neumorphic/Module/playground/neumorphic_playground.dart';
+import 'package:example/Neumorphic/Module/samples/sample_home.dart';
+import 'package:example/Neumorphic/Module/tips/border/tips_border.dart';
+import 'package:example/Neumorphic/Module/tips/tips_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'background/widget_background.dart';
 import 'button/widget_button.dart';
+import 'checkbox/widget_checkbox.dart';
 import 'container/widget_container.dart';
 import 'icon/widget_icon.dart';
 import 'indeterminate_progress/widget_indeterminate_progress.dart';
@@ -93,6 +99,15 @@ class WidgetsHome extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
+                  // _buildButton(
+                  //   text: "Text",
+                  //   icon: Icons.text_fields,
+                  //   onClick: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => const NeumorphicTextPlayground(),
+                  //     ));
+                  //   },
+                  // ),
                   _buildButton(
                     text: "Container",
                     icon: Icons.crop_square,
@@ -193,6 +208,16 @@ class WidgetsHome extends StatelessWidget {
                     },
                   ),
                   _buildButton(
+                    text: "Indeterminate Progress",
+                    icon: Icons.hourglass_empty,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IndeterminateProgressWidgetPage(),
+                      ));
+                    },
+                  ),
+                  _buildButton(
                     text: "Background",
                     icon: Icons.wallpaper,
                     onClick: () {
@@ -201,6 +226,42 @@ class WidgetsHome extends StatelessWidget {
                       ));
                     },
                   ),
+                  // _buildButton(
+                  //   text: "NeumorphicAccessibility",
+                  //   icon: Icons.wallpaper,
+                  //   onClick: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => const NeumorphicAccessibility(),
+                  //     ));
+                  //   },
+                  // ),
+                  // _buildButton(
+                  //   text: "NeumorphicPlayground",
+                  //   icon: Icons.wallpaper,
+                  //   onClick: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => const NeumorphicPlayground(),
+                  //     ));
+                  //   },
+                  // ),
+                  _buildButton(
+                    text: "TipsHome",
+                    icon: Icons.tips_and_updates,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TipsHome(),
+                      ));
+                    },
+                  ),
+                  // _buildButton(
+                  //   text: "SamplesHome",
+                  //   icon: Icons.wallpaper,
+                  //   onClick: () {
+                  //     Navigator.of(context).push(MaterialPageRoute(
+                  //       builder: (context) => const SamplesHome(),
+                  //     ));
+                  //   },
+                  // ),
                 ],
               ),
             ),

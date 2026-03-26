@@ -173,7 +173,7 @@ class _AgeField extends StatelessWidget {
   final double? age;
   final ValueChanged<double>? onChanged;
 
-  const _AgeField({@required this.age, this.onChanged});
+  const _AgeField({required this.age, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +222,7 @@ class _TextField extends StatefulWidget {
 
   final ValueChanged<String>? onChanged;
 
-  const _TextField({@required this.label, @required this.hint, this.onChanged});
+  const _TextField({required this.label, required this.hint, this.onChanged});
 
   @override
   __TextFieldState createState() => __TextFieldState();
@@ -275,8 +275,8 @@ class _GenderField extends StatelessWidget {
   final ValueChanged<Gender>? onChanged;
 
   const _GenderField({
-    @required this.gender,
-    @required this.onChanged,
+    required this.gender,
+    required this.onChanged,
   });
 
   @override

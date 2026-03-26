@@ -6,8 +6,10 @@ class DefaultLineButton extends StatelessWidget {
   final Function onPressed;
   final Color? textColor;
   const DefaultLineButton(
-      {Key? key, required this.title, required this.onPressed, this.textColor})
-      : super(key: key);
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      this.textColor});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customOutlinedButton(title, const Color(0xFF0EB0A1),

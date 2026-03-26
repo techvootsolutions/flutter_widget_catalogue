@@ -25,9 +25,14 @@ class NeumorphicTextDecoration extends Decoration {
 
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
-    if (style.depth != null && style.depth! >= 0) {
+    if (style.depth != null && style.depth!.abs() >= 0) {
+      final isEmboss = style.depth != null && style.depth! < 0;
       return NeumorphicDecorationTextPainter(
-        style: style,
+        style: isEmboss
+            ? style.copyWith(
+                lightSource: style.lightSource.invert(),
+                depth: style.depth!.abs())
+            : style,
         textStyle: textStyle,
         textAlign: textAlign,
         drawGradient: true,
@@ -95,10 +100,16 @@ class NeumorphicTextDecoration extends Decoration {
         style: a.style.copyWith(
           border: NeumorphicBorder.lerp(aStyle.border, bStyle.border, t),
           intensity: lerpDouble(aStyle.intensity, bStyle.intensity, t),
+          surfaceIntensity:
+              lerpDouble(aStyle.surfaceIntensity, bStyle.surfaceIntensity, t),
           depth: lerpDouble(aStyle.depth, bStyle.depth, t),
           color: Color.lerp(aStyle.color, bStyle.color, t),
           lightSource:
               LightSource.lerp(aStyle.lightSource, bStyle.lightSource, t),
+          isGlass: t > 0.5 ? bStyle.isGlass : aStyle.isGlass,
+          glassBlur: lerpDouble(aStyle.glassBlur, bStyle.glassBlur, t),
+          glassConnectivity:
+              lerpDouble(aStyle.glassConnectivity, bStyle.glassConnectivity, t),
         ));
   }
 

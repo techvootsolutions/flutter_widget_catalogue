@@ -4,8 +4,8 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 class DisabledButton extends StatelessWidget {
   final String title;
   final Function onPressed;
-  const DisabledButton({Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+  const DisabledButton(
+      {super.key, required this.title, required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customFlatButton(

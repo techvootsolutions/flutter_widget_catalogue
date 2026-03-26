@@ -16,7 +16,7 @@ class NeumorphicCheckboxStyle {
   final double? unselectedDepth;
   final bool? disableDepth;
   final double? selectedIntensity;
-  final double unselectedIntensity;
+  final double? unselectedIntensity;
   final Color? selectedColor;
   final Color? disabledColor;
   final LightSource? lightSource;
@@ -32,8 +32,8 @@ class NeumorphicCheckboxStyle {
     this.lightSource,
     this.disabledColor,
     this.boxShape,
-    this.selectedIntensity = 1,
-    this.unselectedIntensity = 0.7,
+    this.selectedIntensity,
+    this.unselectedIntensity,
   });
 
   @override
@@ -71,11 +71,12 @@ class NeumorphicCheckbox extends StatelessWidget {
   final bool value;
   final NeumorphicCheckboxStyle style;
   final NeumorphicCheckboxListener onChanged;
-  final isEnabled;
+  final bool isEnabled;
   final EdgeInsets padding;
   final EdgeInsets margin;
   final Duration duration;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicCheckbox({
     super.key,
@@ -87,6 +88,7 @@ class NeumorphicCheckbox extends StatelessWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
     this.margin = const EdgeInsets.all(0),
     this.isEnabled = true,
+    this.isGlassMode = false,
   });
 
   bool get isSelected => value;
@@ -107,8 +109,9 @@ class NeumorphicCheckbox extends StatelessWidget {
         (style.selectedIntensity ?? theme.intensity)
             .abs()
             .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
-    final double unselectedIntensity = style.unselectedIntensity
-        .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
+    final double unselectedIntensity =
+        (style.unselectedIntensity ?? theme.intensity)
+            .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
 
     double depth = isSelected ? selectedDepth : unselectedDepth;
     if (!isEnabled) {
@@ -136,6 +139,7 @@ class NeumorphicCheckbox extends StatelessWidget {
           _onClick();
         }
       },
+      isGlassMode: isGlassMode,
       drawSurfaceAboveChild: true,
       minDistance: selectedDepth.abs(),
       style: NeumorphicStyle(
@@ -148,9 +152,12 @@ class NeumorphicCheckbox extends StatelessWidget {
         intensity: isSelected ? selectedIntensity : unselectedIntensity,
         shape: NeumorphicShape.flat,
       ),
-      child: Icon(
+      child: NeumorphicIcon(
         NeumorphicIcons.check,
-        color: iconColor,
+        isGlassMode: isGlassMode,
+        style: NeumorphicStyle(
+          color: iconColor,
+        ),
         size: 20.0,
       ),
     );

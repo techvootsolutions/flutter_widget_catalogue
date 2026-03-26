@@ -15,11 +15,11 @@ class NeumorphicThemeInherited extends InheritedWidget {
   final ValueChanged<ThemeWrapper> onChanged;
 
   const NeumorphicThemeInherited(
-      {Key? key,
+      {super.key,
       required this.child,
       required this.value,
       required this.onChanged})
-      : super(key: key, child: child);
+      : super(child: child);
 
   @override
   bool updateShouldNotify(NeumorphicThemeInherited old) => value != old.value;

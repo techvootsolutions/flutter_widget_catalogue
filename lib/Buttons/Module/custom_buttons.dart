@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomButtons {
   static Widget customFlatButton(
@@ -43,11 +44,15 @@ class CustomButtons {
     );
   }
 
-  static Widget customSignInButton(
-      String title, Color buttonColor, Function onPressed,
-      [Color fontColor = Colors.white,
-      double fontSize = 24.0,
-      IconData icon = Icons.mail]) {
+  static Widget customSignInButton({
+    required String title,
+    required Color buttonColor,
+    required Function onPressed,
+    Color fontColor = Colors.white,
+    double fontSize = 24.0,
+    IconData icon = Icons.mail,
+    FaIconData? faIcon,
+  }) {
     return TextButton(
       style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(buttonColor),
@@ -57,11 +62,19 @@ class CustomButtons {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(
-            icon,
-            color: fontColor,
-            size: fontSize,
-          ),
+          if (faIcon != null) ...[
+            FaIcon(
+              faIcon,
+              color: fontColor,
+              size: fontSize,
+            ),
+          ] else ...[
+            Icon(
+              icon,
+              color: fontColor,
+              size: fontSize,
+            ),
+          ],
           const SizedBox(
             width: 4.0,
           ),

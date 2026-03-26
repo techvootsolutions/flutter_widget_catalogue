@@ -23,31 +23,34 @@ class FlutterTextField extends StatefulWidget {
   final Color? fillColor;
   final Color? cursorColor;
   final String? labelName;
+  final String? Function(String?)? validator;
 
-  const FlutterTextField(
-      {super.key,
-      this.width,
-      this.backgroundColor,
-      this.borderRadius,
-      this.iconBackgroundColor,
-      this.customTextFieldIcon,
-      this.leadingIconColor,
-      this.leadingIconSize,
-      this.hintText,
-      this.textEditingController,
-      this.hintStyling,
-      this.textFieldTextStyle,
-      this.labelNameTextStyle,
-      this.isNumber,
-      this.isPasswordField,
-      this.trailingWidget,
-      this.customLeadingIcon,
-      this.isIconShow,
-      this.readOnly,
-      this.borderColor,
-      this.fillColor,
-      this.cursorColor,
-      this.labelName});
+  const FlutterTextField({
+    super.key,
+    this.width,
+    this.backgroundColor,
+    this.borderRadius,
+    this.iconBackgroundColor,
+    this.customTextFieldIcon,
+    this.leadingIconColor,
+    this.leadingIconSize,
+    this.hintText,
+    this.textEditingController,
+    this.hintStyling,
+    this.textFieldTextStyle,
+    this.labelNameTextStyle,
+    this.isNumber,
+    this.isPasswordField,
+    this.trailingWidget,
+    this.customLeadingIcon,
+    this.isIconShow,
+    this.readOnly,
+    this.borderColor,
+    this.fillColor,
+    this.cursorColor,
+    this.labelName,
+    this.validator,
+  });
 
   @override
   State<FlutterTextField> createState() => _FlutterTextFieldState();
@@ -181,6 +184,7 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                         : widget.borderColor!),
               ),
             ),
+            validator: widget.validator,
           ),
         ],
       ),

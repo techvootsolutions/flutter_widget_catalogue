@@ -1,7 +1,7 @@
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 abstract class NeumorphicPathProvider extends CustomClipper<Path> {
-  const NeumorphicPathProvider({Listenable? reclip}) : super(reclip: reclip);
+  const NeumorphicPathProvider({super.reclip});
 
   @override
   Path getClip(Size size) {

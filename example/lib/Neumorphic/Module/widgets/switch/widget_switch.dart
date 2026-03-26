@@ -1,34 +1,43 @@
-import 'package:example/Neumorphic/Module/code.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 import 'package:example/Neumorphic/Module/theme_configurator.dart';
 import 'package:example/Neumorphic/Module/color_selector.dart';
 import 'package:example/Neumorphic/Module/top_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class SwitchWidgetPage extends StatefulWidget {
-  const SwitchWidgetPage({Key? key}) : super(key: key);
+  const SwitchWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
 }
 
 class _WidgetPageState extends State<SwitchWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: _theme,
+          child: const _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -36,36 +45,55 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Switch",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              _ColorizableWidget(),
-              const ColorizableThumbSwitch(),
-              _FlatConcaveConvexWidget(),
-              _EnabledDisabledWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Switch",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      _ColorizableWidget(isGlassMode: isGlassMode),
+                      ColorizableThumbSwitch(isGlassMode: isGlassMode),
+                      _FlatConcaveConvexWidget(isGlassMode: isGlassMode),
+                      _EnabledDisabledWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
@@ -75,10 +103,11 @@ class _DefaultWidgetState extends State<_DefaultWidget> {
   bool isEnabled = true;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     onChanged: (value) {
         setState(() {
@@ -100,8 +129,15 @@ NeumorphicSwitch(
           ),
           const SizedBox(width: 12),
           NeumorphicSwitch(
+            isGlassMode: widget.isGlassMode,
             isEnabled: isEnabled,
             value: isChecked,
+            style: widget.isGlassMode
+                ? NeumorphicSwitchStyle(
+                    thumbShape: NeumorphicShape.concave,
+                    activeTrackColor: Colors.white.withValues(alpha: 0.1),
+                  )
+                : const NeumorphicSwitchStyle(),
             onChanged: (value) {
               setState(() {
                 isChecked = value;
@@ -134,6 +170,10 @@ NeumorphicSwitch(
 }
 
 class _FlatConcaveConvexWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _FlatConcaveConvexWidget({this.isGlassMode = false});
+
   @override
   createState() => _FlatConcaveConvexWidgetState();
 }
@@ -142,10 +182,11 @@ class _FlatConcaveConvexWidgetState extends State<_FlatConcaveConvexWidget> {
   bool isChecked = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
          thumbShape: NeumorphicShape.flat 
@@ -178,8 +219,13 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style: const NeumorphicSwitchStyle(
-                    thumbShape: NeumorphicShape.flat),
+                isGlassMode: widget.isGlassMode,
+                style: NeumorphicSwitchStyle(
+                  thumbShape: NeumorphicShape.flat,
+                  activeTrackColor: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
+                ),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -202,8 +248,13 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style: const NeumorphicSwitchStyle(
-                    thumbShape: NeumorphicShape.concave),
+                isGlassMode: widget.isGlassMode,
+                style: NeumorphicSwitchStyle(
+                  thumbShape: NeumorphicShape.concave,
+                  activeTrackColor: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
+                ),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -226,8 +277,13 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style: const NeumorphicSwitchStyle(
-                    thumbShape: NeumorphicShape.convex),
+                isGlassMode: widget.isGlassMode,
+                style: NeumorphicSwitchStyle(
+                  thumbShape: NeumorphicShape.convex,
+                  activeTrackColor: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
+                ),
                 value: isChecked,
                 onChanged: (value) {
                   setState(() {
@@ -255,6 +311,10 @@ NeumorphicSwitch(
 }
 
 class _ColorizableWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _ColorizableWidget({this.isGlassMode = false});
+
   @override
   createState() => _ColorizableWidgetState();
 }
@@ -264,10 +324,11 @@ class _ColorizableWidgetState extends State<_ColorizableWidget> {
   Color currentColor = Colors.green;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
         activeTrackColor: Colors.green
@@ -301,8 +362,16 @@ NeumorphicSwitch(
           ),
           const SizedBox(width: 12),
           NeumorphicSwitch(
+            isGlassMode: widget.isGlassMode,
             value: isChecked,
-            style: NeumorphicSwitchStyle(activeTrackColor: currentColor),
+            style: NeumorphicSwitchStyle(
+              activeTrackColor: widget.isGlassMode
+                  ? currentColor.withValues(alpha: 0.3)
+                  : currentColor,
+              thumbShape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+            ),
             onChanged: (value) {
               setState(() {
                 isChecked = value;
@@ -327,7 +396,9 @@ NeumorphicSwitch(
 }
 
 class ColorizableThumbSwitch extends StatefulWidget {
-  const ColorizableThumbSwitch({super.key});
+  final bool isGlassMode;
+
+  const ColorizableThumbSwitch({super.key, this.isGlassMode = false});
 
   @override
   createState() => _ColorizableThumbSwitchState();
@@ -339,10 +410,11 @@ class _ColorizableThumbSwitchState extends State<ColorizableThumbSwitch> {
   Color trackColor = Colors.lightGreen;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     style: NeumorphicSwitchStyle(
           activeTrackColor: Colors.lightGreen,
@@ -391,9 +463,19 @@ NeumorphicSwitch(
           ),
           const SizedBox(width: 12),
           NeumorphicSwitch(
+            isGlassMode: widget.isGlassMode,
             value: isChecked,
             style: NeumorphicSwitchStyle(
-                activeTrackColor: trackColor, activeThumbColor: thumbColor),
+              activeTrackColor: widget.isGlassMode
+                  ? trackColor.withValues(alpha: 0.3)
+                  : trackColor,
+              activeThumbColor: widget.isGlassMode
+                  ? thumbColor.withValues(alpha: 0.8)
+                  : thumbColor,
+              thumbShape: widget.isGlassMode
+                  ? NeumorphicShape.concave
+                  : NeumorphicShape.flat,
+            ),
             onChanged: (value) {
               setState(() {
                 isChecked = value;
@@ -418,6 +500,10 @@ NeumorphicSwitch(
 }
 
 class _EnabledDisabledWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _EnabledDisabledWidget({this.isGlassMode = false});
+
   @override
   createState() => _EnabledDisabledWidgetState();
 }
@@ -427,10 +513,11 @@ class _EnabledDisabledWidgetState extends State<_EnabledDisabledWidget> {
   bool isChecked2 = false;
 
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 bool isChecked;
 
 NeumorphicSwitch(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     value: isChecked,
     isEnabled: false,
     onChanged: (value) {
@@ -460,8 +547,13 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
-                style: const NeumorphicSwitchStyle(
-                    thumbShape: NeumorphicShape.concave),
+                isGlassMode: widget.isGlassMode,
+                style: NeumorphicSwitchStyle(
+                  thumbShape: NeumorphicShape.concave,
+                  activeTrackColor: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.1)
+                      : null,
+                ),
                 value: isChecked1,
                 onChanged: (value) {
                   setState(() {
@@ -484,9 +576,14 @@ NeumorphicSwitch(
               ),
               const SizedBox(width: 12),
               NeumorphicSwitch(
+                isGlassMode: widget.isGlassMode,
                 isEnabled: false,
-                style: const NeumorphicSwitchStyle(
-                    thumbShape: NeumorphicShape.convex),
+                style: NeumorphicSwitchStyle(
+                  thumbShape: NeumorphicShape.convex,
+                  activeTrackColor: widget.isGlassMode
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : null,
+                ),
                 value: isChecked2,
                 onChanged: (value) {
                   setState(() {
