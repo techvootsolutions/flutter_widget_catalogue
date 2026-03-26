@@ -1,7 +1,3 @@
-import 'package:example/Neumorphic/Module/accessibility/neumorphic_accessibility.dart';
-import 'package:example/Neumorphic/Module/playground/neumorphic_playground.dart';
-import 'package:example/Neumorphic/Module/samples/sample_home.dart';
-import 'package:example/Neumorphic/Module/tips/border/tips_border.dart';
 import 'package:example/Neumorphic/Module/tips/tips_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
