@@ -11,8 +11,9 @@ class AnimationLimiter extends StatefulWidget {
   State<AnimationLimiter> createState() => _AnimationLimiterState();
 
   /// Returns whether animations should run for the nearest [AnimationLimiter].
-  static bool? shouldRunAnimation(BuildContext context) =>
-      context.findAncestorWidgetOfExactType<_AnimationLimiterProvider>()?.shouldRunAnimation;
+  static bool? shouldRunAnimation(BuildContext context) => context
+      .findAncestorWidgetOfExactType<_AnimationLimiterProvider>()
+      ?.shouldRunAnimation;
 }
 
 class _AnimationLimiterState extends State<AnimationLimiter> {

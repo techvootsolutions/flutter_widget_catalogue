@@ -76,7 +76,9 @@ class NeumorphicColors {
     // ignore: deprecated_member_use
     final maxAlpha = maxColor.alpha; // Get alpha (0-255)
     const maxIntensity = Neumorphic.MAX_INTENSITY;
-    final newAlpha = (percent * maxAlpha / maxIntensity).round().clamp(0, 255); // Ensure valid range and integer
+    final newAlpha = (percent * maxAlpha / maxIntensity)
+        .round()
+        .clamp(0, 255); // Ensure valid range and integer
 
     return Color.fromARGB(
       newAlpha,

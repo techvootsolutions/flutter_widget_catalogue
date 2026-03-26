@@ -72,14 +72,17 @@ class AnimationConfiguration extends InheritedWidget {
     required Widget Function(Widget) childAnimationBuilder,
     required List<Widget> children,
   }) =>
-    children.indexed.map((entry) => AnimationConfiguration.staggeredList(
-      position: entry.$1,
-      duration: duration,
-      delay: delay,
-      child: childAnimationBuilder(entry.$2),
-    )).toList();
+      children.indexed
+          .map((entry) => AnimationConfiguration.staggeredList(
+                position: entry.$1,
+                duration: duration,
+                delay: delay,
+                child: childAnimationBuilder(entry.$2),
+              ))
+          .toList();
 
-  static AnimationConfiguration? of(BuildContext context) => context.findAncestorWidgetOfExactType<AnimationConfiguration>();
+  static AnimationConfiguration? of(BuildContext context) =>
+      context.findAncestorWidgetOfExactType<AnimationConfiguration>();
 
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
@@ -104,8 +107,10 @@ class AnimationConfigurator extends StatelessWidget {
     if (config == null) {
       throw FlutterError.fromParts([
         ErrorSummary('Animation not wrapped in an AnimationConfiguration.'),
-        ErrorDescription('Use an Animation widget only inside an AnimationConfiguration.'),
-        ErrorHint('Wrap your Animation(s) with AnimationConfiguration.synchronized, '
+        ErrorDescription(
+            'Use an Animation widget only inside an AnimationConfiguration.'),
+        ErrorHint(
+            'Wrap your Animation(s) with AnimationConfiguration.synchronized, '
             'staggeredList, or staggeredGrid.'),
       ]);
     }
@@ -154,7 +159,8 @@ class AnimationExecutor extends StatefulWidget {
   State<AnimationExecutor> createState() => _AnimationExecutorState();
 }
 
-class _AnimationExecutorState extends State<AnimationExecutor> with SingleTickerProviderStateMixin {
+class _AnimationExecutorState extends State<AnimationExecutor>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller;
   Timer? _timer;
 

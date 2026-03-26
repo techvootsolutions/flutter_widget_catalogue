@@ -59,19 +59,22 @@ class _LiquidPainter extends CustomPainter {
       size.width * (0.5 + 0.2 * math.sin(progress * 2 * math.pi)),
       size.height * (0.5 + 0.2 * math.cos(progress * 2 * math.pi)),
     );
-    _drawBlob(canvas, center1, size.width * 0.4, const Color(0xFF3B82F6).withValues(alpha: 0.3));
+    _drawBlob(canvas, center1, size.width * 0.4,
+        const Color(0xFF3B82F6).withValues(alpha: 0.3));
 
     final center2 = Offset(
       size.width * (0.3 + 0.2 * math.cos(progress * 2 * math.pi + 1)),
       size.height * (0.7 + 0.2 * math.sin(progress * 2 * math.pi + 1)),
     );
-    _drawBlob(canvas, center2, size.width * 0.5, const Color(0xFF8B5CF6).withValues(alpha: 0.3));
+    _drawBlob(canvas, center2, size.width * 0.5,
+        const Color(0xFF8B5CF6).withValues(alpha: 0.3));
 
     final center3 = Offset(
       size.width * (0.7 + 0.2 * math.sin(progress * 2 * math.pi + 2)),
       size.height * (0.3 + 0.2 * math.cos(progress * 2 * math.pi + 2)),
     );
-    _drawBlob(canvas, center3, size.width * 0.45, const Color(0xFFEC4899).withValues(alpha: 0.2));
+    _drawBlob(canvas, center3, size.width * 0.45,
+        const Color(0xFFEC4899).withValues(alpha: 0.2));
   }
 
   void _drawBlob(Canvas canvas, Offset center, double radius, Color color) {

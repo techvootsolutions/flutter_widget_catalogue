@@ -84,7 +84,9 @@ class FlipAnimation extends StatelessWidget {
           curve: curve,
         ).value;
         final radians = (1 - value) * pi / 2;
-        final transform = flipAxis == FlipAxis.y ? Matrix4.rotationY(radians) : Matrix4.rotationX(radians);
+        final transform = flipAxis == FlipAxis.y
+            ? Matrix4.rotationY(radians)
+            : Matrix4.rotationX(radians);
         return Transform(
           transform: transform,
           alignment: Alignment.center,
@@ -151,7 +153,9 @@ class SlideAnimation extends StatelessWidget {
     double? verticalOffset,
     double? horizontalOffset,
     required this.child,
-  })  : verticalOffset = (verticalOffset == null && horizontalOffset == null) ? 50.0 : (verticalOffset ?? 0.0),
+  })  : verticalOffset = (verticalOffset == null && horizontalOffset == null)
+            ? 50.0
+            : (verticalOffset ?? 0.0),
         horizontalOffset = horizontalOffset ?? 0.0;
 
   @override

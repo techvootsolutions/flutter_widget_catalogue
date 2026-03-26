@@ -187,10 +187,12 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                         end: widget.style.gradientEnd ?? Alignment.bottomCenter,
                         colors: [
                           widget.isGlassMode
-                              ? (widget.style.accent ?? theme.accentColor).withValues(alpha: 0.4)
+                              ? (widget.style.accent ?? theme.accentColor)
+                                  .withValues(alpha: 0.4)
                               : (widget.style.accent ?? theme.accentColor),
                           widget.isGlassMode
-                              ? (widget.style.variant ?? theme.variantColor).withValues(alpha: 0.3)
+                              ? (widget.style.variant ?? theme.variantColor)
+                                  .withValues(alpha: 0.3)
                               : (widget.style.variant ?? theme.variantColor),
                         ],
                       ),

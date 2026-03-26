@@ -666,7 +666,8 @@ NeumorphicButton(
                 style: NeumorphicStyle(
                   shape: NeumorphicShape.concave,
                   boxShape: const NeumorphicBoxShape.circle(),
-                  surfaceIntensity: (NeumorphicTheme.intensity(context) ?? 0.5) * 0.6,
+                  surfaceIntensity:
+                      (NeumorphicTheme.intensity(context) ?? 0.5) * 0.6,
                   color: widget.isGlassMode
                       ? Colors.white.withValues(alpha: 0.1)
                       : null,

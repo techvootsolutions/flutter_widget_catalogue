@@ -109,8 +109,9 @@ class NeumorphicCheckbox extends StatelessWidget {
         (style.selectedIntensity ?? theme.intensity)
             .abs()
             .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
-    final double unselectedIntensity = (style.unselectedIntensity ?? theme.intensity)
-        .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
+    final double unselectedIntensity =
+        (style.unselectedIntensity ?? theme.intensity)
+            .clamp(Neumorphic.MIN_INTENSITY, Neumorphic.MAX_INTENSITY);
 
     double depth = isSelected ? selectedDepth : unselectedDepth;
     if (!isEnabled) {

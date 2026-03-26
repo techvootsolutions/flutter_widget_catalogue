@@ -132,7 +132,9 @@ class NeumorphicSwitch extends StatelessWidget {
                 shape: _getThumbShape,
                 lightSource: style.lightSource ?? theme.lightSource,
                 border: style.thumbBorder,
-                thumbColor: isGlassMode ? Colors.white.withValues(alpha: 0.8) : Colors.white,
+                thumbColor: isGlassMode
+                    ? Colors.white.withValues(alpha: 0.8)
+                    : Colors.white,
               ),
             ),
           ),

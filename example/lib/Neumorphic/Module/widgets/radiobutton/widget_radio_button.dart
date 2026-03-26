@@ -267,10 +267,12 @@ NeumorphicRadio(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              selectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
-              unselectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
+              selectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : null,
+              unselectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : null,
             ),
             groupValue: groupValue,
             value: "A",
@@ -295,10 +297,12 @@ NeumorphicRadio(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              selectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
-              unselectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
+              selectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : null,
+              unselectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : null,
             ),
             groupValue: groupValue,
             onChanged: (value) {
@@ -321,10 +325,12 @@ NeumorphicRadio(
               shape: widget.isGlassMode
                   ? NeumorphicShape.concave
                   : NeumorphicShape.flat,
-              selectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.1) : null,
-              unselectedColor:
-                  widget.isGlassMode ? Colors.white.withValues(alpha: 0.05) : null,
+              selectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.1)
+                  : null,
+              unselectedColor: widget.isGlassMode
+                  ? Colors.white.withValues(alpha: 0.05)
+                  : null,
             ),
             groupValue: groupValue,
             value: "C",

@@ -28,7 +28,9 @@ class NeumorphicBackground extends StatelessWidget {
       child: ClipRRect(
         borderRadius: borderRadius ?? BorderRadius.circular(0),
         child: AnimatedContainer(
-          color: isGlassMode ? Colors.transparent : NeumorphicTheme.baseColor(context),
+          color: isGlassMode
+              ? Colors.transparent
+              : NeumorphicTheme.baseColor(context),
           padding: padding,
           duration: const Duration(milliseconds: 100),
           child: child,
