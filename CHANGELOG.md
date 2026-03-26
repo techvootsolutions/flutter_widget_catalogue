@@ -2,6 +2,15 @@
 
 All notable changes to flutter_widget_catalogue will be documented in this file
 
+## 4.0.0
+
+* Add new Flutter and Neumorphic widgets
+* Introduced Glass mode in Neumorphic components
+* Updated to latest Flutter dependencies
+* Improved UI design and consistency
+* Change CHANGELOG.md file
+* Update README.md file
+
 ## 3.0.1
 
 * Add validation in flutter widget TextField

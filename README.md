@@ -29,9 +29,9 @@ Highly customizable Flutter switch widget:
 - Borders, colors, radius, icons, labels
 
 ### 💠 Neumorphic UI Kit
-Ready-to-use Neumorphic-styled widgets:
+Ready-to-use Neumorphic-styled widgets with glass mode:
 - Buttons, Switches, Containers, Sliders, Texts, Icons
-- Checkboxes, Toggles, Indicators, Range Sliders, and more
+- Checkboxes, Toggles, Indicators, Range Sliders, AnimatedList and more
 
 ### 🔤 Text Fields
 Fully customizable and themeable text input fields:
