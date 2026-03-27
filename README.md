@@ -1,4 +1,4 @@
-# Flutter Widget Catalogue
+# 🚀 Flutter Widget Catalogue
 
 [![pub package](https://img.shields.io/pub/v/flutter_widget_catalogue.svg)](https://pub.dev/packages/flutter_widget_catalogue)
 [![GitHub stars](https://img.shields.io/github/stars/techvootsolutions/flutter_widget_catalogue?style=social)](https://github.com/techvootsolutions/flutter_widget_catalogue)
@@ -13,7 +13,7 @@ A collection of visual, structural, platform-adaptive, and interactive widgets t
 
 ---
 
-## ✨ Features
+## ✨ Available Components
 
 ### 🔘 Buttons
 - Social Auth Buttons (Google, Facebook, Apple, etc.)
@@ -39,6 +39,29 @@ Fully customizable and themeable text input fields:
 - Support for icons, hint text, labels
 - Password visibility toggle, character counter, input formatter support
 - Focus, validation, and keyboard behavior control
+
+---
+
+## 🆕 New Features (Latest Update 🚀)
+
+### 📊 Customizable & Animated Layouts
+- Animated ListView
+- Animated GridView
+- Masonry Layout support
+- Quilted Layout support
+- Smooth UI transitions & effects
+
+### 💎 Glass Effect in Neumorphic UI
+- Added **Glassmorphism (blur + transparency)** support view
+- Works with existing Neumorphic components
+
+### 🔽 Advanced Custom Dropdowns
+- Multi-select dropdown with chips
+- Scrollable chip-based selection
+- Hierarchical dropdown (tree structure)
+- Autocomplete dropdown (e.g., locations)
+- Custom item UI (user profile, icons, etc.)
+- Custom header & builder support
 
 ---
 
@@ -74,17 +97,19 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 |---|---|---|
 | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/b3.jpg) |
 
-### Switch
+### DropDown
 
-| |
-|--|
-| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.jpg) |
+| | | |
+|---|---|---||
+| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d3.jpg) |
 
-### TextField
 
-|                                                                                                  |
-|--------------------------------------------------------------------------------------------------|
-| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/t1.png) |
+### Components
+
+| | | |
+|---|---|---|
+|Switch|TextField|List & Grid|
+| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/t1.png) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/l1.gif) |
 
 ---
 
