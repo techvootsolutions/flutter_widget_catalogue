@@ -101,7 +101,7 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 | | | |
 |---|---|---||
-| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/d3.jpg) |
+| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/d1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/d2.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/d3.jpg) |
 
 
 ### Components
@@ -109,7 +109,7 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 | | | |
 |---|---|---|
 |Switch|TextField|List & Grid|
-| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/s1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/t1.png) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/main/Images/l1.gif) |
+| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/s1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/t1.png) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/l1.gif) |
 
 ---
 
