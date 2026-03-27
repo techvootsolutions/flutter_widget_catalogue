@@ -197,6 +197,38 @@ FlutterTextField(
 );
 ```
 
+### Dropdown Example
+
+```dart
+HierarchySearchableDropdown(
+  items: _kSampleData,
+  hint: 'Select Multiple Items',
+  isMultiline: true,
+  isMultiSelect: true,
+  onChanged: (label) => setState(() => selectedLabel = label),
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please select at least one item';
+    }
+    return null;
+  },
+  itemSpacing: 2,
+  listPadding: const EdgeInsets.symmetric(vertical: 16),
+  itemTextStyle: const TextStyle(
+    color: Colors.black,
+    fontSize: 15,
+  ),
+);
+HierarchySearchableDropdown(
+  items: _kFilterData,
+  hint: 'Select Filters',
+  isMultiSelect: true,
+  showChips: true,
+  isMultiline: false,
+  onChanged: (label) => setState(() => selectedFilters = label),
+),
+```
+
 ---
 
 ## ✅ Platform Support
