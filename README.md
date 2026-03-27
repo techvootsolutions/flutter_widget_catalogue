@@ -106,9 +106,9 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 ### Components
 
-| | | |
-|---|---|---|
-|Switch|TextField|List & Grid|
+|                                                                                                                 |                                                                                                                 |                                                                                                                 |
+|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| Switch                                                                                                          | TextField                                                                                                       | List & Grid                                                                                                     |
 | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/s1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/t1.png) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/l1.gif) |
 
 ---
