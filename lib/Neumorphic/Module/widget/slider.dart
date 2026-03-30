@@ -9,18 +9,20 @@ class SliderStyle {
   final BorderRadius borderRadius;
   final Color? accent;
   final Color? variant;
+  final List<Color>? colors;
   final LightSource? lightSource;
 
   final NeumorphicBorder border;
   final NeumorphicBorder thumbBorder;
 
   const SliderStyle({
-    this.depth = 0,
+    this.depth = -4,
     this.disableDepth = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
     this.accent,
     this.lightSource,
     this.variant,
+    this.colors,
     this.border = const NeumorphicBorder.none(),
     this.thumbBorder = const NeumorphicBorder.none(),
   });
@@ -37,7 +39,8 @@ class SliderStyle {
           thumbBorder == other.thumbBorder &&
           border == other.border &&
           accent == other.accent &&
-          variant == other.variant;
+          variant == other.variant &&
+          colors == other.colors;
 
   @override
   int get hashCode =>
@@ -48,7 +51,8 @@ class SliderStyle {
       lightSource.hashCode ^
       thumbBorder.hashCode ^
       accent.hashCode ^
-      variant.hashCode;
+      variant.hashCode ^
+      colors.hashCode;
 }
 
 @immutable
@@ -64,6 +68,7 @@ class NeumorphicSlider extends StatefulWidget {
 
   final Widget? thumb;
   final double? sliderHeight;
+  final bool isGlassMode;
 
   const NeumorphicSlider({
     super.key,
@@ -77,6 +82,7 @@ class NeumorphicSlider extends StatefulWidget {
     this.onChangeEnd,
     this.thumb,
     this.sliderHeight,
+    this.isGlassMode = false,
   });
 
   double get percent => (((value.clamp(min, max)) - min) / ((max - min)));
@@ -135,6 +141,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
   Widget _generateSlider(BuildContext context) {
     final theme = NeumorphicTheme.currentTheme(context);
     return NeumorphicProgress(
+      isGlassMode: widget.isGlassMode,
       duration: Duration.zero,
       percent: widget.percent,
       height: widget.height,
@@ -146,6 +153,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
         borderRadius: widget.style.borderRadius,
         accent: widget.style.accent ?? theme.accentColor,
         variant: widget.style.variant ?? theme.variantColor,
+        colors: widget.style.colors,
       ),
     );
   }
@@ -153,6 +161,7 @@ class _NeumorphicSliderState extends State<NeumorphicSlider> {
   Widget _generateThumb(BuildContext context, double size) {
     final theme = NeumorphicTheme.currentTheme(context);
     return Neumorphic(
+      isGlassMode: widget.isGlassMode,
       style: NeumorphicStyle(
         disableDepth: widget.style.disableDepth,
         shape: NeumorphicShape.concave,

@@ -6,8 +6,10 @@ class InfoLineButton extends StatelessWidget {
   final Function onPressed;
   final Color? textColor;
   const InfoLineButton(
-      {Key? key, required this.title, required this.onPressed, this.textColor})
-      : super(key: key);
+      {super.key,
+      required this.title,
+      required this.onPressed,
+      this.textColor});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customOutlinedButton(title, const Color(0xFF02A4E2),

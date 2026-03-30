@@ -122,13 +122,17 @@ class _NeumorphicThemeState extends State<NeumorphicTheme> {
   @override
   void didUpdateWidget(NeumorphicTheme oldWidget) {
     super.didUpdateWidget(oldWidget);
-    setState(() {
-      _themeHost = ThemeWrapper(
-        theme: widget.theme,
-        themeMode: widget.themeMode,
-        darkTheme: widget.darkTheme,
-      );
-    });
+    if (widget.theme != oldWidget.theme ||
+        widget.themeMode != oldWidget.themeMode ||
+        widget.darkTheme != oldWidget.darkTheme) {
+      setState(() {
+        _themeHost = ThemeWrapper(
+          theme: widget.theme,
+          themeMode: widget.themeMode,
+          darkTheme: widget.darkTheme,
+        );
+      });
+    }
   }
 
   @override

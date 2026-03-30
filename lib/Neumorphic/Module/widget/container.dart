@@ -1,7 +1,9 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/widgets.dart';
+import '../shape/rrect_path_provider.dart';
 
 import '../decoration/neumorphic_decorations.dart';
 import '../neumorphic_box_shape.dart';
@@ -37,7 +39,7 @@ class Neumorphic extends StatelessWidget {
   final bool drawSurfaceAboveChild;
 
   const Neumorphic({
-    Key? key,
+    super.key,
     this.child,
     this.duration = Neumorphic.DEFAULT_DURATION,
     this.curve = Neumorphic.DEFAULT_CURVE,
@@ -46,14 +48,35 @@ class Neumorphic extends StatelessWidget {
     this.margin = const EdgeInsets.all(0),
     this.padding = const EdgeInsets.all(0),
     this.drawSurfaceAboveChild = true,
-  }) : super(key: key);
+    this.isGlassMode = false,
+  });
+
+  final bool isGlassMode;
 
   @override
   Widget build(BuildContext context) {
     final theme = NeumorphicTheme.currentTheme(context);
-    final NeumorphicStyle style = (this.style ?? const NeumorphicStyle())
+    var style = (this.style ?? const NeumorphicStyle())
         .copyWithThemeIfNull(theme)
         .applyDisableDepth();
+
+    if (isGlassMode || style.isGlass) {
+      style = style.copyWith(
+        isGlass: true,
+        color: style.color == theme.baseColor
+            ? material.Colors.white.withValues(alpha: style.glassConnectivity)
+            : style.color?.withValues(alpha: style.glassConnectivity),
+        depth: style.depth,
+        intensity: style.intensity,
+        border: style.border.isEnabled
+            ? style.border
+            : NeumorphicBorder(
+                isEnabled: true,
+                color: material.Colors.white.withValues(alpha: 0.2),
+                width: 0.5,
+              ),
+      );
+    }
 
     return _NeumorphicContainer(
       padding: padding,
@@ -63,6 +86,7 @@ class Neumorphic extends StatelessWidget {
       style: style,
       curve: curve,
       margin: margin,
+      isGlassMode: isGlassMode,
       child: child,
     );
   }
@@ -77,9 +101,9 @@ class _NeumorphicContainer extends StatelessWidget {
   final Curve curve;
   final bool drawSurfaceAboveChild;
   final EdgeInsets padding;
+  final bool isGlassMode;
 
   const _NeumorphicContainer({
-    Key? key,
     this.child,
     this.textStyle,
     required this.padding,
@@ -88,13 +112,20 @@ class _NeumorphicContainer extends StatelessWidget {
     required this.curve,
     required this.style,
     required this.drawSurfaceAboveChild,
-  }) : super(key: key);
+    this.isGlassMode = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     final shape = style.boxShape ?? const NeumorphicBoxShape.rect();
+    final borderRadius = shape.isCircle
+        ? BorderRadius.circular(1000)
+        : (shape.isRoundRect &&
+                shape.customShapePathProvider is RRectPathProvider
+            ? (shape.customShapePathProvider as RRectPathProvider).borderRadius
+            : BorderRadius.circular(12.0));
 
-    return DefaultTextStyle(
+    Widget content = DefaultTextStyle(
       style: textStyle ?? material.Theme.of(context).textTheme.bodyMedium!,
       child: AnimatedContainer(
         margin: margin,
@@ -123,5 +154,18 @@ class _NeumorphicContainer extends StatelessWidget {
         ),
       ),
     );
+
+    if (style.isGlass || isGlassMode) {
+      return ClipRRect(
+        borderRadius: borderRadius,
+        child: BackdropFilter(
+          filter: ui.ImageFilter.blur(
+              sigmaX: style.glassBlur, sigmaY: style.glassBlur),
+          child: content,
+        ),
+      );
+    }
+
+    return content;
   }
 }

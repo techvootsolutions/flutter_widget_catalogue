@@ -1,4 +1,4 @@
-library flutterbuttons;
+library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
@@ -6,8 +6,8 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 class SuccessButton extends StatelessWidget {
   final String title;
   final Function onPressed;
-  const SuccessButton({Key? key, required this.title, required this.onPressed})
-      : super(key: key);
+  const SuccessButton(
+      {super.key, required this.title, required this.onPressed});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customFlatButton(

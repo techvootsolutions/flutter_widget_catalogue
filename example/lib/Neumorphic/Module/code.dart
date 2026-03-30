@@ -9,7 +9,7 @@ class Code extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
-      color: const Color(0xffD3D3D3),
+      color: const Color(0xFFD0D8D9),
       child: Text(
         text,
         style: const TextStyle(color: Colors.black),

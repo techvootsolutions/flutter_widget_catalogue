@@ -105,13 +105,13 @@ class NeumorphicText extends StatelessWidget {
 
   const NeumorphicText(
     this.text, {
-    Key? key,
+    super.key,
     this.duration = Neumorphic.DEFAULT_DURATION,
     this.curve = Neumorphic.DEFAULT_CURVE,
     this.style,
     this.textAlign = TextAlign.center,
     this.textStyle,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -142,14 +142,13 @@ class _NeumorphicText extends material.StatefulWidget {
   final TextAlign textAlign;
 
   const _NeumorphicText({
-    Key? key,
     required this.duration,
     required this.curve,
     required this.textAlign,
     required this.style,
     required this.textStyle,
     required this.text,
-  }) : super(key: key);
+  });
 
   @override
   __NeumorphicTextState createState() => __NeumorphicTextState();

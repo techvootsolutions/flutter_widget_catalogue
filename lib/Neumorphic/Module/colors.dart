@@ -3,16 +3,17 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 /// Defines default colors used in Neumorphic theme & shadows generators
 @immutable
 class NeumorphicColors {
-  static const background = Color(0xFFDDE6E8);
-  static const accent = Color(0xFF2196F3);
-  static const variant = Color(0xFF00BCD4);
-  static const disabled = Color(0xFF9E9E9E);
+  static const Color background = Color(0xFFDDE6E8);
+  static const Color neumorphicScreenBg = Color(0xFFDDE6E8);
+  static const Color accent = Color(0xFF2196F3);
+  static const Color variant = Color(0xFF00BCD4);
+  static const Color disabled = Color(0xFF9E9E9E);
 
-  static const darkBackground = Color(0xFF2D2F2F);
-  static const darkAccent = Color(0xFF4CAF50);
-  static const darkVariant = Color(0xFF607D8B);
-  static const darkDisabled = Color(0xB3FFFFFF);
-  static const darkDefaultTextColor = Color(0xB3FFFFFF);
+  static const Color darkBackground = Color(0xFF2D2F2F);
+  static const Color darkAccent = Color(0xFF4CAF50);
+  static const Color darkVariant = Color(0xFF607D8B);
+  static const Color darkDisabled = Color(0xB3FFFFFF);
+  static const Color darkDefaultTextColor = Color(0xB3FFFFFF);
 
   static const Color defaultBorder = Color(0x33000000);
   static const Color darkDefaultBorder = Color(0x33FFFFFF);
@@ -72,19 +73,21 @@ class NeumorphicColors {
 
   static Color _applyPercentageOnOpacity(
       {required Color maxColor, required double percent}) {
-    final maxAlpha = maxColor.a; // Get alpha (0-255)
+    // ignore: deprecated_member_use
+    final maxAlpha = maxColor.alpha; // Get alpha (0-255)
     const maxIntensity = Neumorphic.MAX_INTENSITY;
     final newAlpha = (percent * maxAlpha / maxIntensity)
-        .clamp(0, 255)
-        .toInt(); // Ensure valid range
+        .round()
+        .clamp(0, 255); // Ensure valid range and integer
 
-    final newColor = Color.fromRGBO(
-      maxColor.r.toInt(), // Convert double to int
-      maxColor.g.toInt(), // Convert double to int
-      maxColor.b.toInt(), // Convert double to int
-      newAlpha / 255.0, // Convert alpha (0-255) to opacity (0.0 - 1.0)
+    return Color.fromARGB(
+      newAlpha,
+      // ignore: deprecated_member_use
+      maxColor.red,
+      // ignore: deprecated_member_use
+      maxColor.green,
+      // ignore: deprecated_member_use
+      maxColor.blue,
     );
-
-    return newColor;
   }
 }

@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'Switch/switch.dart';
 import 'Button/buttons.dart';
 import 'TextField/text_field.dart';
+import 'Animations/animation_list_view.dart';
+import 'Dropdown/hierarchy_dropdown_view.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({super.key, required this.title});
 
   final String title;
 
@@ -40,6 +42,8 @@ class _MyHomePageState extends State<MyHomePage> {
     {'title': 'Neumorphic Widgets', 'route': const WidgetsHome()},
     {'title': 'Switch Widgets', 'route': const MySwitch()},
     {'title': 'TextField Widgets', 'route': const TextFields()},
+    {'title': 'Animated ListView', 'route': const AnimationListView()},
+    {'title': 'Advanced Dropdown', 'route': const HierarchyDropdownView()},
   ];
 
   @override

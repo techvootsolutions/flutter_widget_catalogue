@@ -76,6 +76,7 @@ class NeumorphicRadio<T> extends StatelessWidget {
 
   final Duration duration;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicRadio({
     super.key,
@@ -88,6 +89,7 @@ class NeumorphicRadio<T> extends StatelessWidget {
     this.groupValue,
     this.onChanged,
     this.isEnabled = true,
+    this.isGlassMode = false,
   });
 
   bool get isSelected => value != null && value == groupValue;
@@ -124,6 +126,7 @@ class NeumorphicRadio<T> extends StatelessWidget {
       onPressed: () {
         _onClick();
       },
+      isGlassMode: isGlassMode,
       duration: duration,
       curve: curve,
       padding: padding,

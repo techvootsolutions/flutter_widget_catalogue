@@ -16,7 +16,7 @@ class RangeSliderStyle {
   final NeumorphicBorder thumbBorder;
 
   const RangeSliderStyle({
-    this.depth = 0,
+    this.depth = -4,
     this.disableDepth = false,
     this.borderRadius = const BorderRadius.all(Radius.circular(10)),
     this.accent,
@@ -66,6 +66,7 @@ class NeumorphicRangeSlider extends StatefulWidget {
   final Function(ActiveThumb)? onPanStarted;
   final Function(ActiveThumb)? onPanEnded;
   final Widget? thumb;
+  final bool isGlassMode;
 
   const NeumorphicRangeSlider({
     super.key,
@@ -81,6 +82,7 @@ class NeumorphicRangeSlider extends StatefulWidget {
     this.onPanEnded,
     this.sliderHeight,
     this.thumb,
+    this.isGlassMode = false,
   });
 
   double get percentLow => (((valueLow.clamp(min, max)) - min) / ((max - min)));
@@ -196,6 +198,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
     final theme = NeumorphicTheme.currentTheme(context);
     return Stack(alignment: Alignment.center, children: <Widget>[
       NeumorphicProgress(
+          isGlassMode: widget.isGlassMode,
           duration: Duration.zero,
           percent: 0,
           height: widget.sliderHeight ?? widget.height,
@@ -236,6 +239,7 @@ class _NeumorphicRangeSliderState extends State<NeumorphicRangeSlider> {
   Widget _generateThumb(BuildContext context, double size, Color? color) {
     final theme = NeumorphicTheme.currentTheme(context);
     return Neumorphic(
+      isGlassMode: widget.isGlassMode,
       style: NeumorphicStyle(
         disableDepth: widget.style.disableDepth,
         shape: NeumorphicShape.concave,

@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'container.dart';
 
 class IndicatorStyle {
-  final double depth;
+  final double? depth;
   final bool? disableDepth;
   final Color? accent;
   final Color? variant;
@@ -15,7 +15,7 @@ class IndicatorStyle {
   final AlignmentGeometry? gradientEnd;
 
   const IndicatorStyle({
-    this.depth = -4,
+    this.depth,
     this.accent,
     this.lightSource,
     this.variant,
@@ -60,9 +60,10 @@ class NeumorphicIndicator extends StatefulWidget {
   final IndicatorStyle style;
   final Duration duration;
   final Curve curve;
+  final bool isGlassMode;
 
   const NeumorphicIndicator({
-    Key? key,
+    super.key,
     this.percent = 0.5,
     this.orientation = NeumorphicIndicatorOrientation.vertical,
     this.height = double.maxFinite,
@@ -70,8 +71,9 @@ class NeumorphicIndicator extends StatefulWidget {
     this.width = double.maxFinite,
     this.style = const IndicatorStyle(),
     this.duration = const Duration(milliseconds: 300),
+    this.isGlassMode = false,
     this.curve = Curves.easeOutCubic,
-  }) : super(key: key);
+  });
 
   @override
   createState() => _NeumorphicIndicatorState();
@@ -143,12 +145,13 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
       height: widget.height,
       width: widget.width,
       child: Neumorphic(
+        isGlassMode: widget.isGlassMode,
         padding: EdgeInsets.zero,
         style: NeumorphicStyle(
           boxShape: const NeumorphicBoxShape.stadium(),
           lightSource: widget.style.lightSource ?? theme.lightSource,
           disableDepth: widget.style.disableDepth,
-          depth: widget.style.depth,
+          depth: widget.style.depth ?? (theme.depth.abs() * -1),
           shape: NeumorphicShape.flat,
         ),
         child: AnimatedBuilder(
@@ -170,6 +173,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                 child: Padding(
                   padding: widget.padding,
                   child: Neumorphic(
+                    isGlassMode: widget.isGlassMode,
                     style: NeumorphicStyle(
                       boxShape: const NeumorphicBoxShape.stadium(),
                       lightSource:
@@ -182,8 +186,14 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
                             widget.style.gradientStart ?? Alignment.topCenter,
                         end: widget.style.gradientEnd ?? Alignment.bottomCenter,
                         colors: [
-                          widget.style.accent ?? theme.accentColor,
-                          widget.style.variant ?? theme.variantColor
+                          widget.isGlassMode
+                              ? (widget.style.accent ?? theme.accentColor)
+                                  .withValues(alpha: 0.4)
+                              : (widget.style.accent ?? theme.accentColor),
+                          widget.isGlassMode
+                              ? (widget.style.variant ?? theme.variantColor)
+                                  .withValues(alpha: 0.3)
+                              : (widget.style.variant ?? theme.variantColor),
                         ],
                       ),
                     )),

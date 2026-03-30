@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 class TipsBorderPage extends StatefulWidget {
-  const TipsBorderPage({Key? key}) : super(key: key);
+  const TipsBorderPage({super.key});
 
   @override
   createState() => _WidgetPageState();
@@ -14,20 +14,29 @@ class TipsBorderPage extends StatefulWidget {
 class _WidgetPageState extends State<TipsBorderPage> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.6,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: const NeumorphicThemeData(
+            lightSource: LightSource.topLeft,
+            accentColor: NeumorphicColors.accent,
+            depth: 4,
+            intensity: 0.6,
+          ),
+          child: _Page(isGlassMode: isGlassMode),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _Page({required this.isGlassMode});
+
   @override
   createState() => _PageState();
 }
@@ -35,107 +44,125 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return const NeumorphicBackground(
-      padding: EdgeInsets.all(8),
+    return NeumorphicBackground(
+      padding: const EdgeInsets.all(8),
       child: Scaffold(
-        appBar: TopBar(
+        appBar: const TopBar(
           title: "Border",
           actions: <Widget>[
             ThemeConfigurator(),
           ],
         ),
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _CustomWidget(
-                title: "Emboss Inside Flat",
-                firstStyle: NeumorphicStyle(
-                  shape: NeumorphicShape.flat,
-                  depth: 8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
+        backgroundColor: widget.isGlassMode
+            ? Colors.transparent
+            : NeumorphicColors.neumorphicScreenBg,
+        body: Stack(
+          children: [
+            if (widget.isGlassMode)
+              const Positioned.fill(
+                child: LiquidBackground(),
               ),
-              _CustomWidget(
-                title: "Emboss Inside Convex",
-                firstStyle: NeumorphicStyle(
-                  shape: NeumorphicShape.convex,
-                  depth: 8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
+            SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  _CustomWidget(
+                    title: "Emboss Inside Flat",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      shape: NeumorphicShape.flat,
+                      depth: 8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Emboss Inside Convex",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      shape: NeumorphicShape.convex,
+                      depth: 8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Emboss Inside Concave",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      shape: NeumorphicShape.concave,
+                      depth: 8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Flat Inside Emboss",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.flat,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Convex Inside Emboss",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.convex,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Concave Inside Emboss",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      depth: -8,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.concave,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Concave Inside Convex",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.convex,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.concave,
+                    ),
+                  ),
+                  _CustomWidget(
+                    title: "Convex Inside Concave",
+                    isGlassMode: widget.isGlassMode,
+                    firstStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.concave,
+                    ),
+                    secondStyle: const NeumorphicStyle(
+                      depth: 8,
+                      shape: NeumorphicShape.convex,
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                ],
               ),
-              _CustomWidget(
-                title: "Emboss Inside Concave",
-                firstStyle: NeumorphicStyle(
-                  shape: NeumorphicShape.concave,
-                  depth: 8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
-              ),
-              _CustomWidget(
-                title: "Flat Inside Emboss",
-                firstStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.flat,
-                ),
-              ),
-              _CustomWidget(
-                title: "Convex Inside Emboss",
-                firstStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.convex,
-                ),
-              ),
-              _CustomWidget(
-                title: "Concave Inside Emboss",
-                firstStyle: NeumorphicStyle(
-                  depth: -8,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.concave,
-                ),
-              ),
-              _CustomWidget(
-                title: "Concave Inside Convex",
-                firstStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.convex,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.concave,
-                ),
-              ),
-              _CustomWidget(
-                title: "Convex Inside Concave",
-                firstStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.concave,
-                ),
-                secondStyle: NeumorphicStyle(
-                  depth: 8,
-                  shape: NeumorphicShape.convex,
-                ),
-              ),
-              SizedBox(height: 30),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -144,14 +171,17 @@ class _PageState extends State<_Page> {
 
 class _CustomWidget extends StatefulWidget {
   final String? title;
+  final bool isGlassMode;
 
   final NeumorphicStyle? firstStyle;
   final NeumorphicStyle? secondStyle;
 
-  const _CustomWidget(
-      {@required this.title,
-      @required this.firstStyle,
-      @required this.secondStyle});
+  const _CustomWidget({
+    required this.title,
+    required this.firstStyle,
+    required this.secondStyle,
+    this.isGlassMode = false,
+  });
 
   @override
   createState() => _CustomWidgetState();
@@ -181,6 +211,31 @@ Neumorphic(
   }
 
   Widget _buildWidget(BuildContext context) {
+    final double themeDepth = NeumorphicTheme.depth(context) ?? 4;
+    final double themeIntensity = NeumorphicTheme.intensity(context) ?? 0.5;
+
+    NeumorphicStyle getStyle(NeumorphicStyle baseStyle) {
+      if (widget.isGlassMode) {
+        return baseStyle.copyWith(
+          shape: NeumorphicShape.concave,
+          surfaceIntensity: 0.5,
+          intensity: themeIntensity,
+          depth: themeDepth * (baseStyle.depth! > 0 ? 1 : -1),
+          color: Colors.white.withValues(alpha: 0.1),
+          border: NeumorphicBorder(
+            isEnabled: true,
+            color: Colors.white.withValues(alpha: 0.2),
+            width: 0.5,
+          ),
+        );
+      } else {
+        return baseStyle.copyWith(
+          depth: themeDepth * (baseStyle.depth! > 0 ? 1 : -1),
+          intensity: themeIntensity,
+        );
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -199,12 +254,14 @@ Neumorphic(
                 ),
               ),
               Neumorphic(
+                isGlassMode: widget.isGlassMode,
                 padding: const EdgeInsets.all(20),
-                style: widget.firstStyle!.copyWith(
+                style: getStyle(widget.firstStyle!).copyWith(
                   boxShape: const NeumorphicBoxShape.circle(),
                 ),
                 child: Neumorphic(
-                  style: widget.secondStyle!.copyWith(
+                  isGlassMode: widget.isGlassMode,
+                  style: getStyle(widget.secondStyle!).copyWith(
                     boxShape: const NeumorphicBoxShape.circle(),
                   ),
                   child: const SizedBox(
@@ -229,12 +286,14 @@ Neumorphic(
                 ),
               ),
               Neumorphic(
+                isGlassMode: widget.isGlassMode,
                 padding: const EdgeInsets.all(20),
-                style: widget.firstStyle!.copyWith(
+                style: getStyle(widget.firstStyle!).copyWith(
                   boxShape: const NeumorphicBoxShape.circle(),
                 ),
                 child: Neumorphic(
-                  style: widget.secondStyle!.copyWith(
+                  isGlassMode: widget.isGlassMode,
+                  style: getStyle(widget.secondStyle!).copyWith(
                     boxShape: const NeumorphicBoxShape.circle(),
                     oppositeShadowLightSource: true,
                   ),

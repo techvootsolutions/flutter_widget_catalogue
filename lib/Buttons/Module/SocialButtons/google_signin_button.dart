@@ -10,21 +10,20 @@ class SignInWithGoogle extends StatelessWidget {
   final String? title;
 
   const SignInWithGoogle(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Google',
-        buttonColor ?? Colors.blue,
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.google);
+        title: title ?? 'Sign in with Google',
+        buttonColor: buttonColor ?? Colors.blue,
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.google);
   }
 }

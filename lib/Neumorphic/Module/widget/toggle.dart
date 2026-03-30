@@ -78,10 +78,11 @@ class NeumorphicToggle extends StatelessWidget {
 
   final Curve alphaAnimationCurve;
   final bool displayForegroundOnlyIfSelected;
+  final bool isGlassMode;
 
   const NeumorphicToggle({
     this.style = const NeumorphicToggleStyle(),
-    Key? key,
+    super.key,
     required this.children,
     required this.thumb,
     this.padding = const EdgeInsets.all(2),
@@ -95,7 +96,8 @@ class NeumorphicToggle extends StatelessWidget {
     this.width,
     this.isEnabled = true,
     this.displayForegroundOnlyIfSelected = true,
-  }) : super(key: key);
+    this.isGlassMode = false,
+  });
 
   Widget _buildStack(BuildContext context) {
     return Stack(
@@ -118,6 +120,7 @@ class NeumorphicToggle extends StatelessWidget {
             widthFactor: 1 / children.length,
             heightFactor: 1,
             child: Neumorphic(
+              isGlassMode: isGlassMode,
               style: NeumorphicStyle(
                 boxShape: NeumorphicBoxShape.roundRect(style?.borderRadius ??
                     const BorderRadius.all(Radius.circular(12))),
@@ -188,6 +191,7 @@ class NeumorphicToggle extends StatelessWidget {
 
   Widget _background(BuildContext context) {
     return Neumorphic(
+      isGlassMode: isGlassMode,
       style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.roundRect(style?.borderRadius ??
               const BorderRadius.all(Radius.circular(12))),

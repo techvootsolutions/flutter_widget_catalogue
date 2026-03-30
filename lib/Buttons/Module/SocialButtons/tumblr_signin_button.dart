@@ -10,21 +10,20 @@ class SignInWithTumblr extends StatelessWidget {
   final String? title;
 
   const SignInWithTumblr(
-      {Key? key,
+      {super.key,
       required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,
-      this.fontSize})
-      : super(key: key);
+      this.fontSize});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customSignInButton(
-        title ?? 'Sign in with Twitter',
-        buttonColor ?? const Color.fromRGBO(0, 25, 53, 1),
-        onPressed,
-        fontColor ?? Colors.white,
-        fontSize ?? 24.0,
-        FontAwesomeIcons.tumblr);
+        title: title ?? 'Sign in with Twitter',
+        buttonColor: buttonColor ?? const Color.fromRGBO(0, 25, 53, 1),
+        onPressed: onPressed,
+        fontColor: fontColor ?? Colors.white,
+        fontSize: fontSize ?? 24.0,
+        faIcon: FontAwesomeIcons.tumblr);
   }
 }

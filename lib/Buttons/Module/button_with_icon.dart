@@ -9,13 +9,12 @@ class ButtonWithIcon extends StatelessWidget {
   final Color? color;
 
   const ButtonWithIcon(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.onPressed,
       this.buttonColor,
       required this.icon,
-      this.color})
-      : super(key: key);
+      this.color});
   @override
   Widget build(BuildContext context) {
     return CustomButtons.customFlatButton(title, buttonColor ?? Colors.blue,

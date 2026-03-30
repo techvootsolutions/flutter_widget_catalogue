@@ -1,33 +1,42 @@
-import 'package:example/Neumorphic/Module/code.dart';
-import 'package:example/Neumorphic/Module/theme_configurator.dart';
-import 'package:example/Neumorphic/Module/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
+import 'package:example/Neumorphic/Module/theme_configurator.dart';
+import 'package:example/Neumorphic/Module/top_bar.dart';
+import 'package:example/Neumorphic/Module/code.dart';
 
 class BackgroundWidgetPage extends StatefulWidget {
-  const BackgroundWidgetPage({Key? key}) : super(key: key);
+  const BackgroundWidgetPage({super.key});
 
   @override
   createState() => _WidgetPageState();
 }
 
 class _WidgetPageState extends State<BackgroundWidgetPage> {
+  final NeumorphicThemeData _theme = const NeumorphicThemeData(
+    lightSource: LightSource.topLeft,
+    accentColor: NeumorphicColors.accent,
+    depth: 4,
+    intensity: 0.5,
+  );
+
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      theme: const NeumorphicThemeData(
-        lightSource: LightSource.topLeft,
-        accentColor: NeumorphicColors.accent,
-        depth: 4,
-        intensity: 0.5,
-      ),
-      child: _Page(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicTheme(
+          themeMode: isGlassMode ? ThemeMode.dark : ThemeMode.light,
+          theme: _theme,
+          child: _Page(),
+        );
+      },
     );
   }
 }
 
 class _Page extends StatefulWidget {
+  const _Page();
+
   @override
   createState() => _PageState();
 }
@@ -35,42 +44,63 @@ class _Page extends StatefulWidget {
 class _PageState extends State<_Page> {
   @override
   Widget build(BuildContext context) {
-    return NeumorphicBackground(
-      child: Scaffold(
-        appBar: const TopBar(
-          title: "Background",
-          actions: <Widget>[
-            ThemeConfigurator(),
-          ],
-        ),
-        backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              _DefaultWidget(),
-              const SizedBox(height: 30),
-            ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: GlassModeManager.instance.isGlassMode,
+      builder: (context, isGlassMode, _) {
+        return NeumorphicBackground(
+          isGlassMode: isGlassMode,
+          child: Scaffold(
+            appBar: const TopBar(
+              title: "Background",
+              actions: <Widget>[
+                ThemeConfigurator(),
+              ],
+            ),
+            backgroundColor: isGlassMode
+                ? Colors.transparent
+                : NeumorphicColors.neumorphicScreenBg,
+            body: Stack(
+              children: [
+                if (isGlassMode)
+                  const Positioned.fill(
+                    child: LiquidBackground(),
+                  ),
+                SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      _DefaultWidget(isGlassMode: isGlassMode),
+                      const SizedBox(height: 30),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class _DefaultWidget extends StatefulWidget {
+  final bool isGlassMode;
+
+  const _DefaultWidget({this.isGlassMode = false});
+
   @override
   createState() => _DefaultWidgetState();
 }
 
 class _DefaultWidgetState extends State<_DefaultWidget> {
   Widget _buildCode(BuildContext context) {
-    return const Code("""
+    return Code("""
 //takes the themee baseColor as background
 Expanded(
   child: NeumorphicBackground(
+    isGlassMode: ${widget.isGlassMode ? true : false},
     child: ...
   ),
 ),
@@ -90,7 +120,7 @@ Expanded(
           Expanded(
             child: Container(
               padding: const EdgeInsets.all(8),
-              color: Colors.black,
+              color: widget.isGlassMode ? Colors.transparent : Colors.black,
               child: const NeumorphicBackground(
                 child: SizedBox(
                   width: 100,

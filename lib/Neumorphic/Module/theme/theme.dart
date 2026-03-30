@@ -32,7 +32,7 @@ class NeumorphicThemeData {
   final Color borderColor;
   final double borderWidth;
 
-  final Color defaultTextColor; //TODO maybe use TextStyle here
+  final Color defaultTextColor;
   final double _depth;
   final double _intensity;
   final LightSource lightSource;
@@ -310,6 +310,9 @@ class NeumorphicStyle {
   final bool? disableDepth;
 
   final NeumorphicBorder border;
+  final bool isGlass;
+  final double glassBlur;
+  final double glassConnectivity;
 
   final bool oppositeShadowLightSource;
 
@@ -339,6 +342,9 @@ class NeumorphicStyle {
     double? intensity,
     double surfaceIntensity = 0.25,
     this.disableDepth,
+    this.isGlass = false,
+    this.glassBlur = 10,
+    this.glassConnectivity = 0.1,
     this.oppositeShadowLightSource = false,
   })  : _depth = depth,
         theme = null,
@@ -358,6 +364,9 @@ class NeumorphicStyle {
     this.shadowDarkColorEmboss,
     this.oppositeShadowLightSource = false,
     this.disableDepth,
+    this.isGlass = false,
+    this.glassBlur = 10,
+    this.glassConnectivity = 0.1,
     double? depth,
     double? intensity,
     double surfaceIntensity = 0.25,
@@ -391,6 +400,9 @@ class NeumorphicStyle {
         depth: depth ?? theme.depth,
         intensity: intensity ?? theme.intensity,
         disableDepth: disableDepth ?? theme.disableDepth,
+        isGlass: isGlass,
+        glassBlur: glassBlur,
+        glassConnectivity: glassConnectivity,
         surfaceIntensity: surfaceIntensity,
         oppositeShadowLightSource: oppositeShadowLightSource,
         lightSource: lightSource);
@@ -409,6 +421,9 @@ class NeumorphicStyle {
           shadowDarkColorEmboss == other.shadowDarkColorEmboss &&
           shadowLightColorEmboss == other.shadowLightColorEmboss &&
           disableDepth == other.disableDepth &&
+          isGlass == other.isGlass &&
+          glassBlur == other.glassBlur &&
+          glassConnectivity == other.glassConnectivity &&
           _depth == other._depth &&
           _intensity == other._intensity &&
           _surfaceIntensity == other._surfaceIntensity &&
@@ -429,6 +444,9 @@ class NeumorphicStyle {
       border.hashCode ^
       _intensity.hashCode ^
       disableDepth.hashCode ^
+      isGlass.hashCode ^
+      glassBlur.hashCode ^
+      glassConnectivity.hashCode ^
       _surfaceIntensity.hashCode ^
       lightSource.hashCode ^
       oppositeShadowLightSource.hashCode ^
@@ -448,6 +466,9 @@ class NeumorphicStyle {
     double? surfaceIntensity,
     LightSource? lightSource,
     bool? disableDepth,
+    bool? isGlass,
+    double? glassBlur,
+    double? glassConnectivity,
     double? borderRadius,
     bool? oppositeShadowLightSource,
     NeumorphicShape? shape,
@@ -467,6 +488,9 @@ class NeumorphicStyle {
       intensity: intensity ?? this.intensity,
       surfaceIntensity: surfaceIntensity ?? this.surfaceIntensity,
       disableDepth: disableDepth ?? this.disableDepth,
+      isGlass: isGlass ?? this.isGlass,
+      glassBlur: glassBlur ?? this.glassBlur,
+      glassConnectivity: glassConnectivity ?? this.glassConnectivity,
       lightSource: lightSource ?? this.lightSource,
       oppositeShadowLightSource:
           oppositeShadowLightSource ?? this.oppositeShadowLightSource,
@@ -476,7 +500,7 @@ class NeumorphicStyle {
 
   @override
   String toString() {
-    return 'NeumorphicStyle{color: $color, boxShape: $boxShape, _depth: $_depth, intensity: $intensity, disableDepth: $disableDepth, lightSource: $lightSource, shape: $shape, theme: $theme, oppositeShadowLightSource: $oppositeShadowLightSource}';
+    return 'NeumorphicStyle{color: $color, boxShape: $boxShape, _depth: $_depth, intensity: $intensity, disableDepth: $disableDepth, isGlass: $isGlass, glassBlur: $glassBlur, glassConnectivity: $glassConnectivity, lightSource: $lightSource, shape: $shape, theme: $theme, oppositeShadowLightSource: $oppositeShadowLightSource}';
   }
 
   NeumorphicStyle applyDisableDepth() {
