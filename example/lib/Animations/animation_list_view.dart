@@ -263,7 +263,8 @@ class _AnimationListViewState extends State<AnimationListView>
   Widget _buildQuiltedView() {
     return AnimationLimiter(
       child: ListView.builder(
-        padding: const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 40),
+        padding:
+            const EdgeInsets.only(top: 20, left: 16, right: 16, bottom: 40),
         itemCount: 10,
         itemBuilder: (context, blockIndex) {
           final isEvenBlock = blockIndex % 2 == 0;
