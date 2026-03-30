@@ -108,9 +108,9 @@ import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 |                                                                                                                 |                                                                                                                 |                                                                                                                 |
 |-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| Switch                                                                                                          | TextField                                                                                                       | List & Grid                                                                                                     |
-| ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/s1.jpg) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/t1.png) | ![](https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/l1.gif) |
-
+| Switch | TextField | List & Grid |
+|--------|-----------|------------|
+| <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/s1.jpg" width="250"/> | <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/t1.png" width="250"/> | <img src="https://raw.githubusercontent.com/techvootsolutions/TV_Flutter_Component/tvHarshit_glassmode/Images/l1.gif" width="250"/> |
 ---
 
 ## 🧪 Usage
