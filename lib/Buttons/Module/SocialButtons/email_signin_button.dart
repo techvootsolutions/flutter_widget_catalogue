@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 
 class SignInWithEmail extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color? buttonColor;
   final Color? fontColor;
   final double? fontSize;

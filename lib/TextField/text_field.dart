@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FlutterTextField extends StatefulWidget {
-  final int? width;
-  final int? borderRadius;
+  final double? width;
+  final double? borderRadius;
   final Color? backgroundColor;
   final Color? iconBackgroundColor;
   final Widget? customTextFieldIcon;
   final Color? leadingIconColor;
   final TextStyle? hintStyling;
-  final int? leadingIconSize;
+  final double? leadingIconSize;
   final String? hintText;
   final TextEditingController? textEditingController;
   final TextStyle? textFieldTextStyle;
@@ -57,23 +57,39 @@ class FlutterTextField extends StatefulWidget {
 }
 
 class _FlutterTextFieldState extends State<FlutterTextField> {
-  bool showPassword = false;
+  late bool _obscureText;
 
-  void showHidePassword() {
-    if (showPassword == true) {
-      setState(() {
-        showPassword = false;
-      });
-    } else if (showPassword == false) {
-      setState(() {
-        showPassword = true;
-      });
+  @override
+  void initState() {
+    super.initState();
+    _obscureText = widget.isPasswordField ?? false;
+  }
+
+  @override
+  void didUpdateWidget(covariant FlutterTextField oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isPasswordField != oldWidget.isPasswordField) {
+      _obscureText = widget.isPasswordField ?? false;
     }
+  }
+
+  void _toggleObscureText() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final double radius = widget.borderRadius ?? 10.0;
+    final double iconSize = widget.leadingIconSize ?? 25.0;
+    final bool isReadOnly = widget.readOnly ?? false;
+    final Color borderSideColor = isReadOnly
+        ? (widget.borderColor ?? const Color(0xffF0F0F0))
+        : (widget.borderColor ?? const Color(0xffF0F0F0));
+
     return SizedBox(
+      width: widget.width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,8 +107,8 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                 )
               : Container(),
           TextFormField(
-            obscureText: showPassword,
-            readOnly: widget.readOnly!,
+            obscureText: (widget.isPasswordField == true) ? _obscureText : false,
+            readOnly: isReadOnly,
             controller: widget.textEditingController,
             cursorColor: widget.cursorColor ?? Colors.blue,
             keyboardType: widget.isNumber == true
@@ -104,28 +120,26 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                 ),
             decoration: InputDecoration(
               fillColor: widget.fillColor,
-              filled: widget.fillColor == null ? false : true,
+              filled: widget.fillColor != null,
               prefixIcon: widget.isIconShow == true
                   ? widget.customTextFieldIcon ??
                       Icon(
                         widget.customLeadingIcon ?? Icons.add,
                         color: widget.leadingIconColor ?? Colors.white,
-                        size: widget.leadingIconSize != null
-                            ? double.parse(widget.leadingIconSize.toString())
-                            : 25,
+                        size: iconSize,
                       )
                   : null,
               suffixIcon: widget.isPasswordField == true
                   ? IconButton(
-                      onPressed: showHidePassword,
+                      onPressed: _toggleObscureText,
                       icon: Icon(
-                        showPassword == true
+                        _obscureText
                             ? Icons.visibility_off
                             : Icons.visibility,
                         color: Colors.grey,
                       ),
                     )
-                  : widget.trailingWidget ?? const SizedBox(),
+                  : widget.trailingWidget,
               hintText: widget.hintText ?? "",
               hintStyle: widget.hintStyling ??
                   const TextStyle(
@@ -133,55 +147,26 @@ class _FlutterTextFieldState extends State<FlutterTextField> {
                     fontSize: 16,
                   ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
-                ),
-                borderSide: BorderSide(
-                    color: widget.readOnly! == true
-                        ? (widget.borderColor == null)
-                            ? const Color(0xffF0F0F0)
-                            : widget.borderColor!
-                        : widget.borderColor!),
+                borderRadius: BorderRadius.circular(radius),
+                borderSide: BorderSide(color: borderSideColor),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
-                ),
+                borderRadius: BorderRadius.circular(radius),
                 borderSide: const BorderSide(
                   width: 1,
                   color: Colors.red,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
-                ),
-                borderSide: BorderSide(
-                    color: widget.readOnly! == true
-                        ? (widget.borderColor == null)
-                            ? const Color(0xffF0F0F0)
-                            : widget.borderColor!
-                        : widget.borderColor!),
+                borderRadius: BorderRadius.circular(radius),
+                borderSide: BorderSide(color: borderSideColor),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(
-                  widget.borderRadius != null
-                      ? double.parse(widget.borderRadius.toString())
-                      : 10,
-                ),
+                borderRadius: BorderRadius.circular(radius),
                 borderSide: BorderSide(
-                    width: 1,
-                    color: widget.readOnly! == true
-                        ? (widget.borderColor == null)
-                            ? const Color(0xffF0F0F0)
-                            : widget.borderColor!
-                        : widget.borderColor!),
+                  width: 1,
+                  color: borderSideColor,
+                ),
               ),
             ),
             validator: widget.validator,

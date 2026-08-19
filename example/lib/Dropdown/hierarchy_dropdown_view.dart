@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 
 final List<HierarchyItem> _kSampleData = [
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Electronics',
     icon: Icons.electrical_services_rounded,
     subItems: [
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Smartphones',
         icon: Icons.phone_android_rounded,
         subItems: [
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
             title: 'iPhone 15 Pro',
             icon: Icons.apple_rounded,
             suffix: Container(
@@ -23,65 +23,65 @@ final List<HierarchyItem> _kSampleData = [
                   style: TextStyle(color: Colors.white, fontSize: 8)),
             ),
           ),
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
             title: 'Samsung S24 Ultra',
             icon: Icons.android_rounded,
             prefix:
                 const Icon(Icons.star_rounded, color: Colors.amber, size: 14),
           ),
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
               title: 'Google Pixel 8', icon: Icons.phone_android_rounded),
         ],
       ),
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Laptops',
         icon: Icons.laptop_rounded,
         subItems: [
-          HierarchyItem(title: 'MacBook Air M3'),
-          HierarchyItem(title: 'Dell XPS 15'),
-          HierarchyItem(title: 'Razer Blade 14'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'MacBook Air M3'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Dell XPS 15'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Razer Blade 14'),
         ],
       ),
     ],
   ),
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Home & Living',
     icon: Icons.home_rounded,
     subItems: [
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Furniture',
         icon: Icons.chair_rounded,
         subItems: [
-          HierarchyItem(title: 'Velvet Sofa'),
-          HierarchyItem(title: 'Dining Table'),
-          HierarchyItem(title: 'Ergonomic Chair'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Velvet Sofa'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Dining Table'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Ergonomic Chair'),
         ],
       ),
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Lighting',
         icon: Icons.lightbulb_rounded,
         subItems: [
-          HierarchyItem(title: 'Smart LED Bulb'),
-          HierarchyItem(title: 'Floor Lamp'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Smart LED Bulb'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Floor Lamp'),
         ],
       ),
     ],
   ),
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Fashion',
     icon: Icons.checkroom_rounded,
     subItems: [
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Men',
         subItems: [
-          HierarchyItem(title: 'Denim Jacket'),
-          HierarchyItem(title: 'Chino Pants'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Denim Jacket'),
+          HierarchyItem(id: UniqueKey().toString(), title: 'Chino Pants'),
         ],
       ),
-      HierarchyItem(
+      HierarchyItem(id: UniqueKey().toString(), 
         title: 'Women',
         subItems: [
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
             title: 'Floral Dress',
             iconPath:
                 'https://img.freepik.com/free-photo/summer-fashion-portrait-young-woman-floral-dress_273609-19973.jpg',
@@ -89,9 +89,9 @@ final List<HierarchyItem> _kSampleData = [
             iconWidth: 30,
             iconBorderRadius: 15, // Circle
           ),
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
               title: 'Leather Boots', icon: Icons.shopping_bag_rounded),
-          HierarchyItem(
+          HierarchyItem(id: UniqueKey().toString(), 
             title: 'Plain T-Shirt',
             suffix: Icon(Icons.new_releases_rounded,
                 color: Colors.blue.shade200, size: 16),
@@ -103,16 +103,16 @@ final List<HierarchyItem> _kSampleData = [
 ];
 
 final List<HierarchyItem> _kCountryData = [
-  HierarchyItem(title: 'United States', icon: Icons.flag_rounded),
-  HierarchyItem(title: 'United Kingdom', icon: Icons.flag_rounded),
-  HierarchyItem(title: 'Canada', icon: Icons.flag_rounded),
-  HierarchyItem(title: 'Australia', icon: Icons.flag_rounded),
-  HierarchyItem(title: 'India', icon: Icons.flag_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'United States', icon: Icons.flag_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'United Kingdom', icon: Icons.flag_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Canada', icon: Icons.flag_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Australia', icon: Icons.flag_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'India', icon: Icons.flag_rounded),
 ];
 
 final List<HierarchyItem> _kLocationData = List.generate(
   50,
-  (index) => HierarchyItem(
+  (index) => HierarchyItem(id: UniqueKey().toString(), 
     title: 'City ${index + 1}',
     icon: Icons.location_on_rounded,
     suffix: Text(
@@ -123,25 +123,25 @@ final List<HierarchyItem> _kLocationData = List.generate(
 );
 
 final List<HierarchyItem> _kUserData = [
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Alex Johnson',
     subtitle: 'Senior Product Designer',
     iconPath:
         'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop',
   ),
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Sarah Williams',
     subtitle: 'Lead Developer',
     iconPath:
         'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop',
   ),
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Michael Chen',
     subtitle: 'Marketing Specialist',
     iconPath:
         'https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop',
   ),
-  HierarchyItem(
+  HierarchyItem(id: UniqueKey().toString(), 
     title: 'Emily Davis',
     subtitle: 'UX Researcher',
     iconPath:
@@ -150,41 +150,41 @@ final List<HierarchyItem> _kUserData = [
 ];
 
 final List<HierarchyItem> _kTimerData = [
-  HierarchyItem(title: '1 Hour', icon: Icons.timer_outlined),
-  HierarchyItem(title: '20 Minutes', icon: Icons.timer_outlined),
-  HierarchyItem(title: '5 Minutes', icon: Icons.timer_outlined),
-  HierarchyItem(title: '1 Minute', icon: Icons.timer_outlined),
+  HierarchyItem(id: UniqueKey().toString(), title: '1 Hour', icon: Icons.timer_outlined),
+  HierarchyItem(id: UniqueKey().toString(), title: '20 Minutes', icon: Icons.timer_outlined),
+  HierarchyItem(id: UniqueKey().toString(), title: '5 Minutes', icon: Icons.timer_outlined),
+  HierarchyItem(id: UniqueKey().toString(), title: '1 Minute', icon: Icons.timer_outlined),
 ];
 
 final List<HierarchyItem> _kLightData = [
-  HierarchyItem(title: 'Bright Light', icon: Icons.light_mode_rounded),
-  HierarchyItem(title: 'Medium Light', icon: Icons.wb_sunny_rounded),
-  HierarchyItem(title: 'Low Light', icon: Icons.nightlight_round),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Bright Light', icon: Icons.light_mode_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Medium Light', icon: Icons.wb_sunny_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Low Light', icon: Icons.nightlight_round),
 ];
 
 final List<HierarchyItem> _kCameraData = [
-  HierarchyItem(title: 'Take Photo', icon: Icons.camera_alt_rounded),
-  HierarchyItem(title: 'Record Slo-mo', icon: Icons.slow_motion_video_rounded),
-  HierarchyItem(title: 'Record Video', icon: Icons.videocam_rounded),
-  HierarchyItem(title: 'Take Selfie', icon: Icons.portrait_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Take Photo', icon: Icons.camera_alt_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Record Slo-mo', icon: Icons.slow_motion_video_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Record Video', icon: Icons.videocam_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Take Selfie', icon: Icons.portrait_rounded),
 ];
 
 final List<HierarchyItem> _kFilterData = [
-  HierarchyItem(title: 'New Arrivals', icon: Icons.fiber_new_rounded),
-  HierarchyItem(title: 'Best Sellers', icon: Icons.trending_up_rounded),
-  HierarchyItem(title: 'Discounts', icon: Icons.sell_rounded),
-  HierarchyItem(title: 'Top Rated', icon: Icons.star_rounded),
-  HierarchyItem(title: 'Free Shipping', icon: Icons.local_shipping_rounded),
-  HierarchyItem(title: 'In Stock', icon: Icons.check_circle_outline_rounded),
-  HierarchyItem(title: 'On Sale', icon: Icons.monetization_on_rounded),
-  HierarchyItem(title: 'Limited Edition', icon: Icons.auto_awesome_rounded),
-  HierarchyItem(title: 'Premium Quality', icon: Icons.verified_rounded),
-  HierarchyItem(title: 'New Arrivals', icon: Icons.fiber_new_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'New Arrivals', icon: Icons.fiber_new_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Best Sellers', icon: Icons.trending_up_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Discounts', icon: Icons.sell_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Top Rated', icon: Icons.star_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Free Shipping', icon: Icons.local_shipping_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'In Stock', icon: Icons.check_circle_outline_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'On Sale', icon: Icons.monetization_on_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Limited Edition', icon: Icons.auto_awesome_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'Premium Quality', icon: Icons.verified_rounded),
+  HierarchyItem(id: UniqueKey().toString(), title: 'New Arrivals', icon: Icons.fiber_new_rounded),
 ];
 
 final List<HierarchyItem> _kProductData = List.generate(
   50,
-  (index) => HierarchyItem(
+  (index) => HierarchyItem(id: UniqueKey().toString(), 
     title: 'Product - ${index + 1}',
     icon: Icons.inventory_2_rounded,
     suffix: index % 5 == 0

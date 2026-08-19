@@ -1,7 +1,15 @@
 # Changelog
-
+ 
 All notable changes to flutter_widget_catalogue will be documented in this file
-
+ 
+## 4.0.1
+ 
+* Fix `FlutterSwitch` BoxDecoration assertion crash
+* Fix `FlutterTextField` obscuring logic and border customization
+* Improve button styles, type safety, and callbacks
+* Add `.pubignore` for package size optimization
+* Update Flutter and Android build configurations
+ 
 ## 4.0.0
 
 * Add new Flutter and Neumorphic widgets

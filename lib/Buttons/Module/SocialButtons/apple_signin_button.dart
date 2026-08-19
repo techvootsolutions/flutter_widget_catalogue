@@ -3,7 +3,7 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SignInWithApple extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color? buttonColor;
   final Color? fontColor;
   final double? fontSize;

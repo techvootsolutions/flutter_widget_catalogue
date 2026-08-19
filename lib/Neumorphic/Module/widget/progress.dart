@@ -1,5 +1,6 @@
 // ignore_for_file: empty_catches, invalid_override_of_non_virtual_member, library_private_types_in_public_api
 
+// ignore_for_file: prefer_initializing_formals
 import 'package:flutter/widgets.dart';
 
 import 'container.dart';
@@ -155,7 +156,7 @@ class _NeumorphicProgressState extends State<NeumorphicProgress>
           ),
           child: AnimatedBuilder(
               animation: _controller,
-              builder: (_, __) {
+              builder: (context, child) {
                 return FractionallySizedBox(
                   alignment: Alignment.centerLeft,
                   widthFactor: _animation.value,
@@ -294,7 +295,7 @@ class _NeumorphicProgressIndeterminateState
           child: LayoutBuilder(builder: (context, constraints) {
             return AnimatedBuilder(
                 animation: _animation,
-                builder: (_, __) {
+                builder: (context, child) {
                   return Padding(
                     padding: EdgeInsets.only(
                         left: constraints.maxWidth * _animation.value),

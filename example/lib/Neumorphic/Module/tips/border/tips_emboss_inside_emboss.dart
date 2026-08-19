@@ -165,11 +165,18 @@ class _EmbossmbossWidgetState extends State<_EmbossmbossWidget> {
                           color: NeumorphicTheme.defaultTextColor(context)),
                     ),
                   ),
-                  _generateEmbosss(
-                    number: 5,
-                    child: const SizedBox(
-                      height: 10,
-                      width: 10,
+                  Expanded(
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: _generateEmbosss(
+                          number: 5,
+                          child: const SizedBox(
+                            height: 10,
+                            width: 10,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -186,12 +193,19 @@ class _EmbossmbossWidgetState extends State<_EmbossmbossWidget> {
                           color: NeumorphicTheme.defaultTextColor(context)),
                     ),
                   ),
-                  _generateEmbosss(
-                    number: 5,
-                    reverseEachPair: true,
-                    child: const SizedBox(
-                      height: 10,
-                      width: 10,
+                  Expanded(
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: _generateEmbosss(
+                          number: 5,
+                          reverseEachPair: true,
+                          child: const SizedBox(
+                            height: 10,
+                            width: 10,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -212,11 +226,18 @@ class _EmbossmbossWidgetState extends State<_EmbossmbossWidget> {
                           color: NeumorphicTheme.defaultTextColor(context)),
                     ),
                   ),
-                  _generateEmbosss(
-                    number: 4,
-                    child: const SizedBox(
-                      height: 10,
-                      width: 10,
+                  Expanded(
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: _generateEmbosss(
+                          number: 4,
+                          child: const SizedBox(
+                            height: 10,
+                            width: 10,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
@@ -233,12 +254,19 @@ class _EmbossmbossWidgetState extends State<_EmbossmbossWidget> {
                           color: NeumorphicTheme.defaultTextColor(context)),
                     ),
                   ),
-                  _generateEmbosss(
-                    number: 4,
-                    reverseEachPair: true,
-                    child: const SizedBox(
-                      height: 10,
-                      width: 10,
+                  Expanded(
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: _generateEmbosss(
+                          number: 4,
+                          reverseEachPair: true,
+                          child: const SizedBox(
+                            height: 10,
+                            width: 10,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

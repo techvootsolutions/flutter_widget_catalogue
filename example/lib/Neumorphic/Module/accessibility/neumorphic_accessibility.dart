@@ -111,8 +111,7 @@ class __PageState extends State<_Page> {
 
     const Color textActiveColor = Colors.white;
     final Color textInactiveColor = Colors.black.withValues(
-      alpha: (0.3 * 255)
-          .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+      alpha: 0.3, // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
     );
 
     return Card(
@@ -511,8 +510,7 @@ class __PageState extends State<_Page> {
 
     const Color iconActiveColor = Colors.white;
     final Color iconInactiveColor = Colors.black.withValues(
-      alpha: (0.3 * 255)
-          .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+      alpha: 0.3, // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
     );
 
     return Row(

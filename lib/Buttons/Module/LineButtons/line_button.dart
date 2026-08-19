@@ -5,7 +5,7 @@ class LineButton extends StatelessWidget {
   final Color? lineColor;
   final Color? textColor;
   final String title;
-  final Function onPressed;
+  final VoidCallback onPressed;
 
   const LineButton(
       {super.key,
@@ -15,7 +15,11 @@ class LineButton extends StatelessWidget {
       this.textColor});
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customOutlinedButton(title, lineColor ?? Colors.green,
-        onPressed, textColor ?? lineColor ?? Colors.green);
+    return CustomButtons.customOutlinedButton(
+      title: title,
+      lineColor: lineColor ?? Colors.green,
+      onPressed: onPressed,
+      textColor: textColor,
+    );
   }
 }

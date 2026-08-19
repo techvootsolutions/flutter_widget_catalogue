@@ -2,25 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GithubButton extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color? buttonColor;
   final Color? iconColor;
   final double? iconSize;
   final bool? isMinSize;
-  const GithubButton(
-      {super.key,
-      required this.onPressed,
-      this.buttonColor,
-      this.iconColor,
-      this.iconSize,
-      this.isMinSize});
+
+  const GithubButton({
+    super.key,
+    required this.onPressed,
+    this.buttonColor,
+    this.iconColor,
+    this.iconSize,
+    this.isMinSize,
+  });
+
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      heroTag: UniqueKey(),
+      heroTag: null,
       splashColor: Colors.white,
       mini: isMinSize ?? true,
-      onPressed: onPressed as void Function()?,
+      onPressed: onPressed,
       backgroundColor: buttonColor ?? Colors.black,
       child: FaIcon(
         FontAwesomeIcons.github,

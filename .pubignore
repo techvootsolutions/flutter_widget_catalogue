@@ -1,0 +1,9 @@
+# Ignore large assets and images used only for repository documentation
+Images/
+
+# macOS metadata
+.DS_Store
+
+# Build artifacts
+example/android/build/
+build/
