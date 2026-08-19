@@ -13,6 +13,7 @@ class _ButtonsPageState extends State<Buttons> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue.shade600,
         elevation: 4,
         title: const Text(
@@ -108,23 +109,18 @@ class _ButtonsPageState extends State<Buttons> {
             _buildSection("Gradient Buttons", [
               GradientButton(
                   onPressed: () {},
-                  splashColor: Colors.orange,
                   colors: const [Colors.red, Colors.orange],
                   title: "Gradient Button"),
               GradientButton(
                   onPressed: () {},
-                  splashColor: Colors.orange,
                   colors: const [Colors.blue, Colors.blueGrey],
                   title: "Gradient Button"),
               GradientButton(
                   onPressed: () {},
-                  splashColor: Colors.orange,
                   colors: [Color(0xFFC33764), Color(0xFF1D2671)],
-                  // colors: const [Color(0xFFC33764), Color(0xFF1D2671)],
                   title: "Gradient Button"),
               GradientButton(
                   onPressed: () {},
-                  splashColor: Colors.orange,
                   colors: const [Color(0xFFF7971E), Color(0xFFFFD200)],
                   title: "Gradient Button"),
             ]),

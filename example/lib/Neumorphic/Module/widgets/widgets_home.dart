@@ -68,6 +68,7 @@ class WidgetsHome extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: Colors.blue.shade600,
           elevation: 4,
           title: const Text(

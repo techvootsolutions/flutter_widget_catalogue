@@ -1,3 +1,4 @@
+// ignore_for_file: prefer_initializing_formals
 import 'dart:ui';
 import 'package:flutter_widget_catalogue/flutter_widget_catalogue.dart';
 export '../colors.dart';

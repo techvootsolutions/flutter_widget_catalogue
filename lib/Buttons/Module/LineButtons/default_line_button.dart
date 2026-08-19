@@ -3,7 +3,7 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 
 class DefaultLineButton extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color? textColor;
   const DefaultLineButton(
       {super.key,
@@ -12,7 +12,11 @@ class DefaultLineButton extends StatelessWidget {
       this.textColor});
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customOutlinedButton(title, const Color(0xFF0EB0A1),
-        onPressed, textColor ?? const Color(0xFF0EB0A1));
+    return CustomButtons.customOutlinedButton(
+      title: title,
+      lineColor: const Color(0xFF0EB0A1),
+      onPressed: onPressed,
+      textColor: textColor,
+    );
   }
 }

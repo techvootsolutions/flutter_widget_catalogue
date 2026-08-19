@@ -156,7 +156,7 @@ class _NeumorphicIndicatorState extends State<NeumorphicIndicator>
         ),
         child: AnimatedBuilder(
             animation: _animation,
-            builder: (_, __) {
+            builder: (context, child) {
               return FractionallySizedBox(
                 heightFactor: widget.orientation ==
                         NeumorphicIndicatorOrientation.vertical

@@ -16,6 +16,7 @@ class _TextFieldPageState extends State<TextFields> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: Colors.blue.shade600,
         elevation: 4,
         title: const Text(

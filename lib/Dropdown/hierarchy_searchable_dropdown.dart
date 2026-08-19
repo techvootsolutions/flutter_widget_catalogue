@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 /// A hierarchical item for the [HierarchySearchableDropdown].
 class HierarchyItem {
   const HierarchyItem({
+    required this.id,
     required this.title,
     this.subtitle,
     this.subItems,
@@ -16,6 +17,9 @@ class HierarchyItem {
     this.suffix,
     this.data,
   });
+
+  /// The unique identifier of the item.
+  final String id;
 
   /// The display title of the item.
   final String title;
@@ -56,12 +60,18 @@ class HierarchyItem {
   /// Collects all leaf titles that are marked selected in [selectedIds].
   void collectSelectedTitles(Set<String> selectedIds, List<String> out) {
     if (isLeaf) {
-      if (selectedIds.contains(title)) out.add(title);
+      if (selectedIds.contains(id)) out.add(title);
     } else {
       for (final sub in subItems!) {
         sub.collectSelectedTitles(selectedIds, out);
       }
     }
+  }
+
+  /// Returns all leaf ids under this item (for select-all).
+  List<String> get allLeafIds {
+    if (isLeaf) return [id];
+    return [for (final sub in subItems!) ...sub.allLeafIds];
   }
 
   /// Returns all leaf titles under this item (for select-all).
@@ -324,7 +334,7 @@ class HierarchySearchableDropdown extends StatefulWidget {
 class _HierarchySearchableDropdownState
     extends State<HierarchySearchableDropdown> {
   final Set<String> _selectedIds = {};
-  final List<String> _orderedSelectedLabels = [];
+  final List<({String id, String title})> _orderedSelections = [];
   final Set<String> _expandedIds = {};
   bool _isOpen = false;
   bool _isOpeningUpwards = false;
@@ -412,21 +422,24 @@ class _HierarchySearchableDropdownState
     });
     if (widget.autoFocusSearch) {
       Future.delayed(const Duration(milliseconds: 100), () {
-        _effectiveFocusNode.requestFocus();
+        if (mounted) {
+          _effectiveFocusNode.requestFocus();
+        }
       });
     }
   }
 
-  void _closeDropdown() {
+  void _closeDropdown({bool updateState = true}) {
     _overlayEntry?.remove();
     _overlayEntry = null;
-    setState(() {
-      _isOpen = false;
-      if (widget.clearSearchOnClose) {
-        _searchQuery = '';
-        _searchController.clear();
-      }
-    });
+    _isOpen = false;
+    if (widget.clearSearchOnClose) {
+      _searchQuery = '';
+      _searchController.clear();
+    }
+    if (updateState && mounted) {
+      setState(() {});
+    }
   }
 
   OverlayEntry _createOverlayEntry() {
@@ -513,20 +526,20 @@ class _HierarchySearchableDropdownState
   void _onLeafTapped(HierarchyItem leaf) {
     setState(() {
       if (widget.isMultiSelect) {
-        if (_selectedIds.contains(leaf.title)) {
-          _selectedIds.remove(leaf.title);
-          _orderedSelectedLabels.remove(leaf.title);
+        if (_selectedIds.contains(leaf.id)) {
+          _selectedIds.remove(leaf.id);
+          _orderedSelections.removeWhere((s) => s.id == leaf.id);
         } else {
-          _selectedIds.add(leaf.title);
-          _orderedSelectedLabels.add(leaf.title);
+          _selectedIds.add(leaf.id);
+          _orderedSelections.add((id: leaf.id, title: leaf.title));
         }
       } else {
         _selectedIds
           ..clear()
-          ..add(leaf.title);
-        _orderedSelectedLabels
+          ..add(leaf.id);
+        _orderedSelections
           ..clear()
-          ..add(leaf.title);
+          ..add((id: leaf.id, title: leaf.title));
         _closeDropdown();
       }
     });
@@ -546,18 +559,22 @@ class _HierarchySearchableDropdownState
   void _onGroupToggle(HierarchyItem group, bool select) {
     assert(widget.isMultiSelect);
     setState(() {
-      final leaves = group.allLeafTitles;
+      final leafIds = group.allLeafIds;
+      final leafTitles = group.allLeafTitles;
       if (select) {
-        for (final leaf in leaves) {
-          if (!_selectedIds.contains(leaf)) {
-            _selectedIds.add(leaf);
-            _orderedSelectedLabels.add(leaf);
+        for (int i = 0; i < leafIds.length; i++) {
+          final id = leafIds[i];
+          final title = leafTitles[i];
+          if (!_selectedIds.contains(id)) {
+            _selectedIds.add(id);
+            _orderedSelections.add((id: id, title: title));
           }
         }
       } else {
-        for (final leaf in leaves) {
-          _selectedIds.remove(leaf);
-          _orderedSelectedLabels.remove(leaf);
+        for (int i = 0; i < leafIds.length; i++) {
+          final id = leafIds[i];
+          _selectedIds.remove(id);
+          _orderedSelections.removeWhere((s) => s.id == id);
         }
       }
     });
@@ -576,10 +593,10 @@ class _HierarchySearchableDropdownState
     });
   }
 
-  void _removeSelection(String label) {
+  void _removeSelection(String id) {
     setState(() {
-      _selectedIds.remove(label);
-      _orderedSelectedLabels.remove(label);
+      _selectedIds.remove(id);
+      _orderedSelections.removeWhere((s) => s.id == id);
     });
     _overlayEntry?.markNeedsBuild();
     widget.onChanged(_selectedLabel);
@@ -591,15 +608,15 @@ class _HierarchySearchableDropdownState
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }
-      final item = _orderedSelectedLabels.removeAt(oldIndex);
-      _orderedSelectedLabels.insert(newIndex, item);
+      final item = _orderedSelections.removeAt(oldIndex);
+      _orderedSelections.insert(newIndex, item);
     });
     widget.onChanged(_selectedLabel);
   }
 
   @override
   void dispose() {
-    _closeDropdown();
+    _closeDropdown(updateState: false);
     _searchController.dispose();
     _internalFocusNode.dispose();
     super.dispose();
@@ -626,7 +643,7 @@ class _HierarchySearchableDropdownState
                   onTap: _toggleDropdown,
                   decoration: widget.headerDecoration,
                   showChips: widget.showChips,
-                  selectedLabels: _orderedSelectedLabels,
+                  selectedItems: _orderedSelections,
                   onRemove: _removeSelection,
                   onReorder: _reorderSelections,
                   chipDecoration: widget.chipDecoration,
@@ -656,7 +673,7 @@ class _DefaultHeader extends StatelessWidget {
     this.errorText,
     this.decoration,
     this.showChips = false,
-    this.selectedLabels = const [],
+    this.selectedItems = const [],
     this.onRemove,
     this.onReorder,
     this.chipDecoration,
@@ -679,7 +696,7 @@ class _DefaultHeader extends StatelessWidget {
   final String? errorText;
   final BoxDecoration? decoration;
   final bool showChips;
-  final List<String> selectedLabels;
+  final List<({String id, String title})> selectedItems;
   final ValueChanged<String>? onRemove;
   final ReorderCallback? onReorder;
   final BoxDecoration? chipDecoration;
@@ -697,7 +714,7 @@ class _DefaultHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final hasLabel = label.isNotEmpty;
     final hasError = errorText != null;
-    final useChips = showChips && selectedLabels.isNotEmpty;
+    final useChips = showChips && selectedItems.isNotEmpty;
     final isHorizontal = chipScrollDirection == Axis.horizontal;
 
     final defaultDecoration = BoxDecoration(
@@ -756,9 +773,9 @@ class _DefaultHeader extends StatelessWidget {
                                 spacing: 8,
                                 runSpacing: 8,
                                 children:
-                                    selectedLabels.asMap().entries.map((entry) {
+                                    selectedItems.asMap().entries.map((entry) {
                                   final index = entry.key;
-                                  final text = entry.value;
+                                  final item = entry.value;
                                   final chipWidget = Container(
                                     padding: chipPadding ??
                                         const EdgeInsets.symmetric(
@@ -777,7 +794,7 @@ class _DefaultHeader extends StatelessWidget {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          text,
+                                          item.title,
                                           style: chipTextStyle ??
                                               const TextStyle(
                                                 color: Colors.black,
@@ -787,7 +804,7 @@ class _DefaultHeader extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 4),
                                         InkWell(
-                                          onTap: () => onRemove?.call(text),
+                                          onTap: () => onRemove?.call(item.id),
                                           child: const Icon(
                                             Icons.close_rounded,
                                             size: 14,
@@ -799,11 +816,12 @@ class _DefaultHeader extends StatelessWidget {
                                   );
 
                                   return DragTarget<String>(
-                                    key: ValueKey(text),
+                                    key: ValueKey(item.id),
                                     onWillAcceptWithDetails: (details) {
-                                      if (details.data != text) {
-                                        final fromIndex = selectedLabels
-                                            .indexOf(details.data);
+                                      if (details.data != item.id) {
+                                        final fromIndex = selectedItems
+                                            .indexWhere(
+                                                (s) => s.id == details.data);
                                         if (fromIndex != -1) {
                                           // ReorderableListView-style logic requires index + 1 for forward moves
                                           onReorder?.call(
@@ -821,7 +839,7 @@ class _DefaultHeader extends StatelessWidget {
                                     builder:
                                         (context, candidateData, rejectedData) {
                                       return LongPressDraggable<String>(
-                                        data: text,
+                                        data: item.id,
                                         feedback: Material(
                                           color: Colors.transparent,
                                           child: Transform.scale(
@@ -841,8 +859,8 @@ class _DefaultHeader extends StatelessWidget {
                               child: ReorderableListView.builder(
                                 scrollDirection: chipScrollDirection,
                                 physics: const BouncingScrollPhysics(),
-                                itemCount: selectedLabels.length,
-                                onReorder: onReorder!,
+                                itemCount: selectedItems.length,
+                                onReorderItem: onReorder!,
                                 buildDefaultDragHandles: false,
                                 proxyDecorator: (child, index, animation) {
                                   return AnimatedBuilder(
@@ -869,9 +887,9 @@ class _DefaultHeader extends StatelessWidget {
                                   );
                                 },
                                 itemBuilder: (context, index) {
-                                  final text = selectedLabels[index];
+                                  final item = selectedItems[index];
                                   return ReorderableDelayedDragStartListener(
-                                    key: ValueKey(text),
+                                    key: ValueKey(item.id),
                                     index: index,
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 8),
@@ -895,7 +913,7 @@ class _DefaultHeader extends StatelessWidget {
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               Text(
-                                                text,
+                                                item.title,
                                                 style: chipTextStyle ??
                                                     const TextStyle(
                                                       color: Colors.black,
@@ -907,7 +925,7 @@ class _DefaultHeader extends StatelessWidget {
                                               const SizedBox(width: 4),
                                               InkWell(
                                                 onTap: () =>
-                                                    onRemove?.call(text),
+                                                    onRemove?.call(item.id),
                                                 child: const Icon(
                                                   Icons.close_rounded,
                                                   size: 14,
@@ -1156,7 +1174,7 @@ class _DropdownPanelState extends State<_DropdownPanel> {
                       );
                     }
                     return _InternalTreeItem(
-                      key: ValueKey(widget.items[i].title),
+                      key: ValueKey(widget.items[i].id),
                       item: widget.items[i],
                       level: 0,
                       searchQuery: widget.searchQuery,
@@ -1331,7 +1349,7 @@ class _InternalTreeItemState extends State<_InternalTreeItem>
     super.dispose();
   }
 
-  bool get _isExpanded => widget.expandedIds.contains(widget.item.title);
+  bool get _isExpanded => widget.expandedIds.contains(widget.item.id);
   bool get _selfMatches =>
       widget.searchQuery.isEmpty ||
       widget.item.title.toLowerCase().contains(widget.searchQuery);
@@ -1341,9 +1359,9 @@ class _InternalTreeItemState extends State<_InternalTreeItem>
 
   bool? get _triState {
     if (widget.item.isLeaf) {
-      return widget.selectedIds.contains(widget.item.title);
+      return widget.selectedIds.contains(widget.item.id);
     }
-    final leaves = widget.item.allLeafTitles;
+    final leaves = widget.item.allLeafIds;
     final count = leaves.where(widget.selectedIds.contains).length;
     if (count == 0) return false;
     if (count == leaves.length) return true;
@@ -1369,8 +1387,8 @@ class _InternalTreeItemState extends State<_InternalTreeItem>
             isActuallyExpanded,
             widget.isMultiSelect
                 ? _triState
-                : widget.selectedIds.contains(widget.item.title),
-            () => widget.onExpandToggle(widget.item.title),
+                : widget.selectedIds.contains(widget.item.id),
+            () => widget.onExpandToggle(widget.item.id),
             () {
               if (widget.item.isLeaf) {
                 widget.onLeafTapped(widget.item);
@@ -1387,10 +1405,10 @@ class _InternalTreeItemState extends State<_InternalTreeItem>
             isExpanded: isActuallyExpanded,
             triState: widget.isMultiSelect ? _triState : null,
             isSelected: !widget.isMultiSelect &&
-                widget.selectedIds.contains(widget.item.title),
+                widget.selectedIds.contains(widget.item.id),
             onTap: () {
               if (!widget.item.isLeaf) {
-                widget.onExpandToggle(widget.item.title);
+                widget.onExpandToggle(widget.item.id);
               } else {
                 widget.onLeafTapped(widget.item);
               }
@@ -1409,7 +1427,7 @@ class _InternalTreeItemState extends State<_InternalTreeItem>
         if (!widget.item.isLeaf && isActuallyExpanded)
           ...widget.item.subItems!.map(
             (sub) => _InternalTreeItem(
-              key: ValueKey(sub.title),
+              key: ValueKey(sub.id),
               item: sub,
               level: widget.level + 1,
               searchQuery: widget.searchQuery,
@@ -1605,7 +1623,7 @@ class _TreeItemIcon extends StatelessWidget {
               ? Image.network(
                   path,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Icon(
+                  errorBuilder: (context, error, stackTrace) => Icon(
                     Icons.broken_image_rounded,
                     color: Colors.black12,
                     size: (item.iconWidth ?? defaultWidth) * 0.7,

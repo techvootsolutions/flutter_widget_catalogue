@@ -87,12 +87,10 @@ class __PageContentState extends State<_PageContent> {
                             end: Alignment.bottomLeft,
                             colors: [
                           Colors.purple.withValues(
-                            alpha: (0.5 * 255)
-                                .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                            alpha: 0.5, // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
                           ),
                           Colors.red.withValues(
-                            alpha: (0.5 * 255)
-                                .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                            alpha: 0.5, // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
                           ),
                         ])),
                   ),
@@ -172,8 +170,7 @@ class __PageContentState extends State<_PageContent> {
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.white.withValues(
-                                alpha: (0.7 * 255)
-                                    .toDouble(), // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
+                                alpha: 0.7, // Convert opacity (0.0 - 1.0) to alpha (0 - 255)
                               ),
                             ),
                           ),

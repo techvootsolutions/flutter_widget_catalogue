@@ -3,7 +3,7 @@ import 'package:flutter_widget_catalogue/Buttons/Module/custom_buttons.dart';
 
 class ButtonWithIcon extends StatelessWidget {
   final String title;
-  final Function onPressed;
+  final VoidCallback onPressed;
   final Color? buttonColor;
   final IconData icon;
   final Color? color;
@@ -17,7 +17,13 @@ class ButtonWithIcon extends StatelessWidget {
       this.color});
   @override
   Widget build(BuildContext context) {
-    return CustomButtons.customFlatButton(title, buttonColor ?? Colors.blue,
-        onPressed, true, icon, color ?? Colors.white);
+    return CustomButtons.customTextButton(
+      title: title,
+      bgColor: buttonColor ?? Colors.blue,
+      onPressed: onPressed,
+      isIconButton: true,
+      icon: icon,
+      textColor: color ?? Colors.white,
+    );
   }
 }

@@ -1,11 +1,19 @@
 name: flutter_widget_catalogue
-description: Create awesome apps very faster with Flutter's collection of visual, structural, platform, UI, and interactive widgets.
+description: Create awesome apps faster with Flutter's collection of visual, structural, platform, UI, and interactive widgets.
 homepage: https://github.com/techvootsolutions/flutter_widget_catalogue
+repository: https://github.com/techvootsolutions/flutter_widget_catalogue
+issue_tracker: https://github.com/techvootsolutions/flutter_widget_catalogue/issues
+topics:
+  - widgets
+  - ui
+  - neumorphic
+  - buttons
+  - dropdown
 
-version: 4.0.0
+version: 4.0.1
 
 environment:
-  sdk: ">=3.0.1 <4.0.0"
+  sdk: ">=3.3.0 <4.0.0"
 
 
 # Dependencies specify other packages that your package needs in order to work.
